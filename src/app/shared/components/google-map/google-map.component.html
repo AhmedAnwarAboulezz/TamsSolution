@@ -1,0 +1,70 @@
+
+<!-- <h4>Draw Zone</h4> -->
+
+<div class="" *ngIf="mapType == 'circle'"> 
+  <input type="number" [(ngModel)]="circleRadius" class="form-control test-input2"  placeholder="Distance">
+ 
+  <input type="text" class="form-control test-input" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'maps.search' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+  <button mat-raised-button color="default" class="test-button" title="{{ 'maps.updateLocation' | translate }}" (click)="getCurrentLocation()" >
+    <mat-icon>my_location</mat-icon>
+  </button>
+  <agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  (mapClick)="mapClicked($event)">
+    <agm-marker         
+        (markerClick)="clickedMarker(marker.label)"
+        [latitude]="marker.lat"
+        [longitude]="marker.lng"
+        [label]="marker.label"
+        [markerDraggable]="marker.draggable"
+        (dragEnd)="markerDragEnd($event)">      
+      <agm-info-window>
+        <strong>{{ 'maps.currentLocation' | translate }} </strong>
+        <p>{{ 'maps.movePin' | translate }} </p>
+      </agm-info-window>    
+    </agm-marker>  
+    <agm-circle  [latitude]="marker.lat" [longitude]="marker.lng" 
+        [radius]="circleRadius"
+        [fillColor]="'red'"
+        [editable]="true"
+       (radiusChange)="radiusChange($event)">
+    </agm-circle>
+  </agm-map>
+</div>
+
+<div *ngIf="mapType == 'polygon'">
+  <!-- <p>paths: {{pointList | json}}</p> -->
+  <input type="text" class="form-control test-input" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'maps.search' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+  <button mat-raised-button color="default" class="test-button" title="{{ 'maps.updateLocation' | translate }}" (click)="getCurrentLocation()" >
+    <mat-icon>my_location</mat-icon>
+  </button>
+  <agm-map  
+    [latitude]="lat" 
+    [longitude]="lng" 
+    [zoom]="zoom"
+    (mapReady)="initDrawingManager($event)" >
+    <agm-marker 
+        (markerClick)="clickedMarker('current')"
+        [latitude]="lat"
+        [longitude]="lng"
+        [markerDraggable]="true"
+        (dragEnd)="markerDragEnd($event)">      
+        <agm-info-window>
+          <strong>{{ 'maps.currentLocation' | translate }} </strong>
+          <p>{{ 'maps.movePin' | translate }} </p>
+        </agm-info-window> 
+    </agm-marker>  
+</agm-map>
+<p>{{ 'maps.area' | translate }} : {{selectedArea}} m²</p>
+</div>
+
+<P style="padding: 19px 20px 0px 20px; text-align: center;">
+  {{ 'maps.address' | translate }} : {{address}}
+</P>
+
+<!-- <div  align="center">
+  <button style="background: #0d192f;color: white;" mat-raised-button color="primary" (click)="apply()">{{'workflow.show' | translate}}</button>
+</div> -->

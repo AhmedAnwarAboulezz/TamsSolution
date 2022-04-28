@@ -1,0 +1,98 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <mat-card>
+      <div class="row">
+        <mat-card-title class="col-md-12"> {{'audit.searchInAudits' | translate}}</mat-card-title>
+      </div>
+      <mat-dialog-content class="mat-typography" [formGroup]="form">
+        <mat-accordion>
+          <mat-card class="example-container">
+            <div class=row>
+                <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{'audit.users' | translate}}</mat-label>
+                    <mat-select #sel formControlName="userId">
+                        <mat-option>---</mat-option>
+                      <mat-option *ngFor="let item of users;" [value]="item.id">
+                      {{ localize.lang =='en' ? item.nameFl : item.nameSl }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div class="col-12 col-md-6">
+                    <app-select [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+                    [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                    [InServiceEmployees]="false" [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+                  </div>     
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{'audit.actionName' | translate}}</mat-label>
+                    <mat-select #sel formControlName="actionId" multiple>
+                      <mat-option *ngFor="let item of actions;" [value]="item.id">
+                      {{ localize.lang =='en' ? item.nameFl : item.nameSl }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>     
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label> {{'audit.screens' | translate}} </mat-label>        
+                    <mat-select  formControlName="screenName">
+                      <mat-option>---</mat-option>
+                      <mat-option *ngFor="let item of screens" [value]="item.entityName"> 
+                        <span *ngIf="item.parentComponantName != null">{{ item.parentComponantName | translate }} --> {{ item.componentName | translate }}</span>
+                        <span *ngIf="item.parentComponantName == null"> {{ item.componentName | translate }}</span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label> {{'audit.startDate' | translate}}</mat-label>
+                    <input (dateChange)="oninputChanges()" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label> {{'audit.endDate' | translate}}</mat-label>
+                    <input (dateChange)="oninputChanges()" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+                  </mat-form-field> -->
+
+                    <div class="col-12 col-md-6" >         
+                    <app-mat-datepicker-shared 
+                      [parentForm]="form"
+                      [lblName]= "'employeeLeaves.startDate' | translate"   
+                      [title]="'lookup.tooltip' | translate"   
+                      [matDatepicker]="'startDatePicker'"
+                      [namecontrol]="'startDate'"
+                    >
+                    </app-mat-datepicker-shared> 
+                  </div> 
+                  <div class="col-12 col-md-6" >         
+                    <app-mat-datepicker-shared 
+                      [parentForm]="form"
+                      [lblName]= "'employeeLeaves.endDate' | translate"   
+                      [title]="'lookup.tooltip' | translate"   
+                      [matDatepicker]="'endDatePicker'"
+                      [namecontrol]="'endDate'"
+                    >
+                    </app-mat-datepicker-shared> 
+                  </div>
+                  <hr>
+              <div class="col-md-12 text-center">
+                <button mat-raised-button color="primary" (click)="searchToggle()" cdkFocusInitial>{{'search' | translate}}
+                  <mat-icon>search</mat-icon>
+                </button>
+            </div>
+
+            </div>
+          </mat-card>
+        </mat-accordion>
+      </mat-dialog-content>
+      <mat-dialog-content class="mat-typography">
+        <mat-accordion>
+          <mat-card>    
+            <div relative>
+              <app-audits-grid [searchValues]="form.value"></app-audits-grid>
+            </div>      
+          </mat-card>
+        </mat-accordion>
+      </mat-dialog-content>
+    </mat-card>
+</div>
+

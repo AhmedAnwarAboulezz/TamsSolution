@@ -1,0 +1,99 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    
+    <app-dialogheader [text]="'hourlyRotated.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+    <mat-dialog-content class="mat-typography" style="max-height: 80vh !important;" [formGroup]="form">
+      <div class="example-container">
+          <div align="center" *ngIf="collapsed">
+              <button class="col-12 col-md-3" mat-raised-button color="primary" (click)="collapsed=!collapsed"> {{ 'hourlyRotated.scheduleDetails' | translate }}</button>
+          </div>
+        <mat-card *ngIf="!collapsed">
+          <div class=row>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.code' | translate}}</mat-label>
+              <input maxlength="10" matInput formControlName="code" required title="{{'lookup.tooltip' | translate}}">
+              <mat-error *ngIf="form.controls.code.errors && form.controls.code.errors.hasOwnProperty('notEquivalent')">
+                {{ 'Message.alreadyExistBefore' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+         
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.groupnamefl' | translate}}- {{ localize.flLang | translate}}</mat-label>
+              <input matInput formControlName="groupDescriptionFl" required title="{{'lookup.tooltip' | translate}}">
+              <mat-error *ngIf="form.controls.groupDescriptionFl.errors && form.controls.groupDescriptionFl.errors.hasOwnProperty('notEquivalent')">
+                {{ 'Message.alreadyExistBefore' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" [hidden]="!localize.multiLang" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.groupnamesl' | translate}}- {{ localize.slLang | translate}}</mat-label>
+              <input matInput formControlName="groupDescriptionSl" [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}">
+              <mat-error *ngIf="form.controls.groupDescriptionSl.errors && form.controls.groupDescriptionSl.errors.hasOwnProperty('notEquivalent')">
+                {{ 'Message.alreadyExistBefore' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=row>
+          
+
+            <div class="col-12 col-md-4">
+              <app-mat-datepicker-shared 
+                [parentForm]="form"
+                [lblName]= "'hourlyRotated.startdate' | translate"   
+                [required]="true"
+                [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'startDatePicker'"
+                [namecontrol]="'startDate'"></app-mat-datepicker-shared>   
+            </div>
+       
+          
+            <div  class="col-12 col-md-4">
+              <app-mat-datepicker-shared 
+                [parentForm]="form"
+                [lblName]= "'hourlyRotated.enddate' | translate"   
+                [required]="true" 
+                [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'endDatePicker'"
+                [namecontrol]="'endDate'"></app-mat-datepicker-shared>   
+            </div>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.starttime' | translate}}</mat-label>
+              <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="startTime">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.workinghours' | translate}}</mat-label>
+              <input required type="number" matInput formControlName="workingHours">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'hourlyRotated.resthours' | translate}}</mat-label>
+              <input required title="{{'lookup.tooltip' | translate}}" type="number" matInput formControlName="restHours" >
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'note' | translate}}</mat-label>
+              <input matInput formControlName="note">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-4"></div>
+            <div class="col-6 col-md-1 paddingtop space text-center">
+              <button mat-button class="btnCustom setBtn" [disabled]="!this.form.valid" cdkFocusInitial
+                (click)="Set(form.value)">{{'dailyRotatedSchedules.Show' | translate}}</button>
+            </div>
+            <div class="col-6 col-md-2 paddingtop text-center">
+              <button mat-button class="btnCustom resetBtn" (click)="ReSet()">{{'hourlyRotated.Reset' | translate}}</button>
+            </div>
+            <div class="col-12 col-md-5"></div>
+          </div>
+        </mat-card>
+        <mat-card *ngIf="collapsed">
+          <p-fullCalendar [events]="events" [options]="options">
+            
+          </p-fullCalendar> 
+        </mat-card>
+      </div>
+    </mat-dialog-content>
+
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

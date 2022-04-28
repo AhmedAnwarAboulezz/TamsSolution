@@ -1,0 +1,14 @@
+
+
+<div class="chart-wrapper">
+  <canvas baseChart 
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [plugins]="barChartPlugins"
+  [legend]="barChartLegend"
+  [colors]="barchartColors"
+  [chartType]="barChartType"
+  (chartClick)="chartClicked($event)">
+</canvas>
+</div>

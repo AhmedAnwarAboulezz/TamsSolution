@@ -1,0 +1,13 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'SolveLogs/GetAllPaged'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          edit: false,
+          add: false
+        }" [tableData]="tableData"
+        (viewDetail)="viewDetail($event)"
+        >
+      </app-data-table>
+</div>
+

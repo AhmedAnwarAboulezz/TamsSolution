@@ -1,0 +1,59 @@
+
+  <div [className]="('textAlign' | translate)" [dir]="'dir' | translate" >
+    <mat-expansion-panel class="main-Panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title style=" font-size: x-large; font-weight: 600;">
+          {{'PreviousEmployeeEvaluation.addemployee' | translate}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        
+      <mat-dialog-content class="mat-typography" [formGroup]="form">
+          <mat-accordion>
+            <mat-card class="example-container">
+              <div class=row>
+                <div class="col-md-7">
+                    <app-select [url]="'EmployeeAuthenticationConfigrations/GetEmployeeDropDown'" formControlName="employeeId"
+                    [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                    [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+                </div>
+                <div class="col-12 col-md-5">
+                  
+                  <div appearance="outline" class="col-12 col-md-12">
+                    <app-prime-tree formControlName="adminstrationId" [selectionMode]="'single'" >
+                    </app-prime-tree>
+                    <!-- <app-prime-tree formControlName="adminstrationId" [selectionMode]="'checkbox'" >
+                    </app-prime-tree> -->
+                  </div>
+                </div>
+                <div class="col-md-12 text-center">
+                  <button mat-raised-button color="primary" (click)="searchToggle()" cdkFocusInitial>{{'search' | translate}}
+                    <mat-icon>search</mat-icon>
+                  </button>
+              </div>
+  
+              </div>
+            </mat-card>
+          </mat-accordion>
+        </mat-dialog-content>
+    </mat-expansion-panel>
+    <br>
+    <mat-card>
+      <div class="mat-typography">
+        <div relative style="padding: 25px 0;">
+            <app-data-table [url]="{
+                getAll: 'EmployeeEvaluations/GetAllCalculateEmployeeEvaluationPaged',
+                delete:'EmployeeEvaluations/delete'
+              }"  [id]="'id'" [actions]="actions" [columns]="columns" [options]="{
+                  globalSearch: true,
+                  add: false,
+                  details: false     
+                }" [tableData]="tableData" [searchValues]="form.value" 
+                (add)="addEvent($event)" (viewDetail)="viewDetail($event)">
+              </app-data-table>
+        </div>      
+      </div>
+    </mat-card>
+  </div>
+
+
+

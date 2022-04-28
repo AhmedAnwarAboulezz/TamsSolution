@@ -1,0 +1,9 @@
+<div class="row">
+  <ul *ngFor="let item of daysOfWeek; let i = index;">
+    <li class="rcorners" [ngClass]="(item.isChecked)?'checked':'unchecked'">
+      <mat-checkbox [value]="item.value" [disabled]="item.disabled" [checked]="item.isChecked" (change)="onChange(i, $event.checked)">
+        {{item.name}}
+      </mat-checkbox>
+    </li>
+  </ul>
+</div>

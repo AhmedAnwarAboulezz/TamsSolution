@@ -1,0 +1,22 @@
+<div>
+    <mat-form-field style="width: 30%;">
+        <mat-label *ngIf="selectData">{{selectData?.name}} {{selectData?.symbol}} {{selectData?.weight}}</mat-label>
+        <mat-label *ngIf="!selectData">Search</mat-label>    
+        <mat-select #mySelect panelClass="dropDownTable">
+            <input matInput placeholder="Search" (input)="click($event.target.value)">
+            <table>
+                <tr>
+                    <th>Employee No.</th>
+                    <th>Employee Name</th>
+                    <th>CivilId</th>
+                </tr>
+                <tr *ngFor="let emp of employees" (click)="select(emp)">
+                    <td style="display: none;">{{ emp.id }}</td>
+                    <td><mat-option>{{ emp.employeeNumber }}</mat-option></td>
+                    <td><mat-option>{{ emp.employeeName }}</mat-option></td>
+                    <td><mat-option>{{ emp.civilId }}</mat-option></td>         
+                </tr>
+            </table>
+        </mat-select>
+    </mat-form-field>
+</div>

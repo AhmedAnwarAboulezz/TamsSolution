@@ -1,0 +1,10 @@
+<span *ngIf="!showMoreButton && !showLessButton">{{ textValue }}</span>
+<span *ngIf="!showMoreButton && showLessButton">{{ textValue }}</span>
+<span *ngIf="showMoreButton && !showLessButton">{{ textValue  | slice:0:30 }} ...</span>
+
+<a *ngIf="showMoreButton"  style="cursor: pointer; color: #006fc2; font-weight: 600;"  (click)="clickButton('show')">
+    {{'showmore' | translate}}
+</a>
+<a *ngIf="showLessButton" style="cursor: pointer; color: #006fc2; font-weight: 600;"  (click)="clickButton('hide')">
+        {{'showless' | translate}}
+</a>

@@ -1,0 +1,130 @@
+  <div [className]="('textAlign' | translate)" [dir]="'dir' | translate" >
+    <mat-expansion-panel class="main-Panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title style=" font-size: x-large; font-weight: 600;">
+          {{'employeeattendance.searchInEmployeeLogs' | translate}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        <mat-dialog-content class="mat-typography" [formGroup]="form">
+          <mat-accordion>
+            <mat-card class="example-container">
+              <div class=row>
+                <div class="col-md-7">
+                  <div class="row">
+                    <!-- <mat-form-field appearance="outline" class="col-12 col-md-6">
+                      <mat-label> {{'employeeLeaves.startDate' | translate}}</mat-label>
+                      <input (dateChange)="oninputChanges()" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+                    </mat-form-field> -->
+  
+                    <div class="col-12 col-md-6" >         
+                      <app-mat-datepicker-shared 
+                        [parentForm]="form"
+                        [lblName]= "'employeeLeaves.startDate' | translate"   
+                        [title]="'lookup.tooltip' | translate"   
+                        [matDatepicker]="'startDatePicker'"
+                        [namecontrol]="'startDate'"
+                      >
+                      </app-mat-datepicker-shared> 
+                    </div>
+                      
+                      <!-- <mat-form-field appearance="outline" class="col-12 col-md-6">
+                        <mat-label> {{'employeeLeaves.endDate' | translate}}</mat-label>
+                        <input (dateChange)="oninputChanges()" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+                      </mat-form-field> -->
+  
+  
+                    <div class="col-12 col-md-6" >         
+                      <app-mat-datepicker-shared 
+                        [parentForm]="form"
+                        [lblName]= "'employeeLeaves.endDate' | translate"   
+                        [title]="'lookup.tooltip' | translate"   
+                        [matDatepicker]="'endDatePicker'"
+                        [namecontrol]="'endDate'"
+                      >
+                      </app-mat-datepicker-shared> 
+                    </div>
+  
+                  </div>
+                  <hr>
+                  <div class="col-12 col-md-12">
+                    <app-select [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+                    [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                    [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+                  </div>
+                  
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{ 'advancedSearch.Location' | translate }}</mat-label>
+                    <mat-select #sel multiple formControlName="locationId" >
+                      <mat-option *ngFor="let item of locations" [value]="item.id">
+                        {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                    </mat-select>
+                  </mat-form-field> 
+          
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                      <mat-label>{{'advancedSearch.Job' | translate}}</mat-label>
+                      <mat-select #sel multiple formControlName="jobId">
+                        <mat-option *ngFor="let item of jobs" [value]="item.id">
+                          {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="col-12 col-md-4">
+                    <mat-label>{{'employeeattendance.logType' | translate}}</mat-label>
+                    <mat-select #sel multiple formControlName="logTypeId">
+                      <mat-option *ngFor="let item of logTypes;" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+    
+                  <mat-form-field appearance="outline" class="col-12 col-md-4">
+                    <mat-label>{{'employeeattendance.remark' | translate}}</mat-label>    
+                    <mat-select #sel multiple formControlName="remarkId">
+                      <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" [value]="0">
+                        {{'grouproles.all' | translate}}
+                      </mat-option> 
+                      <mat-option (click)="toggleUnSelectAll(allSelected.selected)"  *ngFor="let item of remarks;" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
+                  <mat-form-field appearance="outline" class="col-12 col-md-4">
+                    <mat-label> {{'employeeattendance.terminalIp' | translate}} </mat-label>
+        
+                    <mat-select multiple  formControlName="terminalSerial">
+                      <mat-option *ngFor="let terminalip of terminalips" [value]="terminalip.serialNumber"> 
+                        {{ localize.currentLang =='Fl' ? terminalip.descriptionFl : terminalip.descriptionSl }} /  {{ localize.currentLang =='Fl' ? terminalip.treminal_IP : terminalip.treminal_IP }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-5">
+                  
+                  <div appearance="outline" class="col-12 col-md-12">
+                    <app-prime-tree formControlName="adminstrationId" [selectionMode]="'checkbox'" >
+                    </app-prime-tree>
+                  </div>
+                </div>
+                <div class="col-md-12 text-center">
+                  <button mat-raised-button color="primary" (click)="searchToggle()" cdkFocusInitial>{{'search' | translate}}
+                    <mat-icon>search</mat-icon>
+                  </button>
+              </div>
+  
+              </div>
+            </mat-card>
+          </mat-accordion>
+        </mat-dialog-content>
+    </mat-expansion-panel>
+    <br>
+    <mat-card>
+      <div class="mat-typography">
+        <div relative style="padding: 25px 0;">
+          <app-attendance-grid [searchValues]="form.value" [logtypes]="logTypes" [remarks]="remarks"></app-attendance-grid>
+        </div>      
+      </div>
+    </mat-card>
+  </div>

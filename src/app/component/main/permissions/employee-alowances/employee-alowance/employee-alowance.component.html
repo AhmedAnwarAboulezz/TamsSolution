@@ -1,0 +1,103 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+  <app-dialogheader [text]="'employeeAlowances.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card  class="example-container">
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <mat-accordion>
+      <div class="example-container">
+        <div class=row>
+          
+
+          <div class="col-md-12" >
+            <app-select [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+            [name]="'field.fullName' | translate" (cancelEvent)="onEmployeeCancel()"
+            [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+            [placeholder]="'employeeSelect' | translate"></app-select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <!-- <mat-label> {{'employeeAlowances.startDate' | translate}}</mat-label>
+            <input required matInput [matDatepicker]="startDatePicker"
+             (dateChange)="setEndDate(); setStartSelect();" formControlName="startDate" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker (opened)="onOpen(startDatePicker)" #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+         
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [validform]="form.valid"  
+            [lblName]= "'employeeAlowances.startDate' | translate"   
+            [required]="true"  (event)="setEndDate();setSelectDays();"
+            [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'startDatePicker'"
+            [namecontrol]="'startDate'" >
+          </app-mat-datepicker-shared> 
+          </div>
+          <div class="col-12 col-md-6">
+            <!-- <mat-label> {{'employeeAlowances.endDate' | translate}}</mat-label>
+            <input required matInput [matDatepicker]="endDatePicker" 
+            formControlName="endDate" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker (opened)="onOpen(endDatePicker)" #endDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+     
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [validform]="form.valid"  
+            [lblName]= "'employeeAlowances.endDate' | translate"   
+            [required]="true"  (event)="setSelectDays();"
+            [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'endDatePicker'"
+            [namecontrol]="'endDate'" >
+          </app-mat-datepicker-shared> 
+        </div>
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'employeeAlowances.allowanceNameSl' | translate}}</mat-label>
+
+            <mat-select required formControlName="allowanceId">
+              <mat-option (click)="setAllowanceTypeId(item.allowanceTypeId)" *ngFor="let item of allowances;" [value]="item.id">
+               {{ localize.currentLang =='Fl' ? item.allowanceNameFl : item.allowanceNameSl }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-3" *ngIf="isAllowanceIn">
+            <mat-label>{{'employeeAlowances.allowanceIn' | translate}}</mat-label>
+            <input required type="number" matInput formControlName="allowanceIn"  min="0" oninput="this.value = Math.abs(this.value)">
+
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-3" *ngIf="isAllowanceOut">
+            <mat-label>{{'employeeAlowances.allowanceOut' | translate}}</mat-label>
+            <input required type="number" matInput formControlName="allowanceOut"  min="0" oninput="this.value = Math.abs(this.value)">
+
+          </mat-form-field>
+        
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" class="mat-form-filedCustom">
+              <mat-label> {{'employeeAlowances.Notes' | translate}}</mat-label>
+              <textarea matInput formControlName="notes"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-2 uploadfile">
+            <div class="upload-btn-wrapper">
+              <button mat-raised-button color="primary">
+                <mat-icon>add_box</mat-icon>
+                <span> {{'employeeAlowances.addAttachments' | translate}}</span>
+              </button>
+
+              <input #inputFile type="file" accept="*" formControlName="fileName"
+                (change)="onSelectedFilesChanged(inputFile)">
+            </div>
+            <label *ngIf="inputFile.value">{{ inputFile.value }}</label>
+            <label  *ngIf="filePath && !inputFile.value">{{ filePath }}</label>          </div>
+       
+
+        </div>
+
+        <app-week-days [initialList]="weekDays" [startDate]="startDate" [endDate]="endDate" #weekdays></app-week-days>
+      </div>
+    </mat-accordion>
+  </mat-dialog-content>
+</mat-card>
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+

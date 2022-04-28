@@ -1,0 +1,63 @@
+.card {
+  margin-top: 30px;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tableCard {
+  padding: 5px;
+  color: rgba(255, 255, 255, 0.87);
+  background:#132546;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.cell:hover {
+  cursor: pointer !important;
+}
+
+.calender-btn {
+  margin: 5px;
+}
+.assign-btn {
+  background-color: #1abc9c;
+}
+.save-btn {
+  background-color: #2ecc71;
+}
+
+#ptable {
+  table th,
+  td {
+    overflow: hidden;
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.ui-table table {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  border: 1px solid rgb(201, 196, 196);
+}
+
+
+.icon-btn {
+  height: 30px !important;
+  width: 15px !important;
+}
+
+.icon-btn mat-icon {
+  font-size: 15px !important;
+}
+// .arrow{
+//   position: absolute;
+//   bottom: 7px;
+//   cursor: pointer;
+// }
+.material-icons {
+  overflow: hidden;
+}

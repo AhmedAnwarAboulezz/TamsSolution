@@ -1,0 +1,165 @@
+<mat-card class="example-container" style="height: 90px;">
+  <mat-dialog-content class="mat-typography">
+    <div class="row">
+
+      <div class="col-4 col-md-4"
+        [ngClass]=" {'text-left':localize.isEnglish(), 'text-right':!localize.isEnglish()}">
+       
+        <button mat-button (click)="showResetDialog()" style=" min-width: 50px; ">
+          <mat-icon *ngIf="localize.isEnglish()">arrow_back_ios</mat-icon>
+          <mat-icon *ngIf="!localize.isEnglish()">arrow_forward_ios</mat-icon>
+        </button>
+          <mat-form-field class="col-4" >
+            <mat-label>{{ 'Message.ChooseDate' | translate}}</mat-label>
+            <input matInput (dateChange)="changeDay($event.value)" [matDatepicker]="picker" [(ngModel)]="selectedDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker (opened)="onOpen(picker)" #picker [calendarHeaderComponent]="header"></mat-datepicker>
+          </mat-form-field>
+        
+        <button mat-button (click)="showMoveNextDialog()" style=" min-width: 50px; ">
+          <mat-icon *ngIf="localize.isEnglish()">arrow_forward_ios</mat-icon>
+          <mat-icon *ngIf="!localize.isEnglish()">arrow_back_ios</mat-icon>
+        </button>
+      </div>
+
+      <div class="col-lg-2 col-md-2 text-center">
+        <button mat-button [ngStyle]="{'background-color':  showMonth ? '#a7acbb': 'white'}"
+          (click)="switchCalendar('month')">
+          {{ 'ReportFilter.month'  | translate }}
+        </button>
+        <button mat-button [ngStyle]="{'background-color':  showWeek ? '#a7acbb': 'white'}"
+          (click)="switchCalendar('week')">
+          {{ 'lookup.Week'  | translate }}
+        </button>
+      </div>
+
+      <div class="col-lg-6 col-md-6" [ngClass]=" {'text-left':!localize.isEnglish(), 'text-right':localize.isEnglish()}">
+        <button mat-raised-button style="background-color:#132546;color: white;" class="assign-btn calender-btn"
+          (click)="openEmployeeModal('week')">
+          {{ 'lookup.AssignEmployees' | translate}}
+        </button>
+        <button mat-raised-button color="primary" class="save-btn calender-btn" (click)="save()">
+          {{ 'leaveRegulations.Save' | translate}}
+        </button>
+        <button mat-raised-button style="color: white; background-color: green;"  class="save-btn calender-btn" (click)="openCopyOptionsModal('next')">
+          {{ 'lookup.copyduty' | translate}}
+        </button>
+
+        <button mat-raised-button color="warn" class="calender-btn" (click)="openConfirmDialog()">
+          {{ 'employeeProfile.clearDuties' | translate }}
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</mat-card>
+
+<!--Week Calendar-->
+<p-table #weekDt [value]="weekEmployees" [columns]="weekColumns" *ngIf="showWeek">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 350px; text-align: center;">
+        <h6>{{ 'adminmanger.employeename' | translate}}</h6>
+      </th>
+      <th *ngFor="let column of weekColumns">
+        <div class="text-center">
+          <h6 style="height: 5px;">{{ 'weekdayShortcut.' + column.header | translate }} {{ column.day }}</h6>
+          <button (click)="openShiftModal('', column.field, 'Vertical', 'Week', '')" mat-button
+            style=" width: 50px!important; min-width: unset!important; height: 30px;">
+            <mat-icon style="color:#006fc2">add_box</mat-icon>
+          </button>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+    <tr>
+      <td>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            {{rowData.employeeNumber}} - {{ localize.isEnglish() == true ? rowData.employeeName : rowData.employeeNameAr }}
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 text-right">
+            <button mat-button (click)="openDeleteOptionsModal(rowData)" style=" width: 50px!important;
+            min-width: unset!important;">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+            <button mat-button (click)="openShiftModal(rowData, '', 'Horizontal', 'Week', '')"
+              style=" width: 50px!important;  min-width: unset!important;">
+              <mat-icon style="color:#006fc2">add_box</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+      <td *ngFor="let col of columns; let i = index" (click)="
+          openShiftModal(rowData, col.field, 'Cell', '', rowData[col.field])
+        " class="cell">
+        <div *ngIf="rowData[col.field].nameFl" class="tableCard"
+          [style.background]="setBackGroundColor(rowData[col.field])">
+          {{ localize.isEnglish() ? rowData[col.field].nameFl : rowData[col.field].nameSl }}
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+
+
+<!--Month Calendar-->
+<p-table #monthDt id="ptable" [resizableColumns]="true" [value]="monthEmployees" [columns]="monthColumns"
+  *ngIf="showMonth">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 350px; text-align: center;" frozed="true">
+        <h6>{{ 'adminmanger.employeename' | translate}}</h6>
+      </th>
+      <th style="width: 130px;" *ngFor="let column of monthColumns" pResizableColumn>
+        <div class="headerButton text-center">
+          <h6 style="height: 5px;">
+            {{ 'weekdayShortcut.' + column.header | translate }} {{ column.day }}
+          </h6>
+          <button (click)="openShiftModal('', column.field, 'Vertical', 'Month', '')" mat-button
+            style=" width: 50px!important; min-width: unset!important; height: 30px;">
+            <mat-icon style="color:#006fc2">add_box</mat-icon>
+          </button>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+    <tr>
+      <td>
+        <div class="row">
+          <div class="col-md-3 col-lg-7 col-sm-12">
+            {{rowData.employeeNumber}} -  {{ localize.isEnglish() ? rowData.employeeName  : rowData.employeeNameAr}}
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-12">
+            <button mat-button (click)="openDeleteOptionsModal(rowData)"
+              style=" width: 50px!important;  min-width: unset!important;">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+            <button mat-button (click)="openShiftModal(rowData, '', 'Horizontal', 'Month', '')"
+              style=" width: 50px!important;  min-width: unset!important;">
+              <mat-icon style="color:#006fc2">add_box</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+      <td *ngFor="let col of columns; let i = index" (click)="
+          openShiftModal(rowData, col.field, 'Cell', '', rowData[col.field])
+        ">
+        <div *ngIf="rowData[col.field].nameFl" class="tableCard"
+          [style.background]="setBackGroundColor(rowData[col.field])">
+          {{ localize.currentLang == 'Fl' ? rowData[col.field].nameFl : rowData[col.field].nameSl }}
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- monthEmployees ==> {{monthEmployees[0] | json}}
+<hr>
+monthEmployeesData ==> {{monthEmployeeData[0] | json}} -->
+
+

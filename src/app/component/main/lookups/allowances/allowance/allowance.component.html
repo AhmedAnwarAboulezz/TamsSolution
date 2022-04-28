@@ -1,0 +1,36 @@
+
+
+
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'allowances.allowances'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        
+
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'allowances.allowanceTypeNameSl' | translate}}</mat-label>
+          <mat-select required [disabled]="!isNew" title="{{'lookup.tooltip' | translate}}" formControlName="allowanceTypeId">
+            <mat-option>---</mat-option>
+            <mat-option  *ngFor="let res of allowanceTypes" [value]="res.id">
+            {{ localize.currentLang =='Fl' ? res.allowanceTypeNameFl : res.allowanceTypeNameSl }}</mat-option>
+          </mat-select>
+    </mat-form-field>                  
+    <mat-form-field appearance="outline" class="col-12 col-md-12">
+      <mat-label>{{'allowances.allowanceNameFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+      <input matInput formControlName="allowanceNameFl" required title="{{'lookup.tooltip' | translate}}">
+    </mat-form-field>
+    <mat-form-field [hidden]="!localize.multiLang"    appearance="outline" class="col-12 col-md-12">
+      <mat-label>{{'allowances.allowanceNameSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+      <input matInput formControlName="allowanceNameSl" [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}">
+    </mat-form-field> 
+     
+      </div>
+    </div>
+  </mat-dialog-content>
+
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>
+

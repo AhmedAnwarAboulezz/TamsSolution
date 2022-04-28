@@ -1,0 +1,168 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'dailyRotatedSchedules.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <mat-card class="example-container" *ngIf="!isCollapsed">
+        <div class=row>
+          <mat-form-field appearance="outline" class="col-3 col-md-3">
+            <mat-label>{{'dailyRotatedSchedules.code' | translate}}</mat-label>
+            <input matInput formControlName="code">
+            <mat-error *ngIf="form.controls.code.errors && form.controls.code.errors.hasOwnProperty('notEquivalent')">
+              {{ 'Message.alreadyExistBefore' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-3 col-md-3">
+            <mat-label>{{'dailyRotatedSchedules.groupDescriptionFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+            <input matInput formControlName="groupDescriptionFl" required title="{{'lookup.tooltip' | translate}}">
+            <mat-error *ngIf="form.controls.groupDescriptionFl.errors && form.controls.groupDescriptionFl.errors.hasOwnProperty('notEquivalent')">
+              {{ 'Message.alreadyExistBefore' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline"class="col-3 col-md-3">
+            <mat-label>{{'dailyRotatedSchedules.groupDescriptionSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+            <input matInput formControlName="groupDescriptionSl" required title="{{'lookup.tooltip' | translate}}">
+            <mat-error *ngIf="form.controls.groupDescriptionSl.errors && form.controls.groupDescriptionSl.errors.hasOwnProperty('notEquivalent')">
+              {{ 'Message.alreadyExistBefore' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline"class="col-3 col-md-3">
+            <mat-label>{{'dailyRotatedSchedules.note' | translate}}</mat-label>
+            <input matInput formControlName="note">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          
+          <div class="col-12 col-md-3">
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [validform]="form.valid" [isChanged]="isChanged"
+            [lblName]= "'dailyRotatedSchedules.startDate' | translate"   
+            [required]="true" 
+            [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'startDatePicker'"
+            [isViewDetils]="isViewDetils" 
+            [isDefault]="isDefault"  
+            [namecontrol]="'startDate'" >
+          </app-mat-datepicker-shared> 
+          </div>
+
+      
+         
+
+
+          <div class="col-12 col-md-3">
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [validform]="form.valid" [isChanged]="isChanged"
+            [lblName]= "'dailyRotatedSchedules.endDate' | translate"   
+            [required]="true" 
+            [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'endDatePicker'"
+            [isViewDetils]="isViewDetils" 
+            [isDefault]="isDefault" 
+            [namecontrol]="'endDate'" >
+          </app-mat-datepicker-shared> 
+          </div>
+
+
+         
+          <mat-form-field appearance="outline" class="col-4 col-md-3">
+            <mat-label> {{'dailyRotatedSchedules.TemplateDays' | translate}}</mat-label>
+               <input required matInput type="number" title="{{'lookup.tooltip' | translate}}"
+                min="1" oninput="this.value = Math.abs(this.value)"
+              formControlName="tempelateDay">
+          </mat-form-field>
+          <div class="col-md-3" >
+            <button style="background: #0d192f; color: white;"  mat-button (click)="onTemplateDaysChange()">{{'dailyRotatedSchedules.Apply' | translate}}</button>
+          </div>
+
+        </div>
+    
+        
+        <div formArrayName="dailyRotatedScheduleDetail"  *ngFor="let item of templateDaysArray; let i = index;">
+          <div class="row" [formGroupName]="i" style="padding-top: 15px;">
+            <div class="col-12">
+              <mat-label class="border-bottom border-right">{{ item }}</mat-label> &nbsp;
+
+              <mat-form-field appearance="outline" class="col-12 col-md-4 border-bottom border-right border-left"
+                hideRequiredMarker>
+                <mat-label>{{'dailyRotatedSchedules.DayDate' | translate}}</mat-label>
+                <input matInput [matDatepicker]="dayDatePicker"  title="{{'lookup.tooltip' | translate}}"
+                 formControlName="dayDate" [readonly]="true" required>
+                <mat-datepicker #dayDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-12 col-md-3 border-bottom border-right"
+                hideRequiredMarker>
+                <mat-label>{{'dailyRotatedSchedules.DayType' | translate}}</mat-label>
+                <mat-select formControlName="dayTypeId" required  title="{{'lookup.tooltip' | translate}}"
+                (selectionChange)="onDayTypeIdChange($event.value, i)">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of dayTypes" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.dayTypeFl : item.dayTypeSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3 border-bottom border-right"
+                hideRequiredMarker>
+                <mat-label>{{'dailyRotatedSchedules.Rotateddutydescription' | translate}}
+                </mat-label>
+                <mat-select formControlName="rotatedDutyId"
+                  [disabled]="form.value.dailyRotatedScheduleDetail[i].dayTypeId != dayTypeEnum['WorkDay']">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of rotatedDuties" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.rotatedDescriptionFl : item.rotatedDescriptionSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
+      <div class="col-12 col-md-2 btn-apply" *ngIf="isChanged">
+        <button style="background: #006fc2; color: white;" *ngIf="!isCollapsed" [disabled]="!form.valid" mat-button (click)="apply()">{{'dailyRotatedSchedules.Show' | translate}}</button>
+        <button style="background: #006fc2; color: white;" *ngIf="isCollapsed" mat-button
+          (click)="isCollapsed=!isCollapsed;">{{'hourlyRotated.scheduleDetails' | translate}}</button>
+      </div>
+      <ng-container *ngIf="scheduleArray.length > 0 && isCollapsed">
+        <div class="col-12 col-md-2" *ngIf="localize.lang != 'ar'">
+          <p-button icon="pi pi-chevron-left" (click)="ChangeYear('-')"></p-button>
+          {{ year }}
+          <p-button icon="pi pi-chevron-right" (click)="ChangeYear('+')"></p-button>
+        </div>
+        <div class="col-12 col-md-2" *ngIf="localize.lang == 'ar'">
+          <p-button icon="pi pi-chevron-right" (click)="ChangeYear('-')"></p-button>
+          {{ year }}
+          <p-button icon="pi pi-chevron-left" (click)="ChangeYear('+')"></p-button>
+        </div>
+        <br>
+        <table border="2">
+          <tr class="fancy-schedule">
+            <th> {{'dailyRotatedSchedules.Month' | translate}}</th>
+            <th *ngFor="let day of days">{{ day }}</th>
+          </tr>
+          <tr *ngFor="let item of scheduleArray; index as i;">
+            <td class="fancy-schedule">{{months[i]}}</td>
+            <td *ngFor="let data of item;" [ngClass]="{'fancy-schedule-restday': data[year - currentYearNo] && data[year - currentYearNo].dayTypeId == dayTypeEnum['RestDay'], 
+          'fancy-schedule-workday': data[year - currentYearNo] && data[year - currentYearNo].dayTypeId == dayTypeEnum['WorkDay']}"> {{ data[year - currentYearNo] ? data[year - currentYearNo].code : ' '  }}
+            </td>
+          </tr>
+        </table>
+      </ng-container>
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button class="mainButton" data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+      (click)="onAddSave('SaveClose')">{{'saveclose' | translate}}</button>
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu" [disabled]="!this.form.valid "
+      style="margin-left: 1px;">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu class="dropdownTest" #beforeMenu="matMenu" xPosition="before">
+      <button [disabled]="!this.form.valid" mat-menu-item
+        (click)="onAddSave('Save')">{{'save' | translate}}</button>
+    </mat-menu>
+  </mat-dialog-actions>
+
+</div>

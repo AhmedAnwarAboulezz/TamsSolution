@@ -1,0 +1,45 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.example-container > * {
+    width: 100%;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%
+  }
+  .uploadfile{
+    
+    max-width: 100%;
+    padding: 18px;
+  }
+  .checkeddata{
+    padding: 29px;
+   }
+.btn {
+    border: 2px solid rgb(54, 81, 235);
+    color:rgb(26, 46, 46);
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+ .mat-form-filedCustom{
+    width: 100% !important
+  }

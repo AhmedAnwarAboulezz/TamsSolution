@@ -1,0 +1,380 @@
+<div class="card" [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <div class="card-body">
+    <h5 class="card-title">{{screenTitle}}</h5>
+    <div class="row" [formGroup]="form">
+      <div class="col-md-8">
+        <div *ngIf="options.date" class="form-group row">
+          <div class="col-sm-6">
+            <label for="startDate" class="">{{'ReportFilter.startDate' | translate}}</label>
+            <div class='input-group date'>
+              <input class="form-control form-control-sm" [matDatepicker]="startDatePicker" formControlName="startDate">
+              <div class="input-group-addon border height-control">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker (opened)="onOpen(startDatePicker)" #startDatePicker [calendarHeaderComponent]="header">
+                </mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label for="endDate" class="">{{'ReportFilter.endDate' | translate}}</label>
+            <div class='input-group date'>
+              <input class="form-control form-control-sm" [matDatepicker]="endDatePicker" formControlName="endDate">
+              <div class="input-group-addon border height-control">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker (opened)="onOpen(endDatePicker)" #endDatePicker [calendarHeaderComponent]="header">
+                </mat-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div *ngIf="options.month" class="col-sm-6">
+            <label for="month" class="">{{'ReportFilter.month' | translate}}</label>
+            <select formControlName="month" class="form-control">
+              <option *ngFor="let p of months" [value]="p.val">{{localize.currentLang =='Sl'? p.nameSl : p.nameFl}}
+              </option>
+            </select>
+          </div>
+
+          <div *ngIf="options.year" class="col-sm-6">
+            <label for="year" class="">{{'ReportFilter.year' | translate}}</label>
+            <select formControlName="year" class="form-control" required title="{{'lookup.tooltip' | translate}}">
+              <option *ngFor="let y of years" [value]="y">{{y}}</option>
+            </select>
+          </div>
+       
+        </div>
+      
+        <div *ngIf="options.serviceStatus" class="form-group row ">
+          <div class="col-sm-12">
+            <label for="serviceStatusId" class="">{{'ReportFilter.serviceStatus' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="serviceStatusId">
+              <mat-option [value]="0">{{'ReportFilter.all' | translate}}</mat-option>
+              <mat-option *ngFor="let item of serviceStatus" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div *ngIf="options.employee" class="form-group row ">
+          <div class="col-sm-12">
+            <label for="employeeId" class="">{{'ReportFilter.employee' | translate}}</label>
+            <app-select style="width: 100%;" [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+              [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true"
+              [InServiceEmployees]="false" [isMultiple]="true" [placeholder]="'employeeSelect' | translate">
+            </app-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div *ngIf="options.actualAttendancePresent" class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{'ReportFilter.totalactualPresent' | translate}}</span>
+            </div>
+            <input class="form-control" type="number" min="0" formControlName="actualAttendancePresent">
+            <div class="input-group-append">
+              <span class="input-group-text">{{'ReportFilter.day' | translate}}</span>
+            </div>
+          </div>
+          </div>
+        <div *ngIf="options.requestedBy" class="form-group row ">
+          <div class="col-sm-12">
+            <label for="requestById" class="">{{'ReportFilter.requestBy' | translate}}</label>
+            <app-select style="width: 100%;" [url]="'Employees/GetEmployeeDropDown'" formControlName="requestById"
+              [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true"
+              [InServiceEmployees]="false" [isMultiple]="true" [placeholder]="'employeeSelect' | translate">
+            </app-select>
+          </div>
+        </div>
+        <div *ngIf="options.nationality" class="form-group row ">
+          <div class="col-sm-12">
+            <label>{{ 'organizations.Nationality' | translate}}</label>
+            <mat-select formControlName="nationalityIds" (closed)="closeNationalityDrop()"
+              (opened)="openNationalityDrop()" class="form-control form-control-sm" multiple>
+              <mat-option selected #allSelected (click)="toggleSelectAllNationalities(allSelected.selected)"
+                [value]="0">{{'ReportFilter.all' | translate}}</mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'nationalityIds')"
+                *ngFor="let nationalitiy of nationalities" [value]="nationalitiy.id">
+                {{ localize.currentLang =='Fl' ? nationalitiy.nationalityFl : nationalitiy.nationalitySl }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-group row ">
+          <div *ngIf="options.status" class="col-sm-6">
+            <label for="statusId" class="">{{'ReportFilter.status' | translate}}</label>
+            <mat-select (selectionChange)="statusChange($event.value)" class="form-control form-control-sm"
+              formControlName="statusId">
+              <mat-option [value]="0">{{'ReportFilter.all' | translate}}</mat-option>
+              <mat-option *ngFor="let item of statusList" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="options.duty" class="col-sm-6">
+            <label for="dutyTypeId" class="">{{'ReportFilter.dutyType' | translate}}</label>
+            <mat-select (selectionChange)="dutyTypeChange($event.value)" class="form-control form-control-sm"
+              formControlName="dutyTypeId">
+              <mat-option [value]="'00000000-0000-0000-0000-000000000000'">{{'ReportFilter.all' | translate}}
+              </mat-option>
+              <mat-option *ngFor="let item of dutyTypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.dutyTypeFl : item.dutyTypeSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div *ngIf="options.duty && showDuty" class="form-group row ">
+          <div class="col-sm-12">
+            <label for="dutyId" class="">{{'ReportFilter.duty' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="dutyId">
+              <mat-option *ngFor="let item of duties" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div *ngIf="isAbsent && options.status" class="form-group row">
+          <div class="col-sm-12">
+            <label for="absenceTypeId" class="">{{'ReportFilter.absenceType' | translate}}</label>
+            <mat-select (selectionChange)="absentChange($event.value)" class="form-control form-control-sm"
+              formControlName="absenceTypeId">
+              <mat-option [value]="0">{{'ReportFilter.all' | translate}}</mat-option>
+              <mat-option [value]="1">{{'ReportFilter.continous' | translate }}</mat-option>
+              <mat-option [value]="2">{{'ReportFilter.noncontinous' | translate }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div *ngIf="unContinous && isAbsent" class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{'ReportFilter.absenceCount' | translate}}</span>
+          </div>
+          <input class="form-control" type="number" min="0" formControlName="absenceCount">
+          <div class="input-group-append">
+            <span class="input-group-text">{{'ReportFilter.days' | translate}}</span>
+          </div>
+        </div>
+        <div *ngIf="isLate && options.status" class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{'ReportFilter.totalLate' | translate}}</span>
+          </div>
+          <input class="form-control" type="number" min="0" formControlName="totalLate">
+          <div class="input-group-append">
+            <span class="input-group-text">{{'ReportFilter.min' | translate}}</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div *ngIf="options.location" class="col-sm-6">
+            <label for="locationId" class="">{{'ReportFilter.location' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="locationId">
+              <mat-option [value]="'00000000-0000-0000-0000-000000000000'">{{'ReportFilter.all' | translate}}
+              </mat-option>
+              <mat-option *ngFor="let item of locations" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.locationFL : item.locationSL }}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="options.job" class="col-sm-6">
+            <label for="jobId" class="">{{'ReportFilter.job' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="jobId">
+              <mat-option [value]="'00000000-0000-0000-0000-000000000000'">{{'ReportFilter.all' | translate}}
+              </mat-option>
+              <mat-option *ngFor="let item of jobs" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.jobFL : item.jobSL }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div *ngIf="options.leavetype" class="form-group row">
+          <div class="col-sm-6">
+            <label for="leaveTypeId" class="">{{'ReportFilter.leaveType' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="leaveTypeId" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'leaveTypeId', 7)" [value]="0">
+                {{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'leaveTypeId')"
+                *ngFor="let item of leavetypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="options.unPaidLeave" class="col-sm-6">
+            <br>
+            <mat-slide-toggle formControlName="isUnPaidLeave" color="primary" labelPosition="before">
+              {{'ReportFilter.unPaidLeaveOnly' | translate}}
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div  class="form-group row">
+          <div *ngIf="options.logType" class="col-sm-6">
+            <label for="logTypeIds" class="">{{'employeeLogManual.logType' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="logTypeIds" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'logTypeIds', 12)" [value]="0">
+                {{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'logTypeIds')"
+                *ngFor="let item of logtypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="options.terminals" class="col-sm-6">
+            <label for="terminalSn" class="">{{'devices.serialNumbers' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="terminalSn" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'terminalSn', 13)" [value]="0">
+                {{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'terminalSn')"
+                *ngFor="let item of terminalSns" [value]="item.serialNumber"> 
+                 {{ localize.currentLang =='Fl' ? item?.descriptionFl : item?.descriptionSl  }}/{{item?.serialNumber}} </mat-option>
+            </mat-select>
+          </div>
+        
+        </div>
+
+        <div *ngIf="options.partialPermissionType" class="form-group row">
+          <div class="col-sm-12">
+            <label for="partialPermissionTypeId" class="">{{'ReportFilter.PartialPermissionType' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="partialPermissionTypeId" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'partialPermissionTypeId', 8)"
+                [value]="0">{{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'partialPermissionTypeId')"
+                *ngFor="let item of partialPermissionTypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div *ngIf="options.fullDayPermissionType" class="form-group row">
+          <div class="col-sm-12">
+            <label for="fullDayPermissionTypeId" class="">{{'ReportFilter.fullDayPermissionType' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="fullDayPermissionTypeId" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'fullDayPermissionTypeId', 9)"
+                [value]="0">{{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'fullDayPermissionTypeId')"
+                *ngFor="let item of fullDayPermissionTypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div *ngIf="options.allowanceType" class="form-group row">
+          <div class="col-sm-12">
+            <label for="allowanceTypeId" class="">{{'ReportFilter.allowanceType' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="allowanceTypeId" multiple>
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'allowanceTypeId', 10)"
+                [value]="0">{{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll(allSelected.selected, 'allowanceTypeId')"
+                *ngFor="let item of allowanceTypes" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.allowanceTypeNameFl : item.allowanceTypeNameSl }}
+              </mat-option>
+
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div *ngIf="options.contract" class="col-sm-6">
+            <label for="contractId" class="">{{'ReportFilter.contract' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="contractId">
+              <mat-option [value]="'00000000-0000-0000-0000-000000000000'">{{'ReportFilter.all' | translate}}
+              </mat-option>
+              <mat-option *ngFor="let item of contracts" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.contractTypeFL : item.contractTypeSL }}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="options.qualifcation" class="col-sm-6">
+            <label for="qualificationId" class="">{{'ReportFilter.qualifcation' | translate}}</label>
+            <mat-select class="form-control form-control-sm" formControlName="qualificationId">
+              <mat-option [value]="'00000000-0000-0000-0000-000000000000'">{{'ReportFilter.all' | translate}}
+              </mat-option>
+              <mat-option *ngFor="let item of qualifications" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.qualificationTypeFl : item.qualificationTypeSl }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div *ngIf="options.groupby" class="form-group row">
+          <div class="col-sm-12">
+            <label for="groupBy" class="">{{'ReportFilter.groupby' | translate}}</label>
+            <div class="input-group mb-3">
+              <mat-select (selectionChange)="changeGroup($event.value)" class="form-control form-control-sm"
+                formControlName="groupBy">
+                <mat-option [value]="1">{{'ReportFilter.departmentGroup' | translate }}</mat-option>
+                <mat-option [value]="2">{{'ReportFilter.location' | translate }}</mat-option>
+              </mat-select>
+              <mat-select class="form-control form-control-sm" formControlName="groupBy1">
+                <mat-option [value]="0">---</mat-option>
+                <mat-option *ngFor="let item of group1" [value]="item.id">
+                  {{item.name | translate }}</mat-option>
+              </mat-select>
+            </div>
+
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="options.showoption">
+          <label class="col-sm-12 ">{{'ReportFilter.show' | translate}}</label>
+          <div class="col-sm-3" *ngIf="options.weekend">
+            <mat-slide-toggle formControlName="isWeekend" color="primary"
+              labelPosition="before">
+              {{'ReportFilter.weekend' | translate}}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-sm-3" *ngIf="options.restDay">
+            <mat-slide-toggle formControlName="isRestday" color="primary"
+              labelPosition="before">
+              {{'ReportFilter.restDay' | translate}}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-sm-6" *ngIf="options.holiday">
+            <mat-slide-toggle  formControlName="isHoliday" color="primary"
+              labelPosition="before">
+              {{'ReportFilter.holiday' | translate}}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-sm-4" *ngIf="options.exemptionSign">
+            <mat-slide-toggle formControlName="isExemptionSign" color="primary" labelPosition="before">
+              {{'ReportFilter.exemptionSign' | translate}}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-sm-3" *ngIf="options.bicharts">
+            <mat-slide-toggle  formControlName="isPiChart" color="primary" labelPosition="before">
+              {{'ReportFilter.bicharts' | translate}}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-sm-5" *ngIf="options.ownPage">
+            <mat-slide-toggle  formControlName="isPaged" color="primary" labelPosition="before">
+              {{'ReportFilter.ownPage' | translate}}
+            </mat-slide-toggle>
+          </div>
+
+
+        </div>
+      </div>
+      <div *ngIf="options.adminstrativeLevels" class="col-md-4">
+        <app-prime-tree formControlName="adminstrativeLevels" [selectionMode]="'checkbox'">
+        </app-prime-tree>
+      </div>
+
+    </div>
+    <div class="row d-flex align-items-end flex-column">
+      <div class="p-2" align="end">
+        <!-- <div class="btn-group">
+          <button [ladda]="isLoading" class="btn btn-success dropdown-toggle" data-toggle="dropdown">{{'print' | translate}} <span class="caret"></span></button>
+          <ul  class="dropdown-menu">
+            <li (click)="searchClick(1)">{{'Pdf' | translate}}</li>
+            <li (click)="searchClick(2)">{{'word' | translate}}</li>
+          </ul>
+        </div> -->
+        <div class="dropdown" [ngClass]="(isLoading)?'noHover':'Hover'">
+          <button [ladda]="isLoading" class="btn btn-success dropdown-toggle" (click)="searchClick(1)">
+            {{'print' | translate}} {{'Pdf' | translate}} <span class="caret" style="float:left"> </span></button>
+
+          <div class="dropdown-content listOption">
+            <a (click)="searchClick(2)">{{'word' | translate}}</a>
+            <a (click)="searchClick(3)">{{'Excel' | translate}}</a>
+          </div>
+          
+        </div>
+        &nbsp;
+        <button *ngIf="!searchNow" class="btn btn-danger resetbtn" (click)="reset()">
+          {{'ReportFilter.resetButton' | translate}}</button>
+      </div>
+
+    </div>
+  </div>
+</div>

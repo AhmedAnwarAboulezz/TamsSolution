@@ -1,0 +1,52 @@
+{
+    "week" :[{
+        "id": 1,
+        "name": "khaled",
+        "employeeType": "Week",
+        "sat": {
+          "value": "10AM-12PM",
+          "isDifferent": true
+        }
+      },
+      {
+        "id": 2,
+        "name": "yasser",
+        "employeeType": "Week"
+      },
+      {
+        "id": 3,
+        "name": "ali",
+        "employeeType": "Week"
+      },
+      {
+        "id": 4,
+        "name": "mohammed",
+        "employeeType": "Week"
+      },
+      {
+        "id": 5,
+        "name": "ahmed",
+        "employeeType": "Week"
+      }
+      ],
+      "month" :[{
+        "id": 1,
+        "name": "ahmed",
+        "employeeType": "Month"
+      },
+      {
+        "id": 2,
+        "name": "mohammed",
+        "employeeType": "Month"
+      },
+      {
+        "id": 3,
+        "name": "ali",
+        "employeeType": "Month"
+      },
+      {
+        "id": 4,
+        "name": "mahmoud",
+        "employeeType": "Month"
+      }]
+}

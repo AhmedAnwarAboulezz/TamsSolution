@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-dialog-content class="mat-typography">
+    <app-advanced-search
+      [advanceSearch]="advancedSearch"
+      [hasTeams]="true"
+      [hasAdminstration]="true"
+      [hasLocations]="true"
+      [hasJobs]="true"
+      [hasGenders]="true"
+      [hasOneEmployee]="true"
+      [collapseByDefault]="false"
+      (fillSearch)="fillSearchResult()"
+    ></app-advanced-search>
+  </mat-dialog-content>
+</mat-card>

@@ -1,0 +1,65 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'holidayDates.holidayDates'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        <div  class="col-12 col-md-6">        
+          <!-- <mat-label>{{'holidayDates.startDate' | translate}}</mat-label>
+          <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+          <app-mat-datepicker-shared 
+          [parentForm]="form"
+          [lblName]= "'holidayDates.startDate' | translate"   
+          [required]="true" 
+          [title]="'lookup.tooltip' | translate"   
+          [matDatepicker]="'startDatePicker'"
+          [namecontrol]="'startDate'"
+        >
+        </app-mat-datepicker-shared> 
+      </div>
+        <div  class="col-12 col-md-6">         
+          <!-- <mat-label>{{'holidayDates.endDate' | translate}}</mat-label>
+          <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+
+          <app-mat-datepicker-shared 
+          [parentForm]="form"
+          [lblName]= "'holidayDates.endDate' | translate"   
+          [required]="true" 
+          [title]="'lookup.tooltip' | translate"   
+          [matDatepicker]="'endDatePicker'"
+          [namecontrol]="'endDate'"  >
+        </app-mat-datepicker-shared> 
+
+        </div>
+       
+
+        <mat-form-field appearance="outline" class="col-12 col-md-6">
+          <mat-label>{{'holidayDates.holidayName' | translate}}</mat-label>
+          <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="holidayId">
+            <mat-option>---</mat-option>
+            <mat-option  *ngFor="let holiday of holidays" [value]="holiday.id">
+            {{ localize.currentLang =='Fl' ? holiday.nameFl : holiday.nameSl }}</mat-option>
+          </mat-select>
+    </mat-form-field> 
+        
+        <mat-form-field appearance="outline" class="col-12 col-md-6">
+          <mat-label>{{'holidayDates.countryName' | translate}}</mat-label>
+          <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="countryId">
+            <mat-option>---</mat-option>
+            <mat-option  *ngFor="let country of countries" [value]="country.id">
+            {{ localize.currentLang =='Fl' ? country.nameFl : country.nameSl }}</mat-option>
+          </mat-select>
+    </mat-form-field> 
+
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'rotatedDuties.notes' | translate}}</mat-label>
+          <textarea matInput formControlName="note"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+</div>

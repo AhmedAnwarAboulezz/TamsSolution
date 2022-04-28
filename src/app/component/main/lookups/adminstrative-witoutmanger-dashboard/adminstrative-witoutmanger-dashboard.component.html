@@ -1,0 +1,14 @@
+<div relative>
+    <div style="text-align:center; padding: 5px;">
+        <a routerLink="/main/lookups/admistrativeLevel" mat-raised-button color="primary" target="_blank"> {{'organizations.GoToAdministrativeLevelsPage' | translate}} </a>
+         </div>
+    <app-data-table [url]="{
+        getAll: 'AdministrativeLevels/GetAdminstrativeWithOutMangerPagedDashboard',
+        delete:'AdministrativeLevels/delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: false,
+          print:true
+        }" [tableData]="tableData">
+      </app-data-table>
+  </div>

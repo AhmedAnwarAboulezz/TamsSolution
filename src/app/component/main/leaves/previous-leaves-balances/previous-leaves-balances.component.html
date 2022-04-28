@@ -1,0 +1,58 @@
+
+<mat-card style="height: 65px;">
+  <div class="row">
+    <div class="col-7" align="start">
+      <input type="file" #file id="file" onclick="this.value = null" (change)="uploadFile($event)">
+       <label for="file" class="btn-2"> {{'previousLeavesBalances.uploadLeavesBalance' | translate}}</label> 
+    </div>
+    <div class="col-5" align="end">
+      <button mat-raised-button  class="btn-download"  (click)="getExcelFile()" cdkFocusInitial>{{'previousLeavesBalances.downloadStandardSheet' | translate}}</button>
+    </div>
+  </div>  
+</mat-card>
+
+  <!-- <div class="row">
+    <mat-card-title class="col-md-12"> {{'lockYears.lockLeaveBalance' | translate}}</mat-card-title>
+  </div> -->
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <mat-accordion>
+        <mat-card class="example-container">
+          <div class="row" style="padding-top: 8px;">                  
+            <mat-form-field appearance="outline" class="col-12 col-md-6">
+                <mat-label>{{'previousLeavesBalances.year' | translate}}</mat-label>        
+                <mat-select required  formControlName="year">
+                    <mat-option *ngFor="let item of years" [value]="item">
+                        {{ item }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="col-md-6" align="end">
+              <button class="btn btn-danger" [disabled]="!form.valid" style="margin: 0 9px;"
+              (click)="deleteByYear()"><i class="fa fa-trash"> </i> {{'lockYears.removeLeaves' | translate}}</button>
+              <button class="btn btn-success" [disabled]="!form.valid" style="margin: 0 9px;"
+                (click)="onAddSave()"><i class="fa fa-calculator"> </i> {{'lockYears.lockLeaves' | translate}}</button>
+            </div>     
+          </div>
+        </mat-card>
+      </mat-accordion>
+  </mat-dialog-content>
+
+
+
+
+<div relative>
+  <app-data-table [url]="{
+      getAll: 'PreviousLeavesBalances/GetAllPaged',
+      delete:'PreviousLeavesBalances/delete'
+    }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+        globalSearch: true,
+        details: false
+      }" [tableData]="tableData" (add)="addEvent($event)" >
+    </app-data-table>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'EmployeeDuties/GetAllEmployeeDutysPagedDashBoard',
+        delete:'EmployeeDuties/delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: false,
+          print:true
+        }" [tableData]="tableData" >
+      </app-data-table>
+  </div>

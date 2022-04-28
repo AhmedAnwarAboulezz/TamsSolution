@@ -1,0 +1,15 @@
+<div class="tree">
+  <tree-root [nodes]="nodes" [options]="options" (moveNode)="onMoveNode($event)"></tree-root>
+</div>
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+	<ng-template matMenuContent let-item="item">
+    <button mat-menu-item>Add</button>    
+		<button mat-menu-item>Edit</button>
+    <button mat-menu-item>Remove</button>
+	</ng-template>
+</mat-menu>

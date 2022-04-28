@@ -1,0 +1,206 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'leaveRegulations.leaveRegulations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="form">
+      <ng-template matStepLabel> {{'leaveRegulations.general' | translate}}</ng-template>
+      <mat-dialog-content class="mat-typography" [formGroup]="form">
+        <div class="example-container">
+          <mat-card>
+            <div class="row">
+         
+                <mat-form-field appearance="outline" class="col-6">
+                  
+                  <mat-label>{{'leaveRegulations.leaveTypeName' | translate}}</mat-label>
+                  <mat-select formControlName="leaveTypeId" required title="{{'lookup.tooltip' | translate}}" (selectionChange)="changeFlage()">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of leavesTypes" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+            
+             
+                <mat-form-field appearance="outline" class="col-6">
+                  <mat-label>{{'leaveRegulations.country' | translate}}</mat-label>
+
+                  <mat-select formControlName="countryId" required title="{{'lookup.tooltip' | translate}}"> 
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let country of countries" [value]="country.id">
+                      {{ localize.currentLang =='Fl' ? country.nameFl : country.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row">
+             
+                <mat-form-field appearance="outline" class="col-6">
+                  <mat-label>{{'leaveRegulations.leaveNameFl' | translate}}- {{ localize.flLang | translate}}</mat-label>
+
+                  <input matInput autocomplete="off" formControlName="leaveNameFl" required title="{{'lookup.tooltip' | translate}}">
+                  <mat-error *ngIf="form.controls.leaveNameFl.errors && form.controls.leaveNameFl.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+             
+              
+                <mat-form-field class="col-6"
+                [hidden]="!localize.multiLang"  appearance="outline">
+                  <mat-label>{{'leaveRegulations.leaveNameSl' | translate}}- {{ localize.slLang | translate}}</mat-label>
+                  <input matInput formControlName="leaveNameSl"  autocomplete="off" [requiredIf]="localize.multiLang"  title="{{'lookup.tooltip' | translate}}">
+                  <mat-error *ngIf="form.controls.leaveNameSl.errors && form.controls.leaveNameSl.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+            
+            </div>
+            <div class="row">
+             
+                
+
+                <mat-form-field appearance="outline" class="col-6" >
+
+                  <mat-label>{{'leaveRegulations.gender' | translate}}</mat-label>
+                  <!-- <input autocomplete="off" #textGenders matInput > -->
+                  <mat-select required title="{{'lookup.tooltip' | translate}}"  formControlName="genderId" multiple>
+                    
+                    <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                      {{ localize.currentLang =='Fl' ? gender.genderNameFl : gender.genderNameSl }}</mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="form.controls['genderId'].errors?.required">Please choose an gender</mat-error> -->
+                </mat-form-field>
+              
+            
+           
+                
+
+                <mat-form-field appearance="outline" class="col-6">
+
+                  <mat-label>{{'leaveRegulations.religion' | translate}}</mat-label>
+                  <!-- <input autocomplete="off" #textReligions matInput > -->
+                  <mat-select required  title="{{'lookup.tooltip' | translate}}" formControlName="leaveRegulationReligions" multiple>
+                    <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" [value]="0">
+                      {{'grouproles.all' | translate}}
+                    </mat-option>
+                    <mat-option (click)="toggleUnSelectAll(allSelected.selected)" *ngFor="let religion of religions" [value]="religion.id">
+                    {{ localize.currentLang =='Fl' ? religion.descriptionFl : religion.descriptionSl }} </mat-option>
+                  
+                  </mat-select>
+                </mat-form-field>
+             
+              
+              
+            </div>
+
+          
+            <div class="row">
+             
+                <mat-form-field appearance="outline" style="width: 100%" class="col-md-6">
+                 
+                  <mat-label>{{'leaveRegulations.calculateLeaveafterdaysFromDateofHiring' | translate}}</mat-label>
+                  <input matInput formControlName="calculateAfterDays" type="number" min="0" oninput="this.value = Math.abs(this.value)"> 
+                </mat-form-field>
+             
+
+              <div class="col-6 padding-top"  appearance="outline">
+              
+                <mat-label>{{'leaveRegulations.attachmentsTypeName' | translate}}</mat-label>
+
+                <mat-radio-group formControlName="attachmentsTypeId" style="float: left;" >
+                  <mat-radio-button  *ngFor="let attachmentsType of attachmentsTypes" [value]="attachmentsType.id"
+                    class="mx-2">
+                     {{ localize.currentLang =='Fl' ? attachmentsType.nameFl : attachmentsType.nameSl }}  </mat-radio-button>
+                </mat-radio-group>
+
+              </div>
+            </div>
+<br>
+            <div class="row">
+                <mat-slide-toggle class="col-6" formControlName="isRelatedToSalary" color="primary" labelPosition="after">              
+                  {{'leaveRegulations.financiallyRelated' | translate}}
+                </mat-slide-toggle>         
+                <mat-slide-toggle class="col-6"  formControlName="isAllowedUnPaid" color="primary" labelPosition="after">
+                  {{'leaveRegulations.allowedUnPaid' | translate}}
+
+                 
+                </mat-slide-toggle>
+             
+              
+            </div>
+         
+           
+
+         
+          </mat-card>
+          <mat-card class="example-container">
+            <!-- <div class="row">
+              <div class="col-5">  
+                  <mat-slide-toggle  formControlName="isSpecialToGeneralManager" color="primary" labelPosition="after">
+                    {{'leaveRegulations.specialtogeneralmanager' | translate}}
+                  </mat-slide-toggle>
+              </div>
+              <div class="col-5">  
+                  <mat-slide-toggle  formControlName="isNeedApproval" color="primary" labelPosition="after">                     
+                    {{'leaveRegulations.leavesApproval' | translate}}
+                  </mat-slide-toggle>
+              </div>
+
+            
+            </div> -->
+           
+            <div class="row">
+              <div class="col-5">           
+                <mat-slide-toggle  [checked]="false"
+                 formControlName="isOfferedBefore"  (change)="onCheckChange($event,'isOfferedBefore')" color="primary" labelPosition="after">                 
+                  {{'leaveRegulations.isOfferedBefore' | translate}}
+                </mat-slide-toggle>
+              </div>
+                <mat-form-field  appearance="outline" class="col-5">
+                  <mat-label>{{'leaveRegulations.numberOfferedBefore' | translate}}</mat-label>
+                  <input matInput formControlName="numberOfferedBefore"
+                  type="number" min="0" oninput="this.value = Math.abs(this.value)"
+                  title="{{'lookup.tooltip' | translate}}"
+                    [readonly]="!form.value.isOfferedBefore">
+                </mat-form-field>
+
+
+            </div>
+               <div class="row">
+              <div class="col-5">  
+                <mat-slide-toggle class="col-4"  formControlName="active" color="primary" labelPosition="after">
+                  {{'partialPermissionTypes.active' | translate}}                
+                </mat-slide-toggle>
+              </div>
+           
+
+            
+            </div>
+          </mat-card>
+          <div >
+            <button style="float: left;" mat-button matStepperNext>{{'leaveRegulations.next' | translate}}</button>
+          </div>
+        </div>
+      </mat-dialog-content>
+    </mat-step>
+    <mat-step [stepControl]="leaveRegulationBalanceForm">
+      <ng-template matStepLabel>{{'leaveRegulations.balance' | translate}}</ng-template>
+      <leave-regulation-balance [leaveRegulationBalanceForm]="leaveRegulationBalanceForm" (add)="addItem()"
+        (remove)="removeItem($event)">
+      </leave-regulation-balance>
+      <div>
+        <button mat-button matStepperPrevious>{{'leaveRegulations.back' | translate}}</button>
+        <button mat-button matStepperNext style="float: left;">{{'leaveRegulations.next' | translate}}</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="leaveRegulationCalculationForm">
+
+      <ng-template matStepLabel>{{'leaveRegulations.calculations' | translate}}</ng-template>
+      <leave-regulation-calculations *ngIf="isSelectLeave==true" [leaveRegulationCalculationForm]="leaveRegulationCalculationForm"
+      [currentLeaveTypeId]="form.controls.leaveTypeId.value">
+      </leave-regulation-calculations>
+
+      <div>
+        <button mat-button matStepperPrevious>{{'leaveRegulations.back' | translate}}</button>
+        <button mat-button style="float: left;" (click)="save()" [ngStyle]="{ 'background-color': !leaveRegulationCalculationForm.valid ?'#fff':'#006fc2' ,'color':!leaveRegulationCalculationForm.valid ?'black':'white'}" [disabled]="!leaveRegulationCalculationForm.valid">{{'leaveRegulations.Save' | translate}}</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

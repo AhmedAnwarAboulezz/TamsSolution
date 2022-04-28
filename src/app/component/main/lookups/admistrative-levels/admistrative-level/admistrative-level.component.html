@@ -1,0 +1,50 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+    <app-dialogheader [text]="'administrativeLevel.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+        <mat-accordion>
+            <div class="example-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <mat-form-field appearance="outline" class="col-md-12">
+                                <mat-label>{{'administrativeLevel.nameFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+                                <input matInput formControlName="admLevelFl" required title="{{'lookup.tooltip' | translate}}">
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-md-12">
+                                <mat-label>{{'administrativeLevel.nameSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+                                <input matInput formControlName="admLevelSl" [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}">
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field appearance="outline" class="col-md-12">
+                                <mat-label>{{'administrativeLevel.email' | translate}}</mat-label>
+                                <input type="email" matInput  formControlName="admEmail"  title="{{'lookup.tooltip' | translate}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>{{'administrativeLevel.parent' | translate}}</h2>
+                            </div>
+                            <div class="col-sm-6">
+                                <mat-checkbox matInput [disabled]="!isNew" formControlName="isParent" style="margin-top: 50%;" color="primary">
+                                    {{'administrativeLevel.isparent' | translate}}</mat-checkbox>
+                            </div>
+                        </div>
+                        <app-prime-tree [hidden]="form.value.isParent" [requiredIf]="!form.value.isParent" 
+                        title="{{'lookup.tooltip' | translate}}"  formControlName="parentId" [selectionMode]="'single'" [showAll]="true">
+                        </app-prime-tree>
+
+                    </div>
+                </div>
+            </div>
+        </mat-accordion>
+    </mat-dialog-content>
+
+    <app-save-and-close [form]="form" (close)="closeConfirm($event)"></app-save-and-close>
+</div>

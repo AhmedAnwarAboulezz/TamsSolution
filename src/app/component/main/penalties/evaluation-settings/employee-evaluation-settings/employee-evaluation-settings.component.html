@@ -1,0 +1,43 @@
+<mat-card>
+    <mat-card-title>{{ 'evaluations.EmployeeEvaluationSetting' | translate}}</mat-card-title>
+    <mat-dialog-content class="mat-typography" [formGroup]="formsetting">
+      <mat-accordion>
+         <form [formGroup]="formsetting" (ngSubmit)="edit2()">
+                <div class="example-container">
+                  <div class=row>  
+                    <mat-form-field  appearance="outline" class="col-12 col-md-4">
+                        <mat-label> {{ 'evaluations.durationOfAssignment' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="durationOfAssignment">
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="outline" class="col-12 col-md-4">
+                        <mat-label>{{'evaluations.transferredDepartment' | translate}}</mat-label>
+                        <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="transferredDepartment">
+                          <mat-option  *ngFor="let p of transferredDepartments" [value]="p.val">
+                            {{ localize.lang =='en' ? p.nameEn : p.nameAr }}</mat-option>
+                        </mat-select>
+                     </mat-form-field> 
+
+                    <mat-form-field  appearance="outline" class="col-12 col-md-4">
+                        <mat-label> {{ 'evaluations.employeeWorkingDaysDuringYear' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="employeeWorkingDaysDuringYear">
+                    </mat-form-field>  
+
+                   
+            
+                  </div> 
+              
+
+                    
+                  <br>
+                 
+
+                  <div class="row">
+                      <button mat-raised-button color="primary" type="submit" [disabled]="!formsetting.valid">{{ 'save' | translate}}</button>
+                    </div>                            
+                </div>
+              </form>
+      </mat-accordion>
+    </mat-dialog-content>
+  </mat-card>
+

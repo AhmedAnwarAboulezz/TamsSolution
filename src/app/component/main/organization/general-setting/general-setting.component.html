@@ -1,0 +1,107 @@
+<mat-card>
+    <mat-card-title>{{ 'organizations.GeneralSettings' | translate}}</mat-card-title>
+    <mat-dialog-content class="mat-typography" [formGroup]="formsetting">
+      <mat-accordion>
+         <form [formGroup]="formsetting" (ngSubmit)="edit2()">
+                <div class="example-container">
+                  <div class=row>  
+                    <mat-form-field appearance="outline" class="col-12 col-md-12">
+                        <mat-label>{{ 'organizations.Nationality' | translate}}</mat-label>
+                        <mat-select formControlName="nationalityId">
+                          <mat-option>---</mat-option>
+                          <mat-option *ngFor="let nationalitiy of nationalities" [value]="nationalitiy.id">
+                             {{ localize.currentLang =='Fl' ? nationalitiy.nationalityFl : nationalitiy.nationalitySl }}
+                            </mat-option>
+                        </mat-select>
+                  </mat-form-field>        
+            
+                  </div> 
+                  <div class="row">
+                    <div class="col-6" appearance="outline">
+                      <mat-checkbox   [checked]="false" formControlName="isActiveDirectory" color="primary" labelPosition="after">
+                         {{ 'organizations.ActiveDirectory' | translate}}
+                    </mat-checkbox>
+                  </div>
+
+                    <div class="col-6" appearance="outline">
+
+                    <mat-checkbox  class="col-6" [checked]="false" formControlName="isReviewLogs" color="primary" labelPosition="after">
+                      {{ 'organizations.reviewLogs' | translate}}
+                 </mat-checkbox>
+                    </div>
+                  </div>
+
+                      <div class="row">
+
+                      <mat-card [hidden]="!formsetting.value.isActiveDirectory" class="col-md-12">
+                          <mat-form-field appearance="outline" class="col-12 col-md-4">
+                            <mat-label>{{ 'organizations.adDomainName' | translate}}</mat-label>
+                            <input type="text" title="{{'lookup.tooltip' | translate}}" [requiredIf]="formsetting.value.isActiveDirectory" matInput formControlName="adDomainName" >
+                          </mat-form-field>                 
+                        
+                          <mat-form-field appearance="outline" class="col-12 col-md-4">
+                            <mat-label> {{ 'organizations.primaryKey' | translate}}</mat-label>
+                            <mat-select formControlName="primaryKeyId" title="{{'lookup.tooltip' | translate}}"
+                            [requiredIf]="formsetting.value.isActiveDirectory">
+                              <mat-option>---</mat-option>
+                              <mat-option  *ngFor="let activeDirectoryPrimaryKey of activeDirectoryPrimaryKeys" [value]="activeDirectoryPrimaryKey.id">
+                              
+                                {{ localize.currentLang =='Fl' ? activeDirectoryPrimaryKey.primaryKeyNameFl : activeDirectoryPrimaryKey.primaryKeyNameSl }}
+
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field> 
+  
+                          <mat-form-field appearance="outline" class="col-12 col-md-4">
+                            <mat-label>{{ 'organizations.ADKey' | translate}} </mat-label>
+                            <mat-select formControlName="aDKeyId" title="{{'lookup.tooltip' | translate}}"
+                            [requiredIf]="formsetting.value.isActiveDirectory">
+                              <mat-option>---</mat-option>
+                              <mat-option  *ngFor="let activeDirectoryKe of activeDirectoryKey" [value]="activeDirectoryKe.id">
+                               
+                                {{ localize.currentLang =='Fl' ? activeDirectoryKe.activeDirectoryKeyNameFl : activeDirectoryKe.activeDirectoryKeyNameSl }}
+
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field> 
+                          
+                       </mat-card>  
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-12 col-md-12" appearance="outline">
+                      {{ 'organizations.empHavnotDutiesYet' | translate}}                        
+                    </div>
+  
+                    <mat-card  class="col-md-12">             
+                    
+                      <mat-form-field appearance="outline" class="col-12 col-md-6">
+                        <mat-label> {{ 'organizations.restDay' | translate}}</mat-label>
+                        <mat-select formControlName="restDayId" title="{{'lookup.tooltip' | translate}}" >
+                          <mat-option>---</mat-option>
+                          <mat-option  *ngFor="let weekday of weekDays" [value]="weekday.id">
+                            {{ localize.currentLang =='Sl' ? weekday.nameSl : weekday.nameFl }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> 
+
+                      <mat-form-field appearance="outline" class="col-12 col-md-6">
+                        <mat-label>{{ 'organizations.weekEnd' | translate}} </mat-label>
+                        <mat-select formControlName="weekendDayId" title="{{'lookup.tooltip' | translate}}" >
+                          <mat-option>---</mat-option>
+                          <mat-option  *ngFor="let weekday of weekDays" [value]="weekday.id">
+                            {{ localize.currentLang =='Sl' ? weekday.nameSl : weekday.nameFl }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>                       
+                    </mat-card>  
+                  </div>
+
+                  <div class="row">
+                      <button mat-raised-button color="primary" type="submit" [disabled]="!formsetting.valid">{{ 'save' | translate}}</button>
+                    </div>                            
+                </div>
+              </form>
+      </mat-accordion>
+    </mat-dialog-content>
+  </mat-card>

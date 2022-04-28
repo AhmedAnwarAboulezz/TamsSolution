@@ -1,0 +1,155 @@
+.mat-form-field{
+    display: block;
+  }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  // =========================
+  
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%
+  }
+  
+  // .btn {
+  //   border: 2px solid rgb(54, 81, 235);
+  //   color:rgb(26, 46, 46);
+  //   background-color: white;
+  //   padding: 8px 20px;
+  //   border-radius: 8px;
+  //   font-size: 17px;
+  //   font-weight: bold;
+  // }
+  
+  .btn {
+    border: 2px solid #006fc2;
+    color: #ffffff;
+    background-color: #006fc2;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    height: -webkit-fill-available;
+    cursor: pointer;
+  }
+  
+  
+ 
+  
+  
+  
+  
+  .upload{
+    font-weight:bold;
+    color:#28a745;
+    margin-left: 15px;
+    line-height: 36px;
+  }
+  
+  [type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+  }
+  
+  [type="file"] + label {
+  background: #f15d22;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 10px;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  vertical-align: middle;
+  height: 35px;
+  
+  &:hover {
+    background-color: darken(#f15d22, 10%);
+  }
+  
+  &.btn-1 {
+    background-color: #f79159;
+    box-shadow: 0 6px darken(#f79159, 10%);
+    transition: none;
+  
+    &:hover {
+      box-shadow: 0 4px darken(#f79159, 10%);
+      top: 2px;
+    }
+  }
+  
+  &.btn-2 {
+    background-color: #006fc2 ;
+    border-radius: 50px;
+    overflow: hidden;
+    
+    &::before {
+      font-size: 100%;
+      height: 100%;
+      right: 130%;
+      line-height: 3.3;
+      position: absolute;
+      top: 0px;
+      transition: all 0.3s;
+    }
+  
+    &:hover {
+      background-color: darken(#006fc2, 30%);
+        
+      &::before {
+        right: 75%;
+      }
+    }
+  }
+  
+  }
+  
+  .btn-download
+  {
+  background-color: #28a745 ;
+  border-radius: 50px;
+  overflow: hidden;
+  color: #fff;
+  height: 35px;
+  
+  }
+  
+
+  ::ng-deep .mat-card {
+    border-radius: 12px !important;
+    padding: 15px !important;
+    box-shadow: 6px 3px 6px 3px #a3a4ab !important;
+    border: 1px solid #9fb7b7 !important;
+    margin: 10px 0px !important;
+  }
+  
+  ::ng-deep .mat-drawer-content {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  

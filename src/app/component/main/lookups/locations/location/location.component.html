@@ -1,0 +1,42 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'locations.locations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'locations.code' | translate}}</mat-label>
+          <input matInput formControlName="code">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'locations.locationFL' | translate}} - {{ localize.flLang | translate}}</mat-label>
+          <input matInput formControlName="locationFL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+        <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'locations.locationSL' | translate}} - {{ localize.slLang | translate}}</mat-label>
+          <input matInput formControlName="locationSL" [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}"> 
+        </mat-form-field>
+
+      
+          <mat-form-field appearance="outline" class="col-md-12">
+            <mat-label>{{'locations.countryName' | translate}}</mat-label>
+            <mat-select formControlName="countryId" required title="{{'lookup.tooltip' | translate}}">
+              <mat-option>---</mat-option>
+              <mat-option *ngFor="let country of countries" [value]="country.id">
+                {{ localize.currentLang =='Fl' ? country.nameFl : country.nameSl }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'locations.description' | translate}}</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+     
+      </div>
+    </div>
+  </mat-dialog-content>
+
+<app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+
+</div>

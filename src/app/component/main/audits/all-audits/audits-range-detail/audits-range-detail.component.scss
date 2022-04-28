@@ -1,0 +1,28 @@
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 8px solid #f2f2f2;
+    margin: 6px 11px;
+  
+  }
+  
+  
+  th, td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+  
+  }
+  
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  th {
+    background-color: #006fc2;
+    color: white;
+  }
+
+  ::ng-deep .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-disabled.mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #006fc2;
+}

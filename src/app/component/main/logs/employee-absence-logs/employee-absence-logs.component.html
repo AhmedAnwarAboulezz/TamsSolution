@@ -1,0 +1,172 @@
+<div [className]="('textAlign' | translate)" [dir]="'dir' | translate" >
+  <mat-expansion-panel class="main-Panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title style=" font-size: x-large; font-weight: 600;">
+        {{'employeeattendance.searchInAbsenceEmployees' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-dialog-content class="mat-typography" [formGroup]="form">
+        <mat-accordion>
+          <mat-card class="example-container">
+            <div class=row>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-12 col-md-6" >         
+                        <app-mat-datepicker-shared 
+                          [parentForm]="form"
+                          [lblName]= "'employeeLeaves.startDate' | translate"   
+                          [title]="'lookup.tooltip' | translate"   
+                          [matDatepicker]="'startDatePicker'"
+                          [namecontrol]="'startDate'"
+                        >
+                        </app-mat-datepicker-shared> 
+                    </div>
+                  <div class="col-12 col-md-6" >         
+                    <app-mat-datepicker-shared 
+                      [parentForm]="form"
+                      [lblName]= "'employeeLeaves.endDate' | translate"   
+                      [title]="'lookup.tooltip' | translate"   
+                      [matDatepicker]="'endDatePicker'"
+                      [namecontrol]="'endDate'"
+                    >
+                    </app-mat-datepicker-shared> 
+                  </div>
+                </div>
+                <hr>
+                  <div class="col-12 col-md-12">
+                    <app-select [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+                    [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                    [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+                  </div>
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{ 'advancedSearch.Location' | translate }}</mat-label>
+                    <mat-select #sel multiple formControlName="locationId" >
+                      <mat-option *ngFor="let item of locations" [value]="item.id">
+                        {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                    </mat-select>
+                  </mat-form-field> 
+          
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                      <mat-label>{{'advancedSearch.Job' | translate}}</mat-label>
+                      <mat-select #sel multiple formControlName="jobId">
+                        <mat-option *ngFor="let item of jobs" [value]="item.id">
+                          {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{'ReportFilter.status' | translate}}</mat-label>
+                    <mat-select  multiple formControlName="statusId">
+                      <mat-option *ngFor="let item of statusList" [value]="item.id">
+                        {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>                  
+              </div>
+              <div class="col-12 col-md-5">
+
+                <div appearance="outline" class="col-12 col-md-12">
+                  <app-prime-tree formControlName="adminstrationId" [selectionMode]="'checkbox'" >
+                  </app-prime-tree>
+                </div>
+              </div>
+              <div class="col-md-12 text-center">
+                <button mat-raised-button color="primary" (click)="searchToggle()" cdkFocusInitial>
+                  {{'search' | translate}}                   
+                  <mat-icon>search</mat-icon>
+                </button>
+            </div>
+
+            </div>
+          </mat-card>
+        </mat-accordion>
+      </mat-dialog-content>
+  </mat-expansion-panel>
+  <mat-card>
+    <!-- <div class="row">
+      <mat-card-title class="col-md-12" style=" font-size: x-large; font-weight: 600;"> {{'employeeattendance.searchInAbsenceEmployees' | translate}}</mat-card-title>
+    </div> -->
+    <!-- <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <mat-accordion>
+        <mat-card class="example-container">
+          <div class=row>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-12 col-md-6" >         
+                      <app-mat-datepicker-shared 
+                        [parentForm]="form"
+                        [lblName]= "'employeeLeaves.startDate' | translate"   
+                        [title]="'lookup.tooltip' | translate"   
+                        [matDatepicker]="'startDatePicker'"
+                        [namecontrol]="'startDate'"
+                      >
+                      </app-mat-datepicker-shared> 
+                  </div>
+                <div class="col-12 col-md-6" >         
+                  <app-mat-datepicker-shared 
+                    [parentForm]="form"
+                    [lblName]= "'employeeLeaves.endDate' | translate"   
+                    [title]="'lookup.tooltip' | translate"   
+                    [matDatepicker]="'endDatePicker'"
+                    [namecontrol]="'endDate'"
+                  >
+                  </app-mat-datepicker-shared> 
+                </div>
+              </div>
+              <hr>
+                <div class="col-12 col-md-12">
+                  <app-select [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+                  [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                  [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+                </div>
+                <mat-form-field appearance="outline" class="col-12 col-md-6">
+                  <mat-label>{{ 'advancedSearch.Location' | translate }}</mat-label>
+                  <mat-select #sel multiple formControlName="locationId" >
+                    <mat-option *ngFor="let item of locations" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field> 
+        
+                <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>{{'advancedSearch.Job' | translate}}</mat-label>
+                    <mat-select #sel multiple formControlName="jobId">
+                      <mat-option *ngFor="let item of jobs" [value]="item.id">
+                        {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-12 col-md-6">
+                  <mat-label>{{'ReportFilter.status' | translate}}</mat-label>
+                  <mat-select  multiple formControlName="statusId">
+                    <mat-option *ngFor="let item of statusList" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>                  
+            </div>
+            <div class="col-12 col-md-5">
+
+              <div appearance="outline" class="col-12 col-md-12">
+                <app-prime-tree formControlName="adminstrationId" [selectionMode]="'checkbox'" >
+                </app-prime-tree>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <button mat-raised-button color="primary" (click)="searchToggle()" cdkFocusInitial>{{'search' | translate}}</button>
+          </div>
+
+          </div>
+        </mat-card>
+      </mat-accordion>
+    </mat-dialog-content> -->
+    <div class="mat-typography">
+      <div class="col-md-12" align="end">
+        <button mat-raised-button style="background-color: #28a745 !important; color: white; font-size: 16px;" (click)="openDetails()" cdkFocusInitial>
+          {{'ReviewAllLogs' | translate}}
+          <mat-icon>sync</mat-icon>
+        </button>
+      </div>
+      <div relative style="padding: 25px 0;">
+        <app-employee-absence-grid [searchValues]="form.value"></app-employee-absence-grid>
+      </div>      
+    </div>
+  </mat-card>
+</div>

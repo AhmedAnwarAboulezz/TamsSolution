@@ -1,0 +1,156 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'workflow.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <mat-card class="example-container">
+          <div class=row>
+            <mat-form-field appearance="outline" class="col-12 col-md-5">
+              <mat-label>{{'workflow.nameFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+              <input autocomplete="off" matInput formControlName="nameFl" required title="{{'lookup.tooltip' | translate}}">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-5">
+              <mat-label>{{'workflow.nameSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+              <input autocomplete="off" matInput formControlName="nameSl">
+            </mat-form-field>
+            <div class="col-12 col-md-2">
+              {{'workflow.isActive' | translate}}: <mat-checkbox  formControlName="isActive" color="primary"></mat-checkbox>
+            </div>
+
+            <div class="col-12 col-md-5">
+                <app-mat-datepicker-shared 
+                [parentForm]="form" [lblName]= "'workflow.startDate' | translate"   
+                [required]="true"  [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'startDatePicker'"[namecontrol]="'startDate'"  >
+              </app-mat-datepicker-shared> 
+
+            </div>
+              <div class="col-12 col-md-5">          
+                <app-mat-datepicker-shared 
+                [parentForm]="form" [lblName]= "'workflow.endDate' | translate"   
+                [required]="true"  [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'endDatePicker'"[namecontrol]="'endDate'"></app-mat-datepicker-shared> 
+
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label> {{'workflow.stageNumber' | translate}}</mat-label>
+                     <input autocomplete="off" required matInput type="number" title="{{'lookup.tooltip' | translate}}"
+                      min="1" oninput="this.value = Math.abs(this.value)"
+                    formControlName="stageNumber">
+                </mat-form-field>
+              </div>
+
+           <div class="col-12 col-md-5">
+              <mat-form-field appearance="outline">
+                <mat-label> {{ 'organizations.restDay' | translate}}</mat-label>
+                <mat-select formControlName="restDayId" title="{{'lookup.tooltip' | translate}}" >
+                  <mat-option>---</mat-option>
+                  <mat-option  *ngFor="let weekday of weekDays" [value]="weekday.id">
+                    {{ localize.currentLang =='Sl' ? weekday.nameSl : weekday.nameFl }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+            </div>
+
+            <div class="col-12 col-md-5">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'organizations.weekEnd' | translate}} </mat-label>
+                <mat-select formControlName="weekendDayId" title="{{'lookup.tooltip' | translate}}" >
+                  <mat-option>---</mat-option>
+                  <mat-option  *ngFor="let weekday of weekDays" [value]="weekday.id">
+                    {{ localize.currentLang =='Sl' ? weekday.nameSl : weekday.nameFl }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+            </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                <button style="background: #0d192f;color: white;" mat-button (click)="onTemplateDaysChange()">{{'workflow.show' | translate}}</button>
+              </div>
+          </div>
+        </mat-card> 
+  
+
+        <mat-card class="card-table">       
+            <table class="col-md-12">
+                <thead>
+                    <th>{{'workflow.approvers' | translate}}</th>
+                    <th>{{'workflow.recieveE­mails' | translate}}</th>
+                    <th>{{'workflow.isImportant' | translate}}</th>
+                    <th>{{'workflow.moveToNext' | translate}}</th>        
+                    <th>{{'workflow.isignoreWeekend' | translate}}</th>
+                    <th>{{'workflow.isignoreRestDay' | translate}}</th>
+                    <th>{{'workflow.isignoreHoliday' | translate}}</th>
+                </thead>            
+                <tbody>
+                  <tr formArrayName="stages" *ngFor="let item of templateDaysArray; let i = index;">
+                      <td [formGroupName]="i">
+                       <div class="form-field" appearance="outline">
+                           <mat-select formControlName="managerCodeId" required title="{{'lookup.tooltip' | translate}}">
+                           <mat-option>---</mat-option>
+                           <mat-option *ngFor="let item of managerCodes | excludeItem: (i == 0 ? null :form.value.stages[i-1].managerCodeId)" [value]="item.id">
+                               {{ localize.lang =='en' ? item.nameFl : item.nameSl }}</mat-option>
+                           </mat-select>
+                       </div>
+                      </td>
+                      <td [formGroupName]="i">
+                       <mat-checkbox checked formControlName="canReceiveEmail">
+                       </mat-checkbox>                        
+                      </td>
+                      <td [formGroupName]="i">
+                       <mat-checkbox checked formControlName="isImportant" (change)="checkTest($event.checked,i)">
+                       </mat-checkbox>
+                      </td>
+                      <td [formGroupName]="i">
+                        <input class="form-field" [readonly]="form.value.stages[i].isImportant" 
+                        value="{{form.value.stages[i].isImportant ? 0 : form.value.stages[i].postDurationInHours}}" 
+                        matInput type="number"  min="1" oninput="this.value = Math.abs(this.value)"
+                        formControlName="postDurationInHours">
+                      </td>
+
+                      <td [formGroupName]="i">
+                        <mat-checkbox checked formControlName="isIgnoreWeekend" 
+                        [checked]="form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreWeekend"
+                         [disabled]="form.value.stages[i].isImportant" 
+                        value="{{form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreWeekend}}">
+                      </mat-checkbox>
+                       </td>
+                       <td [formGroupName]="i">
+                        <mat-checkbox checked  
+                        [checked]="form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreRestDay"
+                        [disabled]="form.value.stages[i].isImportant" 
+                        value="{{form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreRestDay}}"
+                       formControlName="isIgnoreRestDay">
+                      </mat-checkbox>
+                       </td>
+                       <td [formGroupName]="i">
+                        <mat-checkbox checked  
+                        [checked]="form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreHoliday"
+                        [disabled]="form.value.stages[i].isImportant" 
+                        value="{{form.value.stages[i].isImportant ? false : form.value.stages[i].isIgnoreHoliday}}"
+                       formControlName="isIgnoreHoliday">
+                      </mat-checkbox>
+                       </td>
+                      
+                    
+                  </tr>
+                </tbody>
+              </table>
+        </mat-card>  
+      </div>
+    </mat-dialog-content>
+
+    <!-- <app-save-and-close [form]="form" (close)="onAddSave($event.buttonType)"></app-save-and-close> -->
+
+    <mat-dialog-actions align="end">
+      <button class="mainButton" data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid || stagesArray.controls.length == 0" cdkFocusInitial
+        (click)="onAddSave('SaveClose')">{{'saveclose' | translate}}</button>
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu" [disabled]="!this.form.valid || stagesArray.controls.length == 0">
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu class="dropdownTest" #beforeMenu="matMenu" xPosition="before">
+        <button [disabled]="!this.form.valid || stagesArray.controls.length == 0" mat-menu-item
+          (click)="onAddSave('Save')">{{'save' | translate}}</button>
+      </mat-menu>
+    </mat-dialog-actions>  
+  </div>

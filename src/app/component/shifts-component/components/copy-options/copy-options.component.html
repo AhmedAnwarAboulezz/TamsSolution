@@ -1,0 +1,21 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'OptionHeader'" (onclick)="onNoClick()"></app-dialogheader>
+  <div mat-dialog-content style="text-align: center;">
+    <!-- <p>{{'OptionBody' | translate}}</p> -->
+    <mat-form-field  class="col-6" >
+      <mat-label>{{ 'Message.moveto' | translate}}</mat-label>
+      <input matInput  [matDatepicker]="picker" [(ngModel)]="selectedDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker  #picker ></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox checked="true" [(ngModel)]="isOverride" >
+    {{'Message.isOverride' | translate}}
+  </mat-checkbox>
+  <div class="row" style="background: #006fc2;padding: 0px;min-height: 42px;" mat-dialog-actions>
+    <button style="width: 50%; color:white"  mat-button (click)="onOptionClick(true)">{{'CopyAndSave' | translate}}</button>
+    <button style="width: 50%; color:white; margin-left: 0px;margin-right: 0px;"  mat-button (click)="onOptionClick(false)">{{'CopyNoSave' | translate}}</button>
+   
+  </div>
+</div>

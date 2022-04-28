@@ -1,0 +1,24 @@
+
+  <mat-card style="height: 65px;">
+    <div class="row">
+      <div class="col-md-9" align="start">
+        <input type="file" #file id="file" onclick="this.value = null" (change)="uploadFile($event)">
+         <label for="file"  class="btn-2"> {{'PreviousEmployeeEvaluation.uploadPreviousEmployeeEvaluation' | translate}}</label> 
+      </div>
+      <div class="col-md-3" align="end">
+        <button mat-raised-button class="btn-download" (click)="getExcelFile()" cdkFocusInitial>{{'PreviousEmployeeEvaluation.DownloadStandardSheet' | translate}}</button>
+      </div>
+    </div>
+  </mat-card>
+
+<div relative>
+  <app-data-table [url]="{
+      getAll: 'EmployeeEvaluations/GetAllPaged',
+      delete:'EmployeeEvaluations/delete'
+    }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+        globalSearch: true,
+        details: false
+      }" [tableData]="tableData" (add)="addEvent($event)" >
+    </app-data-table>
+</div>
+ 

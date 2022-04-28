@@ -1,0 +1,84 @@
+<mat-card [style.text-align] ="localize.lang == 'en'?'left':'right'" class="example-container"  [formGroup]="advancedForm" >
+    <div align="center" *ngIf="collapseByDefault">
+        <button class="col-12 col-md-3" mat-raised-button color="primary" (click)="collapsed=!collapsed"> {{ 'advancedSearch.advancedSearch' | translate }}</button>
+    </div>
+    <mat-card [hidden]="!collapsed && collapseByDefault">   
+      <div class="row" *ngIf="hasOneEmployee">
+        <div class="col-12 col-md-12">
+          <app-select [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+          [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+          [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+        </div>    
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="col-12 col-md-12" *ngIf="hasTeams">
+            <mat-label>{{ 'advancedSearch.Team' | translate }}</mat-label>
+            <mat-select #sel multiple formControlName="multiTeams" 
+            (closed)="closeDropDown('multiTeams')" (opened)="openDropDown('multiTeams',0)"   >
+              <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,'multiTeams',0)" [value]="0">
+                {{'all' | translate}}
+              </mat-option>
+              <mat-option (click)="toggleUnSelectAll('multiTeams',0)"
+               *ngFor="let item of teams" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+        </mat-form-field> 
+         
+          <mat-form-field appearance="outline" class="col-12 col-md-12" *ngIf="hasLocations">
+              <mat-label>{{ 'advancedSearch.Location' | translate }}</mat-label>
+              <mat-select #sel multiple formControlName="multiLocation"
+              (closed)="closeDropDown('multiLocation')" (opened)="openDropDown('multiLocation',1)"  >
+                <mat-option #allSelected2 (click)="toggleAllSelection(allSelected2.selected,'multiLocation',1)" [value]="0">
+                  {{'all' | translate}}
+                </mat-option>
+                <mat-option (click)="toggleUnSelectAll('multiLocation',1)" *ngFor="let item of locations" [value]="item.id">
+                  {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+              </mat-select>
+          </mat-form-field> 
+  
+          <mat-form-field appearance="outline" class="col-12 col-md-12" *ngIf="hasJobs">
+              <mat-label>{{'advancedSearch.Job' | translate}}</mat-label>
+              <mat-select #sel multiple formControlName="multiJobs"
+              (closed)="closeDropDown('multiJobs')" (opened)="openDropDown('multiJobs',2)"  >
+              <mat-option #allSelected3 (click)="toggleAllSelection(allSelected3.selected,'multiJobs',2)" [value]="0">
+                {{'all' | translate}}
+              </mat-option>
+                <mat-option (click)="toggleUnSelectAll('multiJobs',2)" *ngFor="let item of jobs" [value]="item.id">
+                  {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12" *ngIf="hasGenders">
+            <mat-label>{{'advancedSearch.Gender' | translate}}</mat-label>
+            <mat-select #sel multiple formControlName="multiGenders"  
+             (closed)="closeDropDown('multiGenders')" (opened)="openDropDown('multiGenders',3)" >
+             <mat-option #allSelected4 (click)="toggleAllSelection(allSelected4.selected,'multiGenders',3)" [value]="0">
+              {{'all' | translate}}
+            </mat-option>
+              <mat-option (click)="toggleUnSelectAll('multiGenders',3)" *ngFor="let item of genders" [value]="item.id">
+                {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+       
+
+        <div appearance="outline" class="col-12 col-md-6" *ngIf="hasAdminstration">
+          <app-prime-tree formControlName="multiAdministration" [selectionMode]="'checkbox'" >
+          </app-prime-tree>
+        </div>
+
+             
+      </div>   
+      <hr>
+      <div class="row" *ngIf="hasFillButton">
+        <div class="col-md-12">      
+          <div align="center">
+            <button  mat-raised-button color="primary" (click)="onFillSearch()"
+              cdkFocusInitial>{{ 'advancedSearch.Fill' | translate }}</button>
+          </div>      
+        </div> 
+      </div>
+            
+    </mat-card>
+  </mat-card>

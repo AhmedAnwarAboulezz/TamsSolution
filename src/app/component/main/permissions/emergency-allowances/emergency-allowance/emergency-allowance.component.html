@@ -1,0 +1,84 @@
+
+
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+ 
+  <app-dialogheader [text]="'emergencyAllowances.emergencyAllowances'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card  class="example-container">
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        
+        <mat-radio-group formControlName="descriptionTypeId"  class="w-100 d-flexjustify-content-between padding">
+          <mat-radio-button *ngFor="let op of emergencyAllowanceDescriptionTypes; let i = index" [labelPosition]="'after'"
+            (click)='getSelectedDescriptionType(op.id)' [disabled]="!isNew" [value]="op.id"  >
+             {{ localize.lang =='en' ? op.nameFl : op.nameSl }}
+          </mat-radio-button>
+        </mat-radio-group>
+       
+        
+
+         
+         <div class="col-12 col-md-6">    
+          <app-mat-datepicker-shared 
+          [parentForm]="form" [lblName]= "'emergencyAllowances.startDate' | translate"   
+          [required]="true"   [title]="'lookup.tooltip' | translate"   
+          [matDatepicker]="'startDatePicker'"  [namecontrol]="'startDate'"  >
+        </app-mat-datepicker-shared> 
+
+      </div>
+      <div class="col-12 col-md-6">             
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'emergencyAllowances.endDate' | translate"   
+            [required]="true"   [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'endDatePicker'"  [namecontrol]="'endDate'"  >
+          </app-mat-datepicker-shared> 
+        </div>
+
+     
+          
+      <div class="col-md-6">
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-md-12">
+              <mat-label>{{'emergencyAllowances.Exemption' | translate}} </mat-label>
+              <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="allowanceTypeId">
+                <mat-option>---</mat-option>
+                <mat-option *ngFor="let allowanceType of allowanceTypes" [value]="allowanceType.id">
+              {{ localize.currentLang =='Fl' ? allowanceType.nameFl : allowanceType.nameSl }}</mat-option>
+              </mat-select>
+             </mat-form-field>   
+            </div> 
+
+             <div class="row">
+
+             <mat-form-field appearance="outline" class="col-md-12">
+              <mat-label>{{'emergencyAllowances.Note' | translate}}</mat-label>
+              <input matInput formControlName="note">
+            </mat-form-field>
+          </div>
+        </div> 
+        <mat-form-field appearance="outline" class="col-12 col-md-6" *ngIf="descriptionTypeIsLocation">
+          <mat-label>  {{'emergencyAllowances.Location' | translate}}</mat-label>
+          <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="descriptionId" >
+            <mat-option>---</mat-option>
+            <mat-option *ngFor="let location of locations" [value]="location.id">
+             {{ localize.currentLang =='Fl' ? location.locationFL : location.locationSL }}</mat-option>
+          </mat-select>
+         </mat-form-field>
+             <div class="col-md-6" >
+              <app-prime-tree formControlName="descriptionId" [selectionMode]="'single'" *ngIf="descriptionTypeIsAdmin" [disabled]="isEdit" >
+              </app-prime-tree>
+             </div>                  
+           
+             
+          
+           
+     
+      </div>
+    </div>
+  </mat-dialog-content>
+  </mat-card>
+
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

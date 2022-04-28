@@ -1,0 +1,208 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+  <app-dialogheader [text]="'employeePermission.employeePermission'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+
+      <mat-card>
+        <div class=row>
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <app-select [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable"
+                formControlName="employeeId" [name]="'field.fullName' | translate" [IncludeIncompleteEmployees]="false"
+                (selectChangeEvent)="onEmployeeChange()" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                [placeholder]="'employeeSelect' | translate"></app-select>
+            </div>
+          </div>
+        </div>
+        <div class=row>
+
+          <div class="col-md-3">
+            <div>
+              <!-- <mat-label>{{'employeePermission.permissionDate' | translate}}</mat-label>
+              <input matInput required [matDatepicker]="startDatePicker" formControlName="startDate"
+                (dateChange)="onChangeTemperoryData()">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker (opened)="onOpen(startDatePicker)" #startDatePicker disabled="false"
+                [calendarHeaderComponent]="header"></mat-datepicker> -->
+
+                <app-mat-datepicker-shared 
+                [parentForm]="form" [validform]="form.valid"  
+                [lblName]= "'employeePermission.permissionDate' | translate"   
+                [required]="true"  (event)="onChangeTemperoryData();"
+                [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'startDatePicker'"
+                [namecontrol]="'startDate'" >
+              </app-mat-datepicker-shared> 
+
+            </div>
+          </div>
+
+
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'employeePermission.permissiontype' | translate}}</mat-label>
+              <mat-select required formControlName="partialPermissionTypeId" (ngModelChange)="onChangeTemperoryData()">
+                <mat-option>---</mat-option>
+                <mat-option *ngFor="let partialPermissionType of PartialPermissionTypes"
+                  [value]="partialPermissionType.id">
+                  {{ localize.currentLang =='Fl' ? partialPermissionType.nameFl : partialPermissionType.nameSl }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'employeePermission.permissiontime' | translate}}</mat-label>
+              <mat-select required formControlName="permissionTimeId" (ngModelChange)="onChangePermissionTime($event)"
+                [disabled]="permissionTimeDisabled">
+                <mat-option *ngFor="let permissionTime of PermissionTimes" [value]="permissionTime.id">
+                  {{ localize.currentLang =='Fl' ? permissionTime.permissionTypeNameFl :
+                  permissionTime.permissionTypeNameSl }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3" align="center">
+            <button mat-raised-button color="primary" (click)="showDutyDetails()">{{'employeePermission.dutySchedule' |
+              translate}}</button>
+          </div>
+        </div>
+      </mat-card>
+
+      <div class=row>
+        <div class="col-md-7">
+          <mat-card class="example-container">
+            <div class=row style="margin-top: inherit; padding-bottom: 4px;">
+
+              <div class="col-md-5">
+                <div class=row>
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'employeePermission.startTime' | translate}}</mat-label>
+                      <input required matInput type="time" formControlName="startTime" (input)="onStartTimeChange()"
+                        [readonly]="startTimeDisable">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class=row>
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'employeePermission.endTime' | translate}}</mat-label>
+                      <input required matInput type="time" formControlName="endTime" (input)="onEndTimeChange()"
+                        [readonly]="endTimeDisable">
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="col-md-2">
+                <mat-icon (click)="getPosition()" svgIcon="alarm"></mat-icon>
+              </div>
+            </div>
+            <div class=row>
+              <mat-form-field appearance="outline" class="col-md-10">
+                <mat-label>{{'employeePermission.permissionduration' | translate}}</mat-label>
+                <input type="number" matInput formControlName="permissionDuration" readonly min="0"
+                  oninput="this.value = Math.abs(this.value)">
+              </mat-form-field>
+            </div>
+
+          </mat-card>
+        </div>
+        <div class="col-md-5">
+          <mat-card class="example-container">
+            <div class=row style="margin-top: inherit;">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.balancemonth' | translate}}</mat-label>
+                  <input matInput
+                    [value]="PermissionBalance != null && PermissionBalance['balance'] != null ?  PermissionBalance['balance'] :0"
+                    disabled>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.remainingBalance' | translate}}</mat-label>
+                  <input matInput [value]="PermissionBalance != null &&  PermissionBalance['remainingBalance'] != null ? 
+                    PermissionBalance['remainingBalance'] - form.value.permissionDuration >=0 ?
+                    PermissionBalance['remainingBalance'] - form.value.permissionDuration : 0 : 0" disabled>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.noofTimes' | translate}}</mat-label>
+                  <input matInput
+                    [value]="PermissionBalance != null && PermissionBalance['numberOfTime'] != null ?  PermissionBalance['numberOfTime'] :0"
+                    disabled>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.remainingTimes' | translate}}</mat-label>
+                  <input [class.inputred]="PermissionBalance !== undefined && PermissionBalance['remainingTime'] !== undefined && PermissionBalance['remainingTime'] < 0" matInput
+                    [value]="PermissionBalance != null && PermissionBalance['remainingTime'] != null && PermissionBalance['remainingTime'] > 0 ? PermissionBalance['remainingTime'] :0"
+                    disabled>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.maxPeriod' | translate}}</mat-label>
+                  <input matInput
+                    [value]="PermissionBalance != null && PermissionBalance['maxPeriod'] != null ?  PermissionBalance['maxPeriod'] :0"
+                    disabled>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>{{'employeePermission.totalAllowance' | translate}}</mat-label>
+                  <input matInput
+                    [value]="PermissionBalance != null && PermissionBalance['totalallowances'] != null ?  PermissionBalance['totalallowances'] :0"
+                    formControlName="totalAllowances" readonly>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div class="row">
+
+
+        <div class="col-12 col-md-6 uploadfile">
+
+          <div class="upload-btn-wrapper">
+            <button mat-raised-button color="primary">
+              <mat-icon>add_box</mat-icon>
+              <span> {{'employeeAlowances.addAttachments' | translate}}</span>
+            </button>
+
+            <input #inputFile type="file" accept="*" formControlName="fileName"
+              (change)="onSelectedFilesChanged(inputFile)">
+          </div>
+          <label *ngIf="inputFile.value">{{ inputFile.value }}</label>
+          <label *ngIf="filePath && !inputFile.value">{{ filePath }}</label>
+        </div>
+
+
+
+      </div>
+    </div>
+  </mat-dialog-content>
+
+
+
+
+
+
+
+
+  <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

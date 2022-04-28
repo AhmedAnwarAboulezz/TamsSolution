@@ -1,0 +1,145 @@
+<div>
+    <app-dialogheader [text]="'approveOvertimes.approveEmployeesForOverTime'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <div class="row">
+        <div class="col-12 col-md-12">
+          <div class="row" style="border: 1px solid #a9a9ad;padding: 11px;box-shadow: 1px 1px 7px 3px #a3a4ab;border-radius: 12px;text-align: center;">
+            <div class="col-md-3"><h5>{{ 'approveOvertimes.description' | translate }}: {{localize.currentLang =='Fl' ? model.descriptionFl : model.descriptionSl }}</h5></div>   
+            <div class="col-md-3"><h5>{{ 'approveOvertimes.requestedBy' | translate }}: {{localize.currentLang =='Fl' ? model.employeeNameFl : model.employeeNameSl }}</h5></div>   
+            <div class="col-md-3"><h5>{{ 'approveOvertimes.month'| translate }}: {{model.month}}</h5></div>   
+            <div class="col-md-3"><h5>{{ 'approveOvertimes.year' | translate }}: {{model.year}}</h5></div>   
+           </div>
+        </div>
+    </div>
+    <mat-card>
+      <hr style="margin: 0px">
+      <mat-dialog-content  class="mat-typography" style="max-height: 346px !important;">   
+          <div class="example-container" [formGroup]="formFilter" novalidate >
+            <div class=row>
+              <mat-form-field appearance="outline" class="col-6 col-md-6">
+                <mat-label>{{'approveOvertimes.minOvertime' | translate}}</mat-label>
+                <input matInput formControlName="minOvertime">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-6 col-md-6">
+                <mat-label>{{'approveOvertimes.overtimeType' | translate}}</mat-label>      
+                <mat-select  formControlName="overtimeType">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of overtimeTypes" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>        
+            </div>
+           
+          </div>
+        <app-advanced-search  [collapseByDefault]="false" [advanceSearch]="advanceSearch" [hasTeams]=false [hasAdminstration]=true [hasLocations]=true [hasJobs]=true [hasGenders]=true (fillSearch)="fillSearchResult()"></app-advanced-search>
+        <div class="example-container" [formGroup]="form">
+          <div class="row mt-12" [hidden]="!showLoader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card text-center" >
+                <h4>{{'employeeDuties.loaderMessage' | translate}}</h4>
+                <br>
+                <div style="height: 63px;">
+                  <app-loading></app-loading>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" [hidden]="showLoader">
+            <mat-card>       
+                <table class="col-md-12">
+                    <thead>
+                      <th style="background: white;">
+                        <mat-checkbox [checked]="checkedAllChecked" [indeterminate]="!checkedAllChecked" [disabled]="checkedAllDisable"  (change)="checkAll($event.checked)">
+                        </mat-checkbox>  
+                      </th>
+                        <th>{{'approveOvertimes.employeeName' | translate}}</th>
+                        <th>{{'approveOvertimes.employeeNumber' | translate}}</th>
+
+                        <th>{{'approveOvertimes.morningTime' | translate}}</th>
+                        <th>{{'approveOvertimes.nightTime' | translate}}</th>   
+                        <th>{{'approveOvertimes.holidayTime' | translate}}</th>
+                        <th>{{'approveOvertimes.weekEndTime' | translate}}</th>
+
+                        <th>{{'approveOvertimes.actualMorningTime' | translate}}</th>
+                        <th>{{'approveOvertimes.actualNightTime' | translate}}</th>     
+                        <th>{{'approveOvertimes.actualHolidayTime' | translate}}</th>
+                        <th>{{'approveOvertimes.actualWeekEndTime' | translate}}</th>
+                    </thead>     
+                    <tbody>
+                      <tr  formArrayName="stages" *ngFor="let item of templateDaysArray; let i = index;">
+                          <td [formGroupName]="i">
+                            <mat-checkbox [checked]="checkedList.includes(form.controls['stages'].value[i].employeeId)" (change)="onCheckboxChange(form.controls['stages'].value[i].employeeId,$event.checked)">
+                            </mat-checkbox>  
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field" matInput type="text" [readonly]="true"
+                              formControlName="employeeNameFl">   -->
+                              {{localize.currentLang =='Fl' ? form.controls['stages'].value[i].employeeNameFl : form.controls['stages'].value[i].employeeNameSl}}
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field" matInput type="text" [readonly]="true"
+                              formControlName="employeeNameFl">   -->
+                              {{form.controls['stages'].value[i].employeeNumber }}
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field"  matInput type="number"  [readonly]="true"
+                              formControlName="morningTime"> -->
+                              {{form.controls['stages'].value[i].morningTime }}
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field"  matInput type="number"  [readonly]="true"
+                              formControlName="nightTime"> -->
+                              {{form.controls['stages'].value[i].nightTime }}
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field"  matInput type="number"  [readonly]="true"
+                              formControlName="holidayTime"> -->
+                              {{form.controls['stages'].value[i].holidayTime }}
+                          </td>
+                          <td [formGroupName]="i">
+                            <!-- <input class="form-field"  matInput type="number"  [readonly]="true"
+                              formControlName="weekEndTime"> -->
+                              {{form.controls['stages'].value[i].weekEndTime }}
+                          </td>
+                          <!-- <td [formGroupName]="i">
+                            <input class="form-field" matInput type="number"  min="0" oninput="this.value = Math.abs(this.value)"
+                            (change)="Validateinput(i, 'actualMorningTime', 'nightTime')"
+                              formControlName="actualMorningTime">
+                          </td> -->
+                          <td [formGroupName]="i">
+                            <input class="form-field" matInput type="number"  min="0" oninput="this.value = Math.abs(this.value)"
+                              formControlName="actualMorningTime">
+                          </td>
+                          <td [formGroupName]="i">
+                             <input class="form-field" matInput type="number"  min="0" oninput="this.value = Math.abs(this.value)"
+                                formControlName="actualNightTime">
+                          </td>
+                          <td [formGroupName]="i">
+                            <input class="form-field" matInput type="number"  min="0" oninput="this.value = Math.abs(this.value)"
+                               formControlName="actualHolidayTime">
+                         </td>
+                         <td [formGroupName]="i">
+                          <input class="form-field" matInput type="number"  min="0" oninput="this.value = Math.abs(this.value)"
+                             formControlName="actualWeekEndTime">
+                         </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </mat-card>  
+
+          </div>            
+        </div>  
+      </mat-dialog-content>
+      <mat-dialog-actions  align="end">
+        <div class="col-md-12">
+            <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+            (click)="onAddSave(form.value)">{{'updateclose' | translate}}</button>  
+        </div>
+    </mat-dialog-actions>  
+    </mat-card>
+    <!-- <div>
+        <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+    </div> -->
+  
+</div>
+  

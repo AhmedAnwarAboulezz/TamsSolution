@@ -1,0 +1,297 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'lateRegulations.lateRegulations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content   class="mat-typography" [formGroup]="form" >
+
+    <div class="example-container">
+      <div class=row>
+        <div class="col-md-12">
+          <mat-card class="example-container">
+            <div class=row>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'lateRegulations.lateRegulationFL' | translate}} - {{ localize.flLang | translate}}</mat-label>
+                  <input matInput required title="{{'lookup.tooltip' | translate}}" formControlName="lateRegulationNameFL" [readonly]="isViewDetils">
+                  <mat-error *ngIf="form.controls.lateRegulationNameFL.errors && form.controls.lateRegulationNameFL.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'lateRegulations.lateRegulationSL' | translate}} - {{ localize.slLang | translate}}</mat-label>
+                  <input matInput required title="{{'lookup.tooltip' | translate}}" formControlName="lateRegulationNameSL" [readonly]="isViewDetils">
+                  <mat-error *ngIf="form.controls.lateRegulationNameSL.errors && form.controls.lateRegulationNameSL.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class=row>
+              <div class="col-md-12">
+                <div class=row>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'lateRegulations.startDate' | translate}}</mat-label>
+                      <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="startDatePicker" formControlName="startDate"
+                        [readonly]="isViewDetils" >
+                      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker [disabled]="isViewDetils" startView="multi-year"
+                        (yearSelected)="chosenYearHandler($event, 1)" 
+                        (monthSelected)="chosenMonthHandler($event, startDatePicker, 1)"
+                        panelClass="example-month-picker" [calendarHeaderComponent]="header">
+                      </mat-datepicker>
+                    </mat-form-field>
+                   
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'lateRegulations.endDate' | translate}}</mat-label>
+                      <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="endDatePicker" formControlName="endDate"
+                        [readonly]="isViewDetils" (keyup)="customeEndHandler($event)">
+                      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #endDatePicker [disabled]="isViewDetils" startView="multi-year" (yearSelected)="chosenYearHandler($event, 2)"
+                        (monthSelected)="chosenMonthHandler($event, endDatePicker, 2)" panelClass="example-month-picker">
+                      </mat-datepicker>
+                    </mat-form-field>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=row>
+              <div class="col-md-12">
+                <div class=row>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'lateRegulations.allowance' | translate}}</mat-label>
+                      <input  title="{{'lookup.tooltip' | translate}}" type="number" matInput formControlName="allowance" [readonly]="isViewDetils" min="1"
+                        oninput="this.value = Math.abs(this.value)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'lateRegulations.notes' | translate}}</mat-label>
+                      <input matInput formControlName="note" [readonly]="isViewDetils">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-12">
+          <mat-card class="example-container">
+            <div class=row>
+              <div class="col-md-4">
+                {{'lateRegulations.deductionGroupTypes' | translate}}
+              </div>
+              <div class="col-md-8">
+                <mat-radio-group formControlName="deductionGroupTypeId" [disabled]="isViewDetils"
+                  class="w-100 d-flex justify-content-between">
+                  <mat-radio-button appearance="outline" [disabled]="isViewDetils"
+                    *ngFor="let op of deductionGroupTypes; let i = index" [labelPosition]="'after'" [value]="op.id"
+                    [checked]="i == op.id" (click)="!isViewDetils && getSelectedDeductionGroupTypes(op.id)">
+                    {{ localize.currentLang =='Fl' ? op.nameFl : op.nameSl }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <br>
+            <div class=row *ngIf="deductionGroupTypesOldEmployees">
+              <br>
+              <div class="col-md-12">
+                <mat-card class="example-container">
+                  <div class=row *ngIf="deductionGroupTypesOldEmployees">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'lateRegulations.lengthOfServiceFrom' | translate}}</mat-label>
+                        <input type="number" [readonly]="isViewDetils" matInput formControlName="lengthOfServiceFrom"
+                          min="1" oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.lengthOfServiceTo' | translate}}</mat-label>
+                        <input type="number" [readonly]="isViewDetils" matInput formControlName="lengthOfServiceTo"
+                          min="1" oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <div class=row *ngIf="deductionGroupTypesContracts">
+              <br>
+              <div class="col-md-12">
+                <mat-card class="example-container">
+                  <div class=row *ngIf="deductionGroupTypesContracts">
+                    <div class="col-md-12">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'lateRegulations.contractTypes' | translate}}</mat-label>
+                        <mat-select formControlName="lateRegulationContractTypes" multiple [disabled]="isViewDetils">
+                          <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" [value]="0">
+                            {{'all' | translate}}
+
+                          </mat-option>
+                          <mat-option (click)="toggleUnSelectAll(allSelected.selected)" *ngFor="let contractType of contractTypes" [value]="contractType.id">
+                            {{ localize.currentLang =='Fl' ? contractType.nameFl : contractType.nameSl }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-12">
+          <mat-card class="example-container">
+            <div class=row>
+              <div class="col-md-4">
+
+                {{'lateRegulations.deductionCategories' | translate}}
+              </div>
+              <div class="col-md-8">
+                <mat-radio-group formControlName="deductionCategoreID" [disabled]="isViewDetils"
+                  class="w-100 d-flex justify-content-between">
+                  <mat-radio-button appearance="outline" [disabled]="isViewDetils"
+                    *ngFor="let op of deductionCategories; let i = index" [labelPosition]="'after'" [value]="op.id"
+                    [checked]="i == op.id" (click)="!isViewDetils && getSelectedDeductionCategory(op.id)">
+
+                    {{ localize.currentLang =='Fl' ? op.nameFl : op.nameSl }}
+
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <br>
+            <div class=row *ngIf="deductionCategoriesMultiplier">
+              <div class="col-md-12">
+                <mat-card class="example-container">
+                  <div class=row>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.lateBalance' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="lateBalance" [readonly]="isViewDetils" min="1"
+                       (keyup)="checklateBalance()" oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.deductionUnit' | translate}}</mat-label>
+                        <mat-select [disabled]="isViewDetils" placeholder="Deduction Unit"
+                          formControlName="deductionUnitID">
+                          <mat-option *ngFor="let ded of deductionUnits" [value]="ded.id">
+
+                            {{ localize.currentLang =='Fl' ? ded.nameFl  : ded.nameSl  }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <div class=row *ngIf="deductionCategoriesPeriod">
+              <div class="col-md-12">
+                <mat-card class="example-container">
+                  <div class=row>
+                    <div class="col-md-4">
+                      {{'lateRegulations.quarterOfDay' | translate}}
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.quarterDayFrom' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="quarterDayFrom"
+                          (input)="onQuarterDayFromChange($event.target.value)" min="0"
+                          oninput="this.value = Math.abs(this.value)" [readonly]="isViewDetils">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.quarterDayTo' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="quarterDayTo"
+                          (input)="onQuarterDayToChange($event.target.value)" min="0"
+                          oninput="this.value = Math.abs(this.value)" [readonly]="isViewDetils">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class=row>
+                    <div class="col-md-4">
+
+                      {{'lateRegulations.HalfDay' | translate}}
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.halfDayFrom' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="halfDayFrom" readonly min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.halfDayTo' | translate}} </mat-label>
+                        <input type="number" matInput formControlName="halfDayTo"
+                          (input)="onHalfDayToChange($event.target.value)" [readonly]="isViewDetils" min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class=row>
+                    <div class="col-md-4">
+
+                      {{'lateRegulations.ThreeQuarterDay' | translate}}
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.threeQuarterDayFrom' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="threeQuarterDayFrom" readonly min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.threeQuarterDayTo' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="threeQuarterDayTo"
+                          (input)="onThreeQuarterDayToChange($event.target.value)" [readonly]="isViewDetils" min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class=row>
+                    <div class="col-md-4">
+
+                      {{'lateRegulations.FullDay' | translate}}
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label> {{'lateRegulations.fullDayFrom' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="fullDayFrom" readonly min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'lateRegulations.fullDayTo' | translate}}</mat-label>
+                        <input type="number" matInput formControlName="fullDayTo"
+                          (input)="onFullDayToChange($event.target.value)" [readonly]="isViewDetils" min="0"
+                          oninput="this.value = Math.abs(this.value)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+    <app-save-and-close [form]="form" (close)="onAddSave($event)" *ngIf="!isViewDetils" ></app-save-and-close>
+</div>

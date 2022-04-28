@@ -1,0 +1,11 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'ApproveOverTimeDetails/GetAllPaged',
+        delete:'ApproveOverTimeDetails/Delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: false,
+          add: false
+        }" [tableData]="tableData" (add)="addEvent($event)" >
+      </app-data-table>
+  </div>

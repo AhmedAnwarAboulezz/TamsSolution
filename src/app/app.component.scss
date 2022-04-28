@@ -1,0 +1,41 @@
+.container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .mat-drawer{
+        padding-left: 20px;
+        min-width: 300px;
+    }
+    .example-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+}
+
+// :ng-deep .toast-title-message{
+//     color: violet;
+//     text-align: center !important;
+// }
+
+::ng-deep .toast-container{
+    margin-top: 60px;
+    //text-align: center !important;
+}
+
+// ::ng-deep .toast-container > div:first-of-type{
+//     width: 50% !important;
+// }
+
+::ng-deep .toast-container .ngx-toastr{
+    width: 50% !important;
+    border-radius: 15px !important;
+}
+
+::ng-deep .toast-title-message {
+    text-align: center !important;
+}
+  

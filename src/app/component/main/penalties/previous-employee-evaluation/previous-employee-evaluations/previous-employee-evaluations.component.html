@@ -1,0 +1,47 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'PreviousEmployeeEvaluation.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+
+
+            <div class="col-md-12" >
+                <app-select [url]="'Employees/GetEmployeeDropDown'"  formControlName="employeeId"
+                [name]="'field.fullName' | translate" (cancelEvent)="onEmployeeCancel()"
+                [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                [placeholder]="'employeeSelect' | translate"></app-select>
+              </div>
+
+              <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>{{'PreviousEmployeeEvaluation.totalGrade' | translate}}</mat-label>
+                <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="totalGradeId">
+                  <mat-option>---</mat-option>
+                  <mat-option  *ngFor="let grade of grades" [value]="grade.id">
+                  {{ localize.currentLang =='Fl' ? grade.nameFl : grade.nameSl }}</mat-option>
+                </mat-select>
+             </mat-form-field> 
+
+             <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>{{'PreviousEmployeeEvaluation.totalRating' | translate}}</mat-label>
+                <!-- step="any" -->
+                <input required title="{{'lookup.tooltip' | translate}}"
+                matInput type="number"  min="0"  oninput="this.value = Math.abs(this.value)"  
+                formControlName="totalRating">
+              </mat-form-field>  
+                  
+              <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>{{'previousLeavesBalances.year' | translate}}</mat-label>
+      
+                <mat-select required [disabled]="!isNew"  formControlName="year">
+                  <mat-option *ngFor="let item of years" [value]="item">
+                    {{ item }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+      
+         
+       
+        </div>
+      </div>
+    </mat-dialog-content>
+    <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+  </div>

@@ -1,0 +1,57 @@
+
+
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate" >
+ 
+  <app-dialogheader  [text]="'previousLeavesBalances.previousLeavesBalances'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card  class="example-container" >
+  <mat-dialog-content style="height: 250px;" class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        
+        <div class="col-md-12" >
+          <app-select  [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+          [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+          (selectChangeEvent)="onEmployeeChange()" (cancelEvent)="onEmployeeCancel()" [placeholder]="'employeeSelect' | translate"></app-select>
+        </div>            
+      </div>
+      <br>
+      <div class=row>
+
+        <mat-form-field appearance="outline" class="col-12 col-md-4">
+          <mat-label>{{'previousLeavesBalances.leaveNameFl' | translate}}</mat-label>
+          <mat-select required formControlName="leaveId"  (selectionChange)="onLeaveChange()" [disabled]="!isNew">
+            <mat-option *ngFor="let leave of leaves" [value]="leave.id">
+           {{ localize.currentLang =='Fl' ? leave.nameFl : leave.nameSl }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-4">
+          <mat-label>{{'previousLeavesBalances.previousBalance' | translate}}</mat-label>
+
+          <input required title="{{'lookup.tooltip' | translate}}" 
+          matInput type="number" step="any" min="0"  
+          formControlName="previousBalance">
+        </mat-form-field>  
+            
+        <mat-form-field appearance="outline" class="col-12 col-md-4">
+          <mat-label>{{'previousLeavesBalances.year' | translate}}</mat-label>
+
+          <mat-select required  formControlName="year" [disabled]="!isNew">
+            <mat-option *ngFor="let item of years" [value]="item">
+              {{ item }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="col-md-12" align="end">
+          <button class="btn btn-success"
+            (click)="autoCalculate()"><i class="fa fa-calculator"> </i> {{'lockYears.lockLeaves' | translate}}</button>
+        </div>   
+     
+      </div>
+    </div>
+  </mat-dialog-content>
+  </mat-card>
+
+<app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+
+</div>

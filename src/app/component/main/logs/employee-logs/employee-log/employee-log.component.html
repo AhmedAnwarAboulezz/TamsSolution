@@ -1,0 +1,52 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+ 
+  <app-dialogheader [text]="'employeeLogManual.employeeLogManual'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card  class="example-container">
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+
+
+      <div class="col-md-12">
+        <app-select [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+        [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+        [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+      </div>
+
+      <!-- <mat-form-field>
+        <mat-label>{{'employeeLogManual.logDate' | translate}}</mat-label>
+        <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="startDatePicker" formControlName="logDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker>
+      </mat-form-field> -->
+      <div>
+           <app-mat-datepicker-shared 
+             [parentForm]="form"
+             [lblName]= "'employeeLogManual.logDate' | translate"   
+             [required]="true" 
+             [title]="'lookup.tooltip' | translate"   
+             [matDatepicker]="'startDatePicker'"
+             [namecontrol]="'logDate'"
+           >
+           </app-mat-datepicker-shared> 
+        </div>
+
+
+      <mat-form-field appearance="outline" > 
+        <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="logTime" placeholder="{{'employeeLogManual.logTime' | translate}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>{{'employeeLogManual.logType' | translate}}</mat-label>
+
+        <mat-select required formControlName="logTypeId">
+          <mat-option *ngFor="let log of logTypes" [value]="log.id">
+            {{ localize.currentLang =='Fl' ? log.nameFl : log.nameSl }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </mat-dialog-content>
+  </mat-card>
+
+<app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+</div>

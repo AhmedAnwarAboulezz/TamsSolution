@@ -1,0 +1,8 @@
+<app-data-table [url]="{
+    getAll: 'SyncLogsExceptions/GetAllPaged',
+    delete:'SyncLogsExceptions/delete'
+  }"  [id]="'id'" [actions]="actions" [columns]="columns" [options]="{
+      globalSearch: true,
+      details: false     
+    }" [tableData]="tableData"  (add)="addEvent($event)">
+  </app-data-table>

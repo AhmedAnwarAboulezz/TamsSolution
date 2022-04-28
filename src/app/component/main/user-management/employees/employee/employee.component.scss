@@ -1,0 +1,47 @@
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%
+  }
+  
+  .btn {
+    width: 100%;
+    height: 35px;
+    border: 2px solid #3651eb;
+    color: #ffffff;
+    background-color: #006fc2;
+    padding: 5px 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  .mat-card {
+    border: 1px solid aqua;
+     margin:5px 0px 0px 0px !important;
+ }
+ .imgContainer {
+  position: relative;
+}
+.uploadbtn {
+  bottom: 51px;
+  transition: .5s ease;
+  opacity: 0;            
+}
+ .imgContainer:hover .image {
+  opacity: 0.3;
+  }
+
+.imgContainer:hover .uploadbtn {
+  opacity: 1;
+ }

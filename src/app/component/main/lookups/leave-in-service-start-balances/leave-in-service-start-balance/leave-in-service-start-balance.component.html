@@ -1,0 +1,39 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'LeaveInServiceStartBalance.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+         
+         
+        
+            <mat-form-field appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'employeeLeaves.leaveType' | translate}}</mat-label>
+          
+                <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="leaveRegulationId" (selectionChange)="onleaveRegulationChange($event.value)" >
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let res of leaveRegulations" [value]="res.id">
+                    {{ localize.currentLang =='Fl' ? res.nameFl : res.nameSl }}</mat-option>
+                </mat-select>
+          </mat-form-field>
+        
+            <div class="col-md-12">
+                <app-select  [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+                [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                 (cancelEvent)="onEmployeeCancel()" [placeholder]="'employeeSelect' | translate"></app-select>
+              </div>
+      
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'LeaveInServiceStartBalance.numberOfTimesInService' | translate}}</mat-label>
+            <input type="number" (keyup)="checknumberOfTimesPerServicelength()" min="1" oninput="this.value = Math.abs(this.value)" max="{{numberOfTimesPerService}}" matInput formControlName="numberOfTimesInService" required>
+          </mat-form-field>
+          <mat-label>{{'LeaveInServiceStartBalance.Notimesperservice' | translate}} : {{numberOfTimesPerService}}</mat-label>
+
+        </div>
+      </div>
+    </mat-dialog-content>
+  
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+  
+  </div>

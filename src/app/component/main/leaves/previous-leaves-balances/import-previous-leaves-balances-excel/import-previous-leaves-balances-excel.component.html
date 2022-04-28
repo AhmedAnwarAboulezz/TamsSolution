@@ -1,0 +1,42 @@
+<app-dialogheader [text]="'previousLeavesBalances.previousLeavesBalances'" [className]="'textAlign' | translate" [dir]="'dir' | translate" (onclick)="onNoClick('Close')"></app-dialogheader>
+<mat-dialog-content class="mat-typography">
+<mat-card class="example-container"  >
+  
+    <mat-dialog-content class="mat-typography" [className]="'textAlign' | translate" [dir]="'dir' | translate">
+        <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'previousLeavesBalances.leaveNameFl' | translate}}</mat-label>
+            <mat-select required  [(ngModel)]="leaveandyear.leaveId"  (selectionChange)="onDataChange()" >
+              <mat-option *ngFor="let leave of leaves" [value]="leave.id">
+             {{ localize.lang =='en' ? leave.nameFl : leave.nameSl }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'previousLeavesBalances.year' | translate}}</mat-label>
+  
+            <mat-select required   [(ngModel)]="leaveandyear.year" (selectionChange)="onDataChange()">
+              <mat-option *ngFor="let item of years" [value]="item">
+                {{ item }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="row mt-12" [hidden]="!showLoader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card text-center" >
+                <h4>{{'employeeDuties.loaderMessage' | translate}}</h4>
+                <br>
+                <div style="height: 63px;">
+                  <app-loading></app-loading>
+                </div>
+              </div>
+            </div>
+          </div>
+      <div relative [hidden]="showLoader">
+        <app-table-details [columnHeader]="displayedColumns" [componentName]="componentName" [disabledIds]="disabledIds" >
+        </app-table-details>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions allign="end">
+      <button mat-raised-button (click)="onCloseConfirmation()" color="primary" cdkFocusInitial 
+      [disabled]="leaveandyear.leaveId == '' || leaveandyear.year == ''   || (disabledIds.length-1) == dataResult.list.length  ">{{ 'save' | translate}}</button>
+    </mat-dialog-actions>
+  </mat-card>
+</mat-dialog-content>

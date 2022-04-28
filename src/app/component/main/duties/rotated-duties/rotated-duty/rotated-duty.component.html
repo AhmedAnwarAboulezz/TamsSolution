@@ -1,0 +1,105 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate" >
+    
+
+    <app-dialogheader [text]="'rotatedDuties.rotatedDuty'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-card  class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form" >
+        <div class="example-container">
+            <div class=row>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.code' | translate }}</mat-label>
+                <input matInput formControlName="code">
+
+                <mat-error *ngIf="form.controls.code.errors && form.controls.code.errors.hasOwnProperty('notEquivalent')">
+                  {{ 'Message.alreadyExistBefore' | translate }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.rotatedDescriptionFl' | translate }}- {{ localize.flLang | translate}}</mat-label>
+                <input required matInput formControlName="rotatedDescriptionFl" title="{{'lookup.tooltip' | translate}}">
+                <mat-error *ngIf="form.controls.rotatedDescriptionFl.errors && form.controls.rotatedDescriptionFl.errors.hasOwnProperty('notEquivalent')">
+                  {{ 'Message.alreadyExistBefore' | translate }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.rotatedDescriptionSl' | translate }}- {{ localize.slLang | translate}}</mat-label>
+                <input [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}" matInput formControlName="rotatedDescriptionSl">
+                <mat-error *ngIf="form.controls.rotatedDescriptionSl.errors && form.controls.rotatedDescriptionSl.errors.hasOwnProperty('notEquivalent')">
+                  {{ 'Message.alreadyExistBefore' | translate }}
+                </mat-error>
+              </mat-form-field>
+              <div class="col-12 col-md-3" appearance="outline" class="move" style="margin-right: 15px;">
+                <mat-checkbox matInput [checked]="false" formControlName="isIncludeOverTime" color="primary" 
+                  labelPosition="after">
+                  {{ 'rotatedDuties.includeOverTime' | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.startTime' | translate }}</mat-label>
+                <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="startTime">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{ 'rotatedDuties.endTime' | translate }}</mat-label>
+                  <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="endTime">
+                </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.allowanceIn' | translate }}</mat-label>
+                <input required title="{{'lookup.tooltip' | translate}}" type="number" matInput formControlName="allowanceIn" min="1" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{ 'rotatedDuties.allowanceOut' | translate }}</mat-label>
+                  <input required  title="{{'lookup.tooltip' | translate}}" type="number" matInput formControlName="allowanceOut" min="1" oninput="this.value = Math.abs(this.value)">
+                </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.signBefore' | translate }}</mat-label>
+                <input type="number" matInput formControlName="signBefore" min="1" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{ 'rotatedDuties.signAfter' | translate }}</mat-label>
+                <input type="number" matInput formControlName="signAfter" min="1" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field>
+              <div class="col-12 col-md-12" appearance="outline">
+                <mat-checkbox matInput  formControlName="isAllowBreak" color="primary"
+                  labelPosition="after" (change)="showOptions($event)">
+                  {{ 'rotatedDuties.allowBreak' | translate }}
+                </mat-checkbox>
+              </div>
+              
+            </div>
+            <div [hidden]="!form.value.isAllowBreak" class="row">
+                <mat-form-field appearance="outline" class="col-12 col-md-4">
+                  <mat-label>{{ 'rotatedDuties.from' | translate }}</mat-label>
+                  <input matInput type="time" formControlName="from" 
+                  [requiredIf]="form.value.isAllowBreak" title="{{'lookup.tooltip' | translate}}">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12 col-md-4">
+                  <mat-label>{{ 'rotatedDuties.to' | translate }}</mat-label>
+                  <input matInput type="time" formControlName="to" 
+                  [requiredIf]="form.value.isAllowBreak" title="{{'lookup.tooltip' | translate}}">
+                </mat-form-field>
+                <div class="col-12 col-md-4" appearance="outline" class="move">
+                    <mat-checkbox matInput  formControlName="isMustSign" color="primary"
+                      labelPosition="after">
+                      {{ 'rotatedDuties.mustSign' | translate }}
+                    </mat-checkbox>
+                  </div>
+              </div>
+             
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <mat-form-field appearance="outline" class="mat-form-filedCustom">
+                  <mat-label>{{ 'rotatedDuties.notes' | translate }}</mat-label>
+                  <textarea matInput formControlName="note"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div> 
+    </mat-dialog-content>
+    </mat-card>
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+  
+  </div>

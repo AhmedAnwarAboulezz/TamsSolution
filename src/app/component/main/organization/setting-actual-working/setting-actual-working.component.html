@@ -1,0 +1,38 @@
+<mat-card>
+    <mat-card-title>{{ 'organizations.actualworkingsetting' | translate}}</mat-card-title>
+    <mat-dialog-content class="mat-typography" [formGroup]="formsetting">
+      <mat-accordion>
+         <form [formGroup]="formsetting" (ngSubmit)="editWorkingSetting()">
+                <div class="example-container">
+                          
+                  <div class="row">                 
+                    <mat-card  class="col-md-12">                                 
+                        <mat-form-field appearance="outline"  class="col-6">         
+                         <mat-label>{{'leaveRegulations.leaveTypeName' | translate}}</mat-label>
+                         <mat-select formControlName="leaveIds" multiple       
+                           title="{{'lookup.tooltip' | translate}}">                       
+                           <mat-option *ngFor="let item of leaves" [value]="item.id">
+                             {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                         </mat-select>
+                       </mat-form-field>                         
+                  
+                                                   
+                        <mat-form-field appearance="outline"  class="col-6">         
+                         <mat-label>{{'employeeFulldayPermissions.fulldayPermissionName' | translate}}</mat-label>
+                         <mat-select formControlName="fullPermissionIds" multiple       
+                           title="{{'lookup.tooltip' | translate}}">                       
+                           <mat-option *ngFor="let item of fulldays" [value]="item.id">
+                             {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                         </mat-select>
+                       </mat-form-field>                         
+                    </mat-card>  
+                  </div>
+
+                  <div class="row">
+                      <button mat-raised-button color="primary" type="submit" [disabled]="!formsetting.valid">{{ 'save' | translate}}</button>
+                    </div>                            
+                </div>
+              </form>
+      </mat-accordion>
+    </mat-dialog-content>
+  </mat-card>

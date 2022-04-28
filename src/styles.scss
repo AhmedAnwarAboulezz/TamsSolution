@@ -1,0 +1,906 @@
+// /* You can add global styles to this file, and also import other style files */
+
+
+// // Icon material
+// @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+//@import "~material-design-icons/iconfont/material-icons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~material-design-icons/iconfont/material-icons.css';
+// material themes
+// @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+// @import "~@angular/material/prebuilt-themes/purple-green.css";
+
+@import "~@ng-select/ng-select/themes/material.theme.css";
+// @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/_utilities";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~angular-tree-component/dist/angular-tree-component.css";
+@import "color";
+@import "fonts";
+@import "mixin";
+
+
+* {
+  outline: none !important;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+[padding] {
+  padding: 16px;
+}
+[padding-l] {
+  padding: 16px;
+}
+[padding-r] {
+  padding: 16px;
+}
+[padding-t] {
+  padding: 16px;
+}
+[padding-b] {
+  padding: 16px;
+}
+.example-icon {
+  padding: 0 14px;
+}
+
+::-webkit-scrollbar {
+  width: 15px !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey !important; 
+  border-radius: 10px !important;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {  
+  background:#006fc2 !important; 
+  border-radius: 10px !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #132546 !important; 
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.userMenu {
+  min-width: 14em !important;
+  overflow: visible !important;
+  position: relative;
+  top: 8px;
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -6px;
+    right: 40px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fff;
+  }
+}
+.sidenav-hide > div {
+  overflow: hidden;
+}
+.body-ar {
+  text-align: right;
+  .mat-paginator-range-label {
+    display: none;
+  }
+}
+.mat-progress-spinner svg,
+.mat-progress-spinner {
+  width: 50px !important;
+  height: 50px !important;
+}
+.mat-progress-spinner circle {
+  stroke-width: 7% !important;
+}
+.mat-paginator-range-label {
+  position: relative;
+  &::after {
+    content: "";
+    width: 45%;
+    height: 100%;
+    display: block;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+[relative] {
+  position: relative;
+}
+
+.bg-login {
+  background: url("./assets/img/1.jpg") center center;
+  height: 100vh;
+  background-size: cover;
+  .login-footer {
+    color: #fff;
+  }
+  .loading {
+    background: #fff !important;
+  }
+}
+.alert-bg {
+  background: #fff;
+  color: #333;
+}
+
+.tree {
+  .toggle-children-wrapper {
+    display: flex;
+    align-items: baseline;
+    &::after {
+      content: url("https://www.jqwidgets.com/angular/images/folder.png");
+      margin-left: 10px;
+    }
+  }
+}
+.custom-input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 50%;
+}
+
+* {
+  --dir: rtl;
+}
+
+$variables: (
+  --dir: var(--dir)
+);
+
+@function var($variable) {
+  @return map-get($variables, $variable);
+}
+
+mat-password-strength .mat-progress-bar-fill::after {
+  background-color: #4caf50;
+}
+.mat-password-field.mat-form-field.mat-focused .mat-form-field-label {
+  color: #4caf50;
+}
+.mat-password-field.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #4caf50;
+}
+.save-and-close {
+  background: #f5f5f5;
+  .mat-button {
+    padding: 0;
+    margin: 0 !important;
+    width: auto;
+    min-width: auto;
+  }
+}
+table {
+  width: 100%;
+}
+.mat-elevation-z8 {
+  background: #fff;
+}
+.mat-form-field {
+  display: block;
+  width: inherit;
+}
+.container-fluid {
+  border-bottom: 1px solid #eee;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dropDownTable {
+  .mat-select-panel {
+    max-width: 100% !important;
+  }
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+/* my styles */
+
+/*General Styles*/
+* {
+  // border : 0 none;
+  margin: 0;
+  padding: 0;
+}
+
+/**Button Styles**/
+.btn {
+  border-radius: 3px;
+}
+
+.float-e-margins .btn {
+  margin-bottom: 5px;
+}
+
+.btn-w-m {
+  min-width: 120px;
+}
+
+.btn-primary.btn-outline {
+  color: #f9ab1b;
+}
+
+.btn-success.btn-outline {
+  color: #1c84c6;
+}
+
+.btn-info.btn-outline {
+  color: #23c6c8;
+}
+
+.btn-warning.btn-outline {
+  color: #f8ac59;
+}
+
+.btn-danger.btn-outline {
+  color: #ed5565;
+}
+
+.white-bg {
+  background: white;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #f9ab1b;
+  border-color: #f9ab1b;
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-color: #da9809;
+  border-color: #da9809;
+  color: #ffffff;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+.btn-primary.disabled,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled]:active,
+.btn-primary.active[disabled],
+fieldset[disabled] .btn-primary,
+fieldset[disabled] .btn-primary:hover,
+fieldset[disabled] .btn-primary:focus,
+fieldset[disabled] .btn-primary:active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #1dc5a3;
+  border-color: #1dc5a3;
+}
+
+.btn-success {
+  background-color: #1c84c6;
+  border-color: #1c84c6;
+  color: #ffffff;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-success {
+  background-color: #1a7bb9;
+  border-color: #1a7bb9;
+  color: #ffffff;
+}
+
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-success {
+  background-image: none;
+}
+
+.btn-success.disabled,
+.btn-success.disabled:hover,
+.btn-success.disabled:focus,
+.btn-success.disabled:active,
+.btn-success.disabled.active,
+.btn-success[disabled],
+.btn-success[disabled]:hover,
+.btn-success[disabled]:focus,
+.btn-success[disabled]:active,
+.btn-success.active[disabled],
+fieldset[disabled] .btn-success,
+fieldset[disabled] .btn-success:hover,
+fieldset[disabled] .btn-success:focus,
+fieldset[disabled] .btn-success:active,
+fieldset[disabled] .btn-success.active {
+  background-color: #1f90d8;
+  border-color: #1f90d8;
+}
+
+.btn-info {
+  background-color: #23c6c8;
+  border-color: #23c6c8;
+  color: #ffffff;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open .dropdown-toggle.btn-info {
+  background-color: #21b9bb;
+  border-color: #21b9bb;
+  color: #ffffff;
+}
+
+.btn-info:active,
+.btn-info.active,
+.open .dropdown-toggle.btn-info {
+  background-image: none;
+}
+
+.btn-info.disabled,
+.btn-info.disabled:hover,
+.btn-info.disabled:focus,
+.btn-info.disabled:active,
+.btn-info.disabled.active,
+.btn-info[disabled],
+.btn-info[disabled]:hover,
+.btn-info[disabled]:focus,
+.btn-info[disabled]:active,
+.btn-info.active[disabled],
+fieldset[disabled] .btn-info,
+fieldset[disabled] .btn-info:hover,
+fieldset[disabled] .btn-info:focus,
+fieldset[disabled] .btn-info:active,
+fieldset[disabled] .btn-info.active {
+  background-color: #26d7d9;
+  border-color: #26d7d9;
+}
+
+.btn-default {
+  background-color: #c2c2c2;
+  border-color: #c2c2c2;
+  color: #ffffff;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  background-color: #bababa;
+  border-color: #bababa;
+  color: #ffffff;
+}
+
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  background-image: none;
+}
+
+.btn-default.disabled,
+.btn-default.disabled:hover,
+.btn-default.disabled:focus,
+.btn-default.disabled:active,
+.btn-default.disabled.active,
+.btn-default[disabled],
+.btn-default[disabled]:hover,
+.btn-default[disabled]:focus,
+.btn-default[disabled]:active,
+.btn-default.active[disabled],
+fieldset[disabled] .btn-default,
+fieldset[disabled] .btn-default:hover,
+fieldset[disabled] .btn-default:focus,
+fieldset[disabled] .btn-default:active,
+fieldset[disabled] .btn-default.active,
+.btnCustom[disabled],
+.btnCustom[disabled]:hover {
+  background-color: #cccccc !important;
+  border-color: #cccccc;
+}
+
+.btn-warning {
+  background-color: #f8ac59;
+  border-color: #f8ac59;
+  color: #ffffff;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.open .dropdown-toggle.btn-warning {
+  background-color: #f7a54a;
+  border-color: #f7a54a;
+  color: #ffffff;
+}
+
+.btn-warning:active,
+.btn-warning.active,
+.open .dropdown-toggle.btn-warning {
+  background-image: none;
+}
+
+.btn-warning.disabled,
+.btn-warning.disabled:hover,
+.btn-warning.disabled:focus,
+.btn-warning.disabled:active,
+.btn-warning.disabled.active,
+.btn-warning[disabled],
+.btn-warning[disabled]:hover,
+.btn-warning[disabled]:focus,
+.btn-warning[disabled]:active,
+.btn-warning.active[disabled],
+fieldset[disabled] .btn-warning,
+fieldset[disabled] .btn-warning:hover,
+fieldset[disabled] .btn-warning:focus,
+fieldset[disabled] .btn-warning:active,
+fieldset[disabled] .btn-warning.active {
+  background-color: #f9b66d;
+  border-color: #f9b66d;
+}
+
+.btn-danger {
+  background-color: #ed5565;
+  border-color: #ed5565;
+  color: #ffffff;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+  background-color: #ec4758;
+  border-color: #ec4758;
+  color: #ffffff;
+}
+
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+  background-image: none;
+}
+
+.btn-danger.disabled,
+.btn-danger.disabled:hover,
+.btn-danger.disabled:focus,
+.btn-danger.disabled:active,
+.btn-danger.disabled.active,
+.btn-danger[disabled],
+.btn-danger[disabled]:hover,
+.btn-danger[disabled]:focus,
+.btn-danger[disabled]:active,
+.btn-danger.active[disabled],
+fieldset[disabled] .btn-danger,
+fieldset[disabled] .btn-danger:hover,
+fieldset[disabled] .btn-danger:focus,
+fieldset[disabled] .btn-danger:active,
+fieldset[disabled] .btn-danger.active {
+  background-color: #ef6776;
+  border-color: #ef6776;
+}
+
+.btn-link {
+  color: inherit;
+}
+
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active,
+.btn-link.active,
+.open .dropdown-toggle.btn-link {
+  color: #1c84c6;
+}
+
+.btn-link:active,
+.btn-link.active,
+.open .dropdown-toggle.btn-link {
+  background-image: none;
+}
+
+.btn-link.disabled,
+.btn-link.disabled:hover,
+.btn-link.disabled:focus,
+.btn-link.disabled:active,
+.btn-link.disabled.active,
+.btn-link[disabled],
+.btn-link[disabled]:hover,
+.btn-link[disabled]:focus,
+.btn-link[disabled]:active,
+.btn-link.active[disabled],
+fieldset[disabled] .btn-link,
+fieldset[disabled] .btn-link:hover,
+fieldset[disabled] .btn-link:focus,
+fieldset[disabled] .btn-link:active,
+fieldset[disabled] .btn-link.active {
+  color: #cacaca;
+}
+
+.btn-white {
+  color: inherit;
+  background: white;
+  border: 1px solid #e7eaec;
+}
+
+.btn-white:hover,
+.btn-white:focus,
+.btn-white:active,
+.btn-white.active,
+.open .dropdown-toggle.btn-white {
+  color: inherit;
+  border: 1px solid #d2d2d2;
+}
+
+.btn-white:active,
+.btn-white.active {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) inset;
+}
+
+.btn-white:active,
+.btn-white.active,
+.open .dropdown-toggle.btn-white {
+  background-image: none;
+}
+
+.btn-white.disabled,
+.btn-white.disabled:hover,
+.btn-white.disabled:focus,
+.btn-white.disabled:active,
+.btn-white.disabled.active,
+.btn-white[disabled],
+.btn-white[disabled]:hover,
+.btn-white[disabled]:focus,
+.btn-white[disabled]:active,
+.btn-white.active[disabled],
+fieldset[disabled] .btn-white,
+fieldset[disabled] .btn-white:hover,
+fieldset[disabled] .btn-white:focus,
+fieldset[disabled] .btn-white:active,
+fieldset[disabled] .btn-white.active {
+  color: #cacaca;
+}
+
+.form-control,
+.form-control:focus,
+.has-error .form-control:focus,
+.has-success .form-control:focus,
+.has-warning .form-control:focus,
+.navbar-collapse,
+.navbar-form,
+.navbar-form-custom .form-control:focus,
+.navbar-form-custom .form-control:hover,
+.open .btn.dropdown-toggle,
+.panel,
+.popover,
+.progress,
+.progress-bar {
+  box-shadow: none;
+}
+
+.btn-outline {
+  color: inherit;
+  background-color: transparent;
+  transition: all 0.5s;
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-large-dim {
+  width: 90px;
+  height: 90px;
+  font-size: 42px;
+}
+
+button.dim {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 6px;
+  margin-left: 10px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-bottom: 20px !important;
+}
+
+button.dim:active {
+  top: 3px;
+}
+
+.btnCustom {
+  height: 35px;
+  line-height: 35px;
+  padding: 0 20px;
+  color: #fff !important;
+  @include customTransition(0.3s);
+  min-width: 90px;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.btnOrange {
+  background: $gamboge !important;
+
+  &:hover {
+    background: $lochinvar !important;
+  }
+}
+
+.btnLochinvar {
+  background: $lochinvar !important;
+
+  &:hover {
+    background: $gamboge !important;
+  }
+}
+
+.btnDanger {
+  background: $roman !important;
+
+  &:hover {
+    background: $gamboge !important;
+  }
+}
+
+.btnSeaGreen {
+  background: $silver-tree !important;
+
+  &:hover {
+    background: $gamboge !important;
+  }
+}
+
+.btnShow {
+  color: $gamboge !important;
+  border: 1px solid $lochinvar;
+
+  &:hover {
+    background: $lochinvar;
+    color: white !important;
+  }
+}
+
+.btnBorderOrange {
+  border: 1px solid $gamboge;
+  color: #000 !important;
+}
+
+.btnBorderRed {
+  border: 1px solid $milano-red;
+  color: #000 !important;
+}
+
+.btnBorderLochinvar {
+  border: 1px solid $lochinvar;
+  color: #000 !important;
+}
+
+.btnBorderChathamsBlue {
+  border: 1px solid $chathams-blue;
+  color: #000 !important;
+}
+
+.btnBorderToryBlue {
+  border: 1px solid $tory-blue;
+  color: #000 !important;
+}
+
+.btnBorderSeaGreen {
+  border: 1px solid $sea-green;
+  color: #000 !important;
+}
+
+.btnAll {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  @include customTransition(0.3s);
+  height: 35px;
+  padding: 0 10px;
+  border-right: 0;
+}
+
+.fullWidth {
+  width: 100% !important;
+  padding-bottom: 5px;
+}
+.floatright {
+  float: right;
+}
+.floatleft {
+  float: left;
+}
+.textAlignRight {
+  text-align: right;
+}
+.cdk-overlay-pane.my-dialog {
+  position: relative !important;
+}
+
+
+@media only screen and (max-width: 760px)  {
+  .cdk-overlay-pane.my-dialog {
+      //width: 100%!important;
+      max-width: -webkit-fill-available !important;
+  }
+}
+
+
+.close.mat-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  line-height: 14px;
+  min-width: auto;
+}
+.dialogscroll {
+  overflow: scroll;
+  // height: 100%;
+}
+.pointer-cursor {
+  cursor: pointer;
+}
+.btn-dialog-close {
+  min-width: 0px !important;
+  padding: 1px !important;
+}
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+.dialog-header-custom {
+  height: 2em !important;
+  background: #006fc2;
+  padding: 3px;
+  color: white;;
+}
+.mat-dialog-container {
+  display: block !important;
+  padding: 0px 14px 17px 14px !important;
+  border: 1px solid #006fc2 !important;
+  border-radius: 13px !important;
+  outline: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  min-height: inherit !important;
+  max-height: inherit !important;
+  // box-shadow: 0px 0px 5px 7px #c4cdd47a !important;
+}
+.mat-dialog-content {
+  display: block !important;
+  margin: 0 -14px !important;
+  padding: 15px 21px !important;
+  max-height: 65vh !important;
+  overflow: auto !important;
+}
+.mat-form-field-infix {
+  border-top: 0em !important;
+}
+
+
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: #006fc2 !important;
+}
+.mat-toolbar.mat-primary {
+  background: #132546 !important;
+}
+
+
+
+
+
+
+
+.mat-expansion-panel {
+  background: #132546 !important;
+  color: white !important;
+}
+
+.mat-list-base {
+  background: #132546 !important;
+}
+.mat-sidenav{
+background: #132546 !important;
+}
+
+.mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+  color: white !important;
+}
+
+// .mat-icon {
+//   color: white !important;
+// }
+
+.mat-expansion-indicator::after {
+  color: white !important;
+}
+
+.mat-expansion-panel-content {
+  background: #005a9d  !important;
+}
+
+.mat-nav-list .mat-list-item {
+  color: aliceblue !important;
+}
+
+
+.toolbar-menu {
+  border: none !important;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+  }
+/* end my styles */

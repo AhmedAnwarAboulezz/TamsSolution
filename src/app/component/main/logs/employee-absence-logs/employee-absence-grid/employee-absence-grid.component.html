@@ -1,0 +1,10 @@
+<app-data-table [url]="{
+    getAll: 'Reports/GetEmployeeAbsence',
+    delete:'EmployeeAttedanceLogs/delete'
+  }"  [id]="'id'" [actions]="actions" [columns]="columns" [options]="{
+      globalSearch: true,
+      add: false,
+      details: false     
+    }" [tableData]="tableData" [searchValues]="searchValues" [isSearchable]=false 
+    (add)="addEvent($event)" (viewDetail)="viewDetail($event)">
+  </app-data-table>

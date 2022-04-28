@@ -1,0 +1,26 @@
+<div class="text-center">
+  <mat-card  class="example-container">
+     <mat-dialog-content class="mat-typography">
+       <div class="example-container">
+         <div class=row>
+           <mat-radio-group class="w-100 d-flexjustify-content-between padding">
+             <mat-radio-button  *ngFor="let op of emergencyAllowanceDescriptionTypes; let i = index" [labelPosition]="'after'"
+               (change)="showDetails = !showDetails"  [value]="op.id"  [checked]="i == 0 ? true : false " >
+                {{ localize.currentLang =='Fl' ? op.nameFl : op.nameSl }}
+             </mat-radio-button>
+           </mat-radio-group>
+         </div>
+       </div>
+     </mat-dialog-content>
+   </mat-card>
+</div>
+
+<div *ngIf="!showDetails">
+  <app-employee-duty-witout-period></app-employee-duty-witout-period>
+</div>
+
+<div *ngIf="showDetails">
+ <app-employee-duty-with-period></app-employee-duty-with-period>
+</div>
+
+ 

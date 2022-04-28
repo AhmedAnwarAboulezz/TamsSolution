@@ -1,0 +1,129 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'absencesRegulations.absencesRegulations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+  
+        <div class="example-container">
+            <div class=row>
+              <div class="col-md-12">
+                   
+                    <div class=row>
+                        <div class="col-md-12">
+                          <div class=row>
+                            <div class="col-md-6">
+                              
+                              <!-- <mat-form-field appearance="outline">
+                                <mat-label>{{'absencesRegulations.startDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate"
+                                  [readonly]="isViewDetils || isDefault ">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker [disabled]="isViewDetils || isDefault" [calendarHeaderComponent]="header"></mat-datepicker>
+                              </mat-form-field> -->
+                              <app-mat-datepicker-shared 
+                              [parentForm]="form"
+                              [lblName]= "'absencesRegulations.startDate' | translate"   
+                              [required]="true" 
+                              [title]="'lookup.tooltip' | translate"   
+                              [matDatepicker]="'startDatePicker'"
+                              [isViewDetils]="isViewDetils" 
+                              [isDefault]="isDefault"  
+                              [namecontrol]="'startDate'" >
+                            </app-mat-datepicker-shared> 
+
+
+                            </div>
+                            <div class="col-md-6">
+
+                              <!-- <mat-form-field appearance="outline">
+                                <mat-label>{{'absencesRegulations.endDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" [readonly]="isViewDetils || isDefault ">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker [disabled]="isViewDetils || isDefault " [calendarHeaderComponent]="header"></mat-datepicker>
+                              </mat-form-field> -->
+                              <app-mat-datepicker-shared 
+                              [parentForm]="form"
+                              [lblName]= "'absencesRegulations.endDate' | translate"   
+                              [required]="true" 
+                              [title]="'lookup.tooltip' | translate"   
+                              [matDatepicker]="'endDatePicker'"
+                              [isViewDetils]="isViewDetils" 
+                              [isDefault]="isDefault"  
+                              [namecontrol]="'endDate'" >
+                            </app-mat-datepicker-shared> 
+
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-8">
+                        <mat-slide-toggle formControlName="calcOneSigninDuty" color="primary"
+                         labelPosition="before">
+                       
+                          {{'absencesRegulations.calcOneSigninDutylbl' | translate}}
+                          
+                        </mat-slide-toggle>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                      <div class="col-4">
+                        <mat-label>{{'absencesRegulations.calcContAbs' | translate}}</mat-label>              
+
+                      </div>
+                        <div  class="col-2 col-md-2 format">
+                        <mat-checkbox matInput [checked]="false" formControlName="calcContAbsWeekEnd" color="primary"
+                          labelPosition="after">
+                          <mat-label>{{'absencesRegulations.weekEnd' | translate}}</mat-label>
+                        </mat-checkbox>
+                      </div>
+                      <div  class="col-2 col-md-2 format">
+                        <mat-checkbox matInput [checked]="false" formControlName="calcContAbsRestday" color="primary"
+                        labelPosition="after">
+                        <mat-label>{{'absencesRegulations.restDay' | translate}}</mat-label>
+                      </mat-checkbox> 
+                      </div>
+                      <div  class="col-2 col-md-2 format">
+                      <mat-checkbox matInput [checked]="false" formControlName="calcContAbsHoliday" color="primary"
+                      labelPosition="after">
+                      <mat-label>{{'absencesRegulations.holiday' | translate}}</mat-label>
+                    </mat-checkbox>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <mat-slide-toggle formControlName="calcAbsLateinDuty" color="primary"
+                         labelPosition="before" (change)="onCheckChange($event)">
+                       
+                          {{'absencesRegulations.calcAbsLateinDutylbl' | translate}}
+                          
+                        </mat-slide-toggle>
+                      </div>
+                      <div class="col-4" *ngIf="this.form.get('calcAbsLateinDuty').value ">
+                        <mat-form-field appearance="outline" >
+                          <mat-label>{{'absencesRegulations.maxMinutesLatelbl' | translate}} </mat-label>
+                          <input  matInput  formControlName="maxMinutesLate" type="number" min="0">
+  
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class=row>
+                      <mat-form-field appearance="outline" class="col-12 col-md-12">
+                        <mat-label>{{'absencesRegulations.note' | translate}}</mat-label>
+                        <input matInput formControlName="note">
+                      </mat-form-field>
+                    </div>
+              </div>
+            </div>
+        </div>
+           
+    </mat-dialog-content>
+    <div>
+        <app-save-and-close [form]="form" (close)="SaveData($event)"></app-save-and-close>
+    </div> 
+  </div>

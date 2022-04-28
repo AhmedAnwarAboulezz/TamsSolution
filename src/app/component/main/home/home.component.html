@@ -1,0 +1,210 @@
+<div class="card" style="margin-top: 0px;" *ngIf="!showLoader">
+  <div class="card-with-btn row">
+    <h4 class="col-md-10">{{ 'dashboard.attendanceData' | translate}}</h4>
+    <div class="col-md-2" align="end">
+      <button mat-raised-button color="primary" (click)="getCards()"><i class="fa fa-refresh"></i>
+        {{ 'dashboard.refresh' | translate}}</button>
+    </div>
+  </div>
+  <div class="row" cdkDropList cdkDropListOrientation="horizontal" style="margin-bottom: 8px;"
+    (cdkDropListDropped)="drop($event)">
+
+    <div class="col-lg-3 col-md-6 col-sm-12 blocks" *ngFor="let card of cards" cdkDrag>
+
+      <div class="card" id="cardContainer">
+        <div class="card-title" [ngStyle]="{'color': card.color}"> {{localize.lang =='en' ? card.textFl : card.textSl}}
+        </div>
+        <div class="card-icon" [style.background]="getGradientColorForIcon(card.id)"
+          [style.left]="localize.lang =='ar' ? '0px' : '12px'" [style.right]="localize.lang =='ar' ? '12px' : '0px'">
+          <i class="material-icons"> {{ card.icon }} </i>
+        </div>
+        <div class="card-data" [style.padding]="localize.lang =='ar' ? '16px 0 0 16px' : '16px 16px 0 0'">
+          {{ card.itemvalue}} {{localize.lang =='en' ? card.itemUnitFl : card.itemUnitSl}} </div>
+        <p class="card-secong-text" *ngIf="card.hasSecondaryText">
+          {{localize.lang =='en' ? card.secondTextFl : card.secondTextSl}}</p>
+        <hr />
+        <div class="card-hint">
+          <i class="material-icons">add</i>
+          <a target="_blank" routerLink="{{card.link}}">{{ 'dashboard.more' | translate}}</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="row mt-12" *ngIf="showLoader">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+      <h4>{{ 'dashboard.waitingAttendanceData' | translate}}</h4>
+      <br>
+      <div style="height: 63px;">
+        <app-loading></app-loading>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- First Row-->
+
+<div class="row mt-4">
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card" [hidden]="true">
+      <app-pie [labels]="hiddenLables" [singleDataSet]="hiddenValues" [colors]="hiddenColors"></app-pie>
+    </div>
+    <div class="card">
+      <h4>{{ 'dashboard.leavesForToday' | translate}}</h4>
+      <div *ngIf="vacationPieChart">
+        <app-pie [labels]="vacationLabels" [singleDataSet]="vacations" [colors]="vacationColors" (clickEvent)=PieClickEvent(0,$event)></app-pie>
+        <hr />
+        <div class="card-hint">
+          <i class="material-icons">add</i>
+          <a target="_blank" routerLink="/main/leaves/employee-leaves-dashboard">{{ 'dashboard.more' | translate}}</a>
+        </div>
+      </div>
+      <div *ngIf="!vacationPieChart">
+        <p class="text-center">{{ 'dashboard.noData' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card">
+      <h4>{{ 'dashboard.fullDayPermissionForToday' | translate}}</h4>
+      <div *ngIf="permissionPieChart">
+        <app-pie *ngIf="localize.lang == 'en'" [labels]="permissionlabelsFl" [singleDataSet]="permissions"
+          [colors]="permissionColors" (clickEvent)=PieClickEvent(1,$event)></app-pie>
+        <app-pie *ngIf="localize.lang == 'ar'" [labels]="permissionlabelsSl" [singleDataSet]="permissions"
+          [colors]="permissionColors" (clickEvent)=PieClickEvent(1,$event)></app-pie>
+        <hr />
+        <div class="card-hint">
+          <i class="material-icons">add</i>
+          <a target="_blank" routerLink="/main/permissions/employee-fullday-dashboard">{{ 'dashboard.more' | translate}}</a>
+        </div>
+      </div>
+      <div *ngIf="!permissionPieChart">
+        <p class="text-center">{{ 'dashboard.noData' | translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Row-->
+
+<div class="row mt-4">
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card">
+      <h4>{{ 'dashboard.allowancesForToday' | translate}}</h4>
+      <div *ngIf="allowancePieChart">
+        <app-pie [labels]="allowanceLables" [singleDataSet]="allowances" [colors]="allowanceColors" (clickEvent)=PieClickEvent(2,$event)></app-pie>
+        <hr />
+        <div class="card-hint">
+          <i class="material-icons">add</i>
+          <a target="_blank" routerLink="/main/permissions/employee-allowances-dashboard">{{ 'dashboard.more' | translate}}</a>
+        </div>
+      </div>
+      <div *ngIf="!allowancePieChart">
+        <p class="text-center">{{ 'dashboard.noData' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card">
+      <h4>{{ 'dashboard.employeeStatusForToday' | translate}}</h4>
+
+
+      <app-bar *ngIf="!haveEmployeeData && localize.lang == 'ar'" [data]="employeeStatusDataSl"
+        [colors]="employeeColors" [labels]="employeeLabelsSl" (clickEvent)=clickEvent($event)></app-bar>
+      <app-bar *ngIf="!haveEmployeeData && localize.lang != 'ar'" [data]="employeeStatusDataFl"
+        [colors]="employeeColors" [labels]="employeeLabelsFl" (clickEvent)=clickEvent($event)></app-bar>
+      <app-bar *ngIf="haveEmployeeData && localize.lang == 'ar'" [data]="employeeStatusDataSl" [colors]="employeeColors"
+        [labels]="employeeLabelsSl" (clickEvent)=clickEvent($event)></app-bar>
+      <app-bar *ngIf="haveEmployeeData && localize.lang != 'ar'" [data]="employeeStatusDataFl" [colors]="employeeColors"
+        [labels]="employeeLabelsFl" (clickEvent)=clickEvent($event)></app-bar>
+        <div class="row" style="margin: 5px;">
+          <p class="col-md-3" style="margin-top: 9px; color: #007ad9;
+          font-weight: 500;">{{ 'dashboard.showmore' | translate}}</p>
+          <select class="col-md-9 form-control" style="color: #007ad9;
+          text-decoration: underline;" #mySelect
+            (change)='onOptionsSelected(mySelect.value)'>
+            <option></option>
+
+            <option value="main/usermanagement/uncomplete-employee-dashboard">
+              {{ 'dashboard.UnCompleteDataEmployees' | translate}} </option>
+            <option value="main/usermanagement/emp-temp-admin-expire-dashboard">
+              {{ 'dashboard.EmployeetemporaryAdminstrationExpire' | translate}} </option>
+
+            <option value="main/lookups/adminstrative-witoutmanger-dashboard">
+              {{ 'dashboard.DepartmentWithNoManager' | translate}} </option>
+
+            <option value="main/usermanagement/employee-expire-date-dashboard">
+              {{ 'dashboard.ExpiringPeriodEmployee' | translate}} </option>
+
+            <option value="main/permissions/employee-fullday-expire-dashboard">
+              {{ 'dashboard.EmployeeFullDayExpire' | translate}} </option>
+
+          </select>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Third Row-->
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="row text-center">
+      <div class="col-lg-6 col-md-12 ">
+        <div class="card">
+          <h5>{{ 'dashboard.employeeShifts' | translate}}</h5>
+          <div *ngIf="shiftChart">
+            <app-doughnut *ngIf="localize.lang == 'en'"  [labels]="shiftsFl" [singleDataSet]="shifts" [colors]="shiftColors">
+            </app-doughnut>
+            <app-doughnut *ngIf="localize.lang == 'ar'"  [labels]="shiftsSl" [singleDataSet]="shifts" [colors]="shiftColors">
+            </app-doughnut>
+            <hr />
+            <div class="card-hint">
+              <i class="material-icons">add</i>
+              <a target="_blank" routerLink="/main/duties/employee-with-out-duty-dashboard">{{ 'dashboard.more' | translate}}</a>
+            </div>
+          </div>
+         
+          <div *ngIf="!shiftChart">
+            <p class="text-center">{{ 'dashboard.noData' | translate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 ">
+        <div class="card">
+          <h5>{{ 'dashboard.dutiesforToday' | translate}}</h5>
+          <div *ngIf="dutyChart">
+            <app-doughnut *ngIf="localize.lang == 'en'" [labels]="dutieslabelsFl" [singleDataSet]="duties" [colors]="dutyColors"></app-doughnut>
+            <app-doughnut *ngIf="localize.lang == 'ar'" [labels]="dutieslabelsSl" [singleDataSet]="duties" [colors]="dutyColors"></app-doughnut>
+
+            <hr />
+            <div class="card-hint">
+              <i class="material-icons">add</i>
+              <a target="_blank" routerLink="/main/duties/employee-duty-dashboard">{{ 'dashboard.more' | translate}}</a>
+            </div>
+          </div>
+          <div *ngIf="!dutyChart">
+            <p class="text-center">{{ 'dashboard.noData' | translate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-12 col-sm-12">
+
+    <div class="card calender-card" *ngIf="holidayCalender">
+      <h5>{{ 'dashboard.publicHolidaysSchedule' | translate}}</h5>
+      <p-fullCalendar *ngIf="localize.lang == 'ar'" [events]="events" [options]="optionsar"></p-fullCalendar>
+      <p-fullCalendar  *ngIf="localize.lang != 'ar'" [events]="eventsEN" [options]="options"></p-fullCalendar>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,142 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'organizationOvertimeRegulations.organizationOvertimeRegulations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+  
+        <div class="example-container">
+            <div class=row>
+              <div class="col-md-12">
+                   
+                    <div class=row>
+                        <div class="col-md-12">
+                          <div class=row>
+                          <div class="col-md-6">
+
+                            <app-mat-datepicker-shared 
+                            [parentForm]="form"
+                            [lblName]= "'organizationOvertimeRegulations.startDate' | translate"   
+                            [required]="true" 
+                            [title]="'lookup.tooltip' | translate"   
+                            [matDatepicker]="'startDatePicker'"
+                            [isViewDetils]="isViewDetils" 
+                            [isDefault]="isDefault"  
+                            [namecontrol]="'startDate'"
+                          >
+                          </app-mat-datepicker-shared> 
+
+                          </div>
+
+
+                              <!-- <mat-form-field class="col-md-6" appearance="outline">
+                                <mat-label>{{'organizationOvertimeRegulations.startDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate"
+                                  [readonly]="isViewDetils || isDefault" >
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker
+                                 [disabled]="isViewDetils ||isDefault " [calendarHeaderComponent]="header" ></mat-datepicker>
+                              </mat-form-field> -->
+                              <div class="col-md-6">
+
+                              <app-mat-datepicker-shared 
+                            [parentForm]="form"
+                            [lblName]= "'organizationOvertimeRegulations.endDate' | translate"   
+                            [required]="true" 
+                            [title]="'lookup.tooltip' | translate"   
+                            [matDatepicker]="'endDatePicker'"
+                            [isViewDetils]="isViewDetils" 
+                            [isDefault]="isDefault"  
+                            [namecontrol]="'endDate'"
+                          >
+                          </app-mat-datepicker-shared> 
+                              <!-- <mat-form-field class="col-md-6" appearance="outline">
+                                <mat-label>{{'organizationOvertimeRegulations.endDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate"
+                                 [readonly]="isViewDetils || isDefault">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker [disabled]="isViewDetils || isDefault" [calendarHeaderComponent]="header"></mat-datepicker>
+                              </mat-form-field> -->
+                            </div>
+                          </div>
+
+            
+                        </div>
+                    </div>
+                                   
+                    <div class="row">
+                    
+                    
+                        <mat-form-field class="col-3" appearance="outline" >
+                          <mat-label>{{'organizationOvertimeRegulations.overtimeMinimum' | translate}}</mat-label>
+                          <input matInput formControlName="overtimeMinimum" type="number"  min="0" >
+                        </mat-form-field>
+                     
+            
+                 
+                
+                         <mat-form-field class="col-4" appearance="outline" >
+                          <mat-label>{{'organizationOvertimeRegulations.overtimeMaxmumInWorkDay' | translate}}</mat-label>
+                          <input matInput formControlName="overtimeMaxmumInWorkDay"  type="number" min="0">
+                          </mat-form-field>
+                       
+                        
+                          <mat-form-field class="col-5" appearance="outline">
+                            <mat-label>{{'organizationOvertimeRegulations.overtimeMaxmumInOffDay' | translate}}</mat-label>
+                            <input matInput formControlName="overtimeMaxmumInOffDay" type="number" min="0">
+                          </mat-form-field>
+                    
+                    </div>
+                  
+
+                    <div class="row">
+
+
+
+                      <div class="col-4">
+                        <mat-slide-toggle formControlName="mustSignForOverTime" color="primary"
+                         labelPosition="before">
+                       
+                          {{'organizationOvertimeRegulations.mustSignForOverTime' | translate}}
+                          
+                        </mat-slide-toggle>
+                      </div>
+
+
+                        <div class="col-4">
+                          <mat-slide-toggle formControlName="overTimeFromSpecificDevices" color="primary"
+                           labelPosition="before" (change)="onCheckChange($event)">
+                         
+                            {{'organizationOvertimeRegulations.overTimeFromSpecificDevices' | translate}}
+                            
+                          </mat-slide-toggle>
+                        </div>
+                        <div class="col-4" *ngIf="this.form.get('overTimeFromSpecificDevices').value" >
+                             
+                            <mat-form-field appearance="outline" >
+                              <mat-label> {{'deviceSelect' | translate}} </mat-label>
+                              <mat-select  formControlName="overTimeRegulationsDevices" multiple>
+                                <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" 
+                      [value]="0">   
+                            {{'grouproles.all' | translate}}
+                      </mat-option>
+                                <mat-option *ngFor="let terminalip of terminalips" [value]="terminalip.treminal_IP" (click)="toggleUnSelectAll(allSelected.selected)"> 
+                                  {{ localize.currentLang =='Fl' ? terminalip.descriptionFl : terminalip.descriptionSl }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                      </div>
+                      <br>
+                      <div class=row>
+                        <mat-form-field appearance="outline" class="col-12 col-md-12">
+                          <mat-label>{{'organizationOvertimeRegulations.note' | translate}}</mat-label>
+                          <input matInput formControlName="note">
+                        </mat-form-field>
+                      </div>
+              </div>
+            </div>
+        </div>
+           
+    </mat-dialog-content>
+    <div >
+        <app-save-and-close [form]="form" (close)="closeConfirmation($event)"></app-save-and-close>
+    </div> 
+  </div>

@@ -1,0 +1,12 @@
+<fieldset>
+    <legend style="font-size: medium;">{{'treeHeader' | translate}}</legend>
+    <p-tree class="{{localize.lang == 'ar'? 'rightlefttree' : 'testClass'}}" *ngIf="selectionType == 'checkbox'" [value]="nodes" [filter]="true" [loading]="loading" [selectionMode]="selectionType"
+        [(selection)]="bindedNodes" (onNodeSelect)="addNode($event.node)" (onNodeUnselect)="removeNode()">
+    </p-tree>
+
+
+    <p-tree class="{{localize.lang == 'ar'? 'rightlefttree' : 'testClass'}}" 
+    emptyMessage=" {{'allowanceSettings.Norecordsfound' | translate}}" *ngIf="selectionType == 'single'" [value]="nodes" [filter]="true" [loading]="loading" [selectionMode]="selectionType"
+        [(selection)]="bindedNode" (onNodeSelect)="addNode($event.node)">
+    </p-tree>
+</fieldset>

@@ -1,0 +1,9 @@
+<app-data-table [url]="{
+    getAll: 'EmployeeDeviceLogMobiles/GetAllPagedReview',
+    delete:'EmployeeDeviceLogMobiles/delete'
+  }"  [id]="'id'" [actions]="actions" [columns]="columns" [options]="{
+      globalSearch: true,
+      add: false,
+      details: false     
+    }" [tableData]="tableData"  (viewDetail)="viewDetail($event)">
+  </app-data-table>

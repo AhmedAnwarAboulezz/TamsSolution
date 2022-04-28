@@ -1,0 +1,196 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+<div class="row">
+    <mat-toolbar class="dialog-header-custom">
+        <span>{{ 'employeeProfile.employeeProfile' | translate }}</span>
+        <span class="fill-remaining-space"></span>
+        <mat-icon mat-dialog-close style="background-color: #0661a575;" class="text-danger pointer-cursor">clear</mat-icon>
+    </mat-toolbar>
+  </div>
+<mat-card>
+ 
+  <mat-dialog-content #scrollBottom class="mat-typography" [formGroup]="form">
+    <mat-card class="example-container">
+      <div class=row>
+        <div class="col-12 col-md-2">
+          <mat-card>
+            <img mat-card-image [src]="employeeImage" style="height: 6em;" width="100%">
+          </mat-card>
+        </div>
+        <div class="col-12 col-md-10">
+          <mat-card>
+            <div class="example-container">
+              <div class=row>
+                <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{ 'employeeProfile.employeeNumber' | translate }}</mat-label>
+                  <input matInput [value]="employee.employeeNumber" readonly>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12 col-md-4">
+                  <mat-label>{{ 'employeeProfile.employeeName' | translate }}</mat-label>
+                  <input matInput [value]="localize.currentLang =='Fl' ? employee.employeeNameFl : employee.employeeNameSl" readonly>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{ 'employeeProfile.civilId' | translate }}</mat-label>
+                  <input matInput [value]="employee.civilId" readonly>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12 col-md-2">
+                  <mat-label>{{ 'employeeProfile.startDate' | translate }}</mat-label>
+                  <input matInput [value]="employee.startDate | date: 'd/M/y'" readonly>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+    <mat-card *ngIf="roles.canAdd" class="example-container">
+      <mat-tab-group animationDuration="0ms" [(selectedIndex)]="profileId" (selectedTabChange)="changtab()">
+        <mat-tab label="{{'employeeProfile.employeeAdministration' | translate}}">
+          <div class="row no-gutters">
+           
+            <div class="col-md-6" *ngIf="form.value.detailId == null">
+              <app-prime-tree formControlName="detailId"  [selectionMode]="'single'" >
+              </app-prime-tree>
+            </div>
+            <div class="col-md-6" *ngIf="form.value.detailId != null">
+              <app-prime-tree formControlName="detailId"  [selectionMode]="'single'" >
+              </app-prime-tree>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'employeeProfile.temporaryMandateforanotherAdminstration' | translate}}">
+          <div class="row no-gutters">
+            <div class="col-md-6" style="padding-right: 15px; padding-top: 23px;">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'employeeProfile.currentAdministration' | translate}}</mat-label>
+                <input matInput readonly [value]="empCurrentAdmin" >
+              </mat-form-field>
+            </div>
+
+            
+            <div class="col-md-6"  *ngIf="form.value.detailId == null">
+              <app-prime-tree formControlName="detailId" [selectionMode]="'single'" >
+              </app-prime-tree>
+            </div>
+            <div class="col-md-6"  *ngIf="form.value.detailId != null">
+              <app-prime-tree formControlName="detailId" [selectionMode]="'single'" >
+              </app-prime-tree>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'employeeProfile.employeeLocation' | translate}}">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'employeeProfile.location' | translate}}</mat-label>
+                <mat-select formControlName="detailId">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of locations" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'employeeProfile.contractType' | translate}}">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'employeeProfile.contractType' | translate}}</mat-label>
+                <mat-select formControlName="detailId">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of contractTypes" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'employeeProfile.employeeJob' | translate}}">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'employeeProfile.jobtitle' | translate}}</mat-label>
+                <mat-select formControlName="detailId">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of jobs" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'employeeProfile.jobDegree' | translate}}">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'employeeProfile.jobDegree' | translate}}</mat-label>
+                <mat-select formControlName="detailId">
+                  <mat-option>---</mat-option>
+                  <mat-option *ngFor="let item of jobDegrees" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="row no-gutters" style="padding-top: 14px;">
+        <div class="col-md-6" style="padding-right: 15px;">
+          <div appearance="outline">
+            <!-- <mat-label>{{'employeeProfile.startDate' | translate}}</mat-label>
+            <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'employeeProfile.startDate' | translate"   
+            [required]="true"  [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'startDatePicker'"[namecontrol]="'startDate'"  >
+          </app-mat-datepicker-shared> 
+        </div>
+        </div>
+        <div class="col-md-6" [hidden]="profileId != 1">
+          <div appearance="outline">
+            <!-- <mat-label>{{'employeeProfile.endDate' | translate}}</mat-label>
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" 
+            title="{{'lookup.tooltip' | translate}}"   [requiredIf]="profileId == 1">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'employeeProfile.endDate' | translate"   
+            [required]="profileId == 1"  [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'endDatePicker'"[namecontrol]="'endDate'"  ></app-mat-datepicker-shared>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div align="end">
+            <button [disabled]="!form.valid" mat-raised-button color="primary" (click)="onSave()">{{'employeeProfile.save' | translate}}</button>
+            <button mat-button *ngIf="canAddTemp" (click)="this.form.reset()">{{'employeeProfile.reset' | translate}}</button>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+    <br>
+    <mat-card class="example-container" *ngIf="profileId != 1">
+      <div relative>
+        <app-table-details (deleteClick)="delete($event)" (editClick)="edit($event)" [columnHeader]="displayedColumns"
+        [columnTypes]="columnsTypes" [componentName]="componentName">
+      </app-table-details>
+      </div>
+    </mat-card>
+    <mat-card class="example-container" *ngIf="profileId == 1">
+      <div relative>
+        <app-table-details (deleteClick)="delete($event)" (editClick)="edit($event)" [columnHeader]="displayedTempColumns"
+        [columnTypes]="columnsTypes" [componentName]="componentName">
+      </app-table-details>
+      </div>
+    </mat-card>
+
+  </mat-dialog-content>
+</mat-card>
+</div>

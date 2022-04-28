@@ -1,0 +1,61 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'employeeattendance.employeeAttedancesLog'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class="row" *ngIf="templateDaysArray.length == 0">
+          <h3 style="text-align: center;width: inherit;color: red;background: #f3f5f6;">{{'employeeattendance.noLogsAvailable' | translate}}</h3>
+        </div>
+        <div class=row  *ngIf="templateDaysArray.length !== 0">
+            <table class="col-md-12">
+                <thead>
+                    <th>{{'employeeattendance.logType' | translate}}</th>
+                    <th>{{'employeeattendance.remark' | translate}}</th>
+                    <th>{{'employeeattendance.timeEntry' | translate}}</th>
+                    <th *ngIf="imageArray[0] != null">{{'employeeattendance.actionImage' | translate}}</th>
+
+                </thead>            
+                <tbody>
+                  <tr formArrayName="employeeAttedanceLogs" *ngFor="let item of templateDaysArray; let i = index;">
+                      <td [formGroupName]="i">
+                       <div class="form-field" appearance="outline">
+                        <mat-select formControlName="logTypeId"  [disabled]="isViewDetils" >
+                            <mat-option *ngFor="let logType of logTypes" [value]="logType.id"> 
+                              {{ localize.currentLang =='Fl' ? logType.nameFl : logType.nameSl }}</mat-option>
+                          </mat-select>
+                       </div>
+                      </td>
+                      <td [formGroupName]="i">
+                        <div class="form-field" appearance="outline">
+                            <mat-select [disabled]="true" formControlName="remarkId">
+                                <mat-option *ngFor="let remark of remarks" [value]="remark.id"> 
+                                  {{ localize.currentLang =='Fl' ? remark.nameFl : remark.nameSl }}</mat-option>
+                              </mat-select>
+                        </div>
+                       </td>
+                      <td  [formGroupName]="i">
+                        <input [readonly]="true" matInput formControlName="timeEntryStr">
+                      </td>
+                      <td *ngIf="imageArray[0] != null">
+                        <img *ngIf="imageArray[i] != '' && imageArray[i] != null" [src]="imageArray[i]" style="max-width: 220px;"/>
+                      </td>
+                  </tr>
+                </tbody>
+             </table>
+
+          
+  
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions  align="center" *ngIf="!isViewDetils && templateDaysArray.length !== 0">
+        <div class="col-md-3">
+            <button  mat-raised-button style="background-color:#132546;color: white;" [disabled]="!this.form.valid" cdkFocusInitial
+            (click)="makePresent()">{{'employeeattendance.changeToPresent' | translate}}</button>    
+        </div>
+        <div class="col-md-3">
+            <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+            (click)="onEditSave(form.value)">{{'updateclose' | translate}}</button>  
+        </div>
+    </mat-dialog-actions>  
+
+  </div>

@@ -1,0 +1,54 @@
+<div style="padding: 45px; overflow-y: auto; max-height: -webkit-fill-available;" [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <div align="center">
+    <a routerLink="/main/home" class="btn btn-lg btn-glow-secondary btn-dark">
+      <i class="fa fa-home"></i>
+      
+      {{'organizations.GotoHomePage' | translate}}
+    </a>
+  </div>
+  <hr>  
+  <mat-card>
+    <h3 class="text-center"> {{'organizations.uploadOrganizationServerFile' | translate}}</h3>
+   <div class="row">
+    <div class="col-md-9" align="start">
+      <input type="file" #file2 id="file2" onclick="this.value = null" (change)="uploadFile2($event)">
+       <label for="file2"  class="btn-2"> {{'organizations.UploadServerFile' | translate}}</label> 
+       {{fileName2}}
+    </div>
+    <div class="col-md-3" align="end">
+      <button mat-raised-button class="btn-download" [disabled]="!fileForm2.valid" (click)="onUploadSheet2()" cdkFocusInitial>{{'organizations.SaveSheet' | translate}}</button>
+    </div>
+   </div>  
+  </mat-card>
+  
+  <mat-card>
+      <h3 class="text-center"> {{'organizations.uploadOrganizationLicencesFile' | translate}}</h3>
+     <div class="row">
+      <div class="col-md-9" align="start">
+        <input type="file" #file id="file" onclick="this.value = null" (change)="uploadFile($event)">
+         <label for="file"  class="btn-2"> {{'organizations.UploadlicencesFile' | translate}}</label> 
+         {{fileName}}
+      </div>
+      <div class="col-md-3" align="end">
+        <button mat-raised-button class="btn-download" [disabled]="!fileForm.valid" (click)="onUploadSheet()" cdkFocusInitial>{{'organizations.SaveSheet' | translate}}</button>
+      </div>
+     </div>  
+    </mat-card>
+
+    <mat-card>
+      <h3 class="text-center"> {{'organizations.updateAdminPassword' | translate}}</h3>
+     <div class="row">
+      <div class="col-md-9" align="start">
+        <input type="file" #file3 id="file3" onclick="this.value = null" (change)="uploadFile3($event)">
+         <label for="file3"  class="btn-2"> {{'organizations.UploadPasswordFile' | translate}}</label> 
+         {{fileName3}}
+      </div>
+      <div class="col-md-3" align="end">
+        <button mat-raised-button class="btn-download" [disabled]="!fileForm3.valid" (click)="onUploadSheet3()" cdkFocusInitial>{{'organizations.SaveSheet' | translate}}</button>
+      </div>
+     </div>  
+    </mat-card>
+  
+
+
+  </div>

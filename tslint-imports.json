@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "tslint-etc"
+  ],
+  "rules": {
+    "no-unused-declaration": true,
+    "no-trailing-whitespace": true,
+    "semicolon": true,
+    "typedef-whitespace": true,
+    "whitespace": true,
+    "no-consecutive-blank-lines": true,
+    "quotemark": [
+      true,
+      "single"
+    ]
+  }
+}

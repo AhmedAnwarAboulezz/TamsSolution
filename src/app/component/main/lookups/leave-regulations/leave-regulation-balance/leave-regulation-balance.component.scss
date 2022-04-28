@@ -1,0 +1,14 @@
+
+.mat-card {
+    border: 2px solid aqua
+ }
+
+ ::ng-deep .mat-slide-toggle-label {
+    padding-bottom: 25px;
+}
+@media only screen and (max-width: 760px)  {
+    .mat-form-field{
+        max-width: -webkit-fill-available !important;
+    }
+  }
+  

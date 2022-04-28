@@ -1,0 +1,178 @@
+<mat-dialog-content class="example-container" class="mat-typography">
+
+
+  <form [formGroup]="leaveRegulationBalanceForm">
+    <mat-radio-group formControlName="balanceType" [(ngModel)]="balanceType" (change)="onBalanceTypeChange(item.value)" aria-label="Select an option" *ngFor="let item of balanceTypes">
+      <mat-radio-button class="mx-2" [value]="item.value"> {{item.name}}</mat-radio-button>
+    </mat-radio-group>
+    
+    <div [ngSwitch]="balanceType">
+      <div *ngSwitchCase="1">
+        <mat-card>
+          <div class="row">
+            <mat-form-field appearance="outline" style="margin-right: 17px;">
+              <mat-label> {{'leaveRegulations.balanceperyear' | translate}}</mat-label>
+              <input matInput required title="{{'lookup.tooltip' | translate}}"
+              formControlName="balancePerYear" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+      <!-- Balance Period -->
+      <div *ngSwitchCase="2">
+        <mat-card>
+          <div class="row">
+            <div class="col-8">{{'leaveRegulations.balance' | translate}}</div>
+            <div class="col-4">{{'leaveRegulations.salary' | translate}}</div>
+          </div>
+          <div class="row">
+            <div class="col-4">{{'leaveRegulations.from' | translate}}</div>
+            <div class="col-4">{{'leaveRegulations.to' | translate}}</div>
+          </div>
+          <div formArrayName="leaveRegulationBalancePeriods" *ngFor="let item of salaries; let i = index;">
+            <div class="row" [formGroupName]="i">
+              <div class="col-4">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                  <input matInput placeholder="99" [readonly]="i != 0" required
+                  title="{{'lookup.tooltip' | translate}}" formControlName="from" (change)="onValueChange()">                  
+                </mat-form-field>
+              </div>
+              <div class="col-4">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                  <input matInput placeholder="99" required title="{{'lookup.tooltip' | translate}}"
+                   formControlName="to" (change)="onValueChange()">
+                </mat-form-field>
+              </div>
+              <div class="col-4">{{ item }} % </div>
+            </div>
+
+          </div>
+        </mat-card>
+      </div>
+      <!-- /Balance Period -->
+      <!-- Balance Job degree -->
+      <div *ngSwitchCase="3">
+        <mat-card>
+          <div class="row">
+            <!-- <div class="col-5">
+               {{'leaveRegulations.Jobdegree' | translate}}
+            </div>
+            <div class="col-5">
+               {{'leaveRegulations.NumberofDays' | translate}}
+            </div> -->
+            <div class="col-12 text-center">
+              <button mat-raised-button color="primary" class="mx-2" matTooltip="add new" (click)="addItem()">
+                <mat-icon> {{'leaveRegulations.addbox' | translate}}</mat-icon>
+              </button>
+            </div>
+          </div>
+          <br />
+          <div formArrayName="leaveRegulationBalanceJobDegrees"
+            *ngFor="let j of leaveRegulationBalanceForm.get('leaveRegulationBalanceJobDegrees').controls; let i = index">
+            <div class="row" [formGroupName]="i">
+              <div class="col-5">
+                <mat-form-field appearance="outline">
+                  <mat-select placeholder="{{'leaveRegulations.Jobdegree' | translate}}" formControlName="jobDegreeId"
+                    (selectionChange)="onJobDegreeSelectionChange()">
+                    <mat-option *ngFor="let jobDegree of jobDegrees" [value]="jobDegree.id">
+                      {{ localize.currentLang =='Fl' ? jobDegree.nameFl : jobDegree.nameSl }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-5">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                  <mat-label>{{'leaveRegulations.NumberofDays' | translate}}</mat-label>
+                  <input matInput formControlName="numberOfDays" type="number" min="0"
+                   oninput="this.value = Math.abs(this.value)" required title="{{'lookup.tooltip' | translate}}" >
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <button mat-button color="warn" class="mx-1" matTooltip="remove" (click)="removeItem(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <!-- /Balance Job degree -->
+    </div>
+
+    <!-- Common Balance Fields -->
+    <mat-card>
+      <div class="row">
+          <mat-form-field appearance="outline"  class="col-4" >
+            <mat-label>{{'leaveRegulations.maxnumberofDaysyear' | translate}}</mat-label>
+            <input matInput formControlName="maxNumberOfDaysPerYear" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+          </mat-form-field>
+          <mat-form-field appearance="outline"  class="col-4">
+            <mat-label> {{'leaveRegulations.continousnumberofdays' | translate}}</mat-label>
+            <input matInput formControlName="continousNumberOfDays" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+          </mat-form-field>
+      </div>
+      <div class="row">
+          <mat-slide-toggle [checked]="false" color="primary" labelPosition="after" class="col-4"
+            formControlName="hasNumberOfTimesPerYear"  (change)="onCheckChange($event,'hasNumberOfTimesPerYear')">            
+            {{'leaveRegulations.hasNumberoftimesyear' | translate}}
+          </mat-slide-toggle>
+
+        <mat-slide-toggle [checked]="false" color="primary" labelPosition="after" class="col-4"
+        formControlName="hasNumberOfTimesPerService">
+       
+        {{'leaveRegulations.hasNumberoftimesservice' | translate}}
+      </mat-slide-toggle>
+      <mat-slide-toggle [checked]="false" color="primary" labelPosition="after" class="col-4"
+      formControlName="isRemainingDaysTransfared"  (change)="onCheckChange($event,'isRemainingDaysTransfared')" >
+     
+      {{'leaveRegulations.remainDaysTransferedyear' | translate}}
+    </mat-slide-toggle>
+       
+ 
+      </div>
+      <div class="row">
+
+        <mat-form-field appearance="outline" class="col-4">
+          <mat-label> {{'leaveRegulations.nooftimesperyear' | translate}}</mat-label>
+          <input matInput formControlName="timesPerYear" 
+          type="number" min="0" oninput="this.value = Math.abs(this.value)" title="{{'lookup.tooltip' | translate}}"
+          [requiredIf]="leaveRegulationBalanceForm.value.hasNumberOfTimesPerYear"
+          title="{{'lookup.tooltip' | translate}}"
+            [readonly]="!leaveRegulationBalanceForm.value.hasNumberOfTimesPerYear">
+        </mat-form-field>
+
+
+                  
+        <mat-form-field appearance="outline" class="col-4">
+          <mat-label> {{'leaveRegulations.nooftimesperservice' | translate}}</mat-label>
+          <input matInput formControlName="numberOfTimesPerService"
+          type="number" min="0" oninput="this.value = Math.abs(this.value)"
+          [requiredIf]="leaveRegulationBalanceForm.value.hasNumberOfTimesPerService"
+          title="{{'lookup.tooltip' | translate}}"
+            [readonly]="!leaveRegulationBalanceForm.value.hasNumberOfTimesPerService">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-4">
+          <mat-label>{{'leaveRegulations.noofremainingdaystransfared' | translate}}</mat-label>
+          <input matInput formControlName="numberOfRemainingDaysTransfared"
+          type="number" min="0" oninput="this.value = Math.abs(this.value)"
+          [requiredIf]="leaveRegulationBalanceForm.value.isRemainingDaysTransfared"
+          title="{{'lookup.tooltip' | translate}}"
+            [readonly]="!leaveRegulationBalanceForm.value.isRemainingDaysTransfared">
+        </mat-form-field>
+
+      </div>
+      <div class="row">
+          <mat-slide-toggle [checked]="false" color="primary"  class="col-4"
+          labelPosition="after" formControlName="isBalanceFixed">        
+            {{'leaveRegulations.leaveBalanceisfixed' | translate}}
+          </mat-slide-toggle>
+          <mat-slide-toggle [checked]="false" color="primary" labelPosition="after"  class="col-4"
+            formControlName="isFinanciallyRelated">    
+            {{'leaveRegulations.leavewithoutSalary' | translate}}
+          </mat-slide-toggle>
+      </div>
+    </mat-card>
+  </form>
+  <!-- /Common Balance Fields -->
+</mat-dialog-content>

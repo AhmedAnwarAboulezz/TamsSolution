@@ -1,0 +1,97 @@
+<mat-sidenav-container class="sidenav-container" [dir]="localizationService.lang === 'ar' ? 'rtl' : 'ltr'">
+  <mat-sidenav #drawer class="sidenav row" [ngClass]="{'sidenav-hide' : MenuHide && !(isHandset$ | async)}"
+    [fixedInViewport]="(isHandset$ | async) ? true : false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+
+    <mat-toolbar class="toolbar-menu col-md-12">
+      <div class="col-md-9" [ngClass]="{'font-s-menu' : MenuHide && !(isHandset$ | async)}">
+        <img [src]=" localize.currentLang =='Fl' ? logoFl : logoSl" class="logo" routerLink="/main" >
+      </div>
+     
+      <button mat-button color="primary" class="hide-menu col-md-3"
+        [ngClass]="{'btn-menu' : MenuHide && !(isHandset$ | async)}" (click)="hideMenu()" *ngIf="!(isHandset$ | async)">
+        <mat-icon *ngIf="localize.isEnglish()">{{ MenuHide && !(isHandset$ | async) ?  'navigate_next' : 'navigate_before'}}</mat-icon>
+        <mat-icon *ngIf="localize.isEnglish()" >{{ MenuHide && !(isHandset$ | async) ?  'navigate_next' : 'navigate_before'}}</mat-icon>
+        <mat-icon *ngIf="!localize.isEnglish()">{{ MenuHide && !(isHandset$ | async) ?  'navigate_before ' : 'navigate_next'}}</mat-icon>
+        <mat-icon *ngIf="!localize.isEnglish()" >{{ MenuHide && !(isHandset$ | async) ?  'navigate_before ' : 'navigate_next'}}</mat-icon>
+
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-accordion>
+        <!-- Lookups -->
+        <div *ngFor="let parent of authService.screens">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header (click)="MenuHide = false">
+              <mat-panel-title class="align-items-center">
+                <mat-icon [matTooltip]="parent.componentName | translate" class="m-2">{{parent.iconName}}</mat-icon>
+                {{ MenuHide ?  '' : (parent.componentName | translate)}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngFor="let childern of parent.childerns">
+              <nav *ngIf="childern.canShow">
+                <a mat-list-item [routerLink]="childern.urlPath">
+                  <mat-icon [matTooltip]="childern.componentName | translate" class="m-2">{{childern.iconName}}
+                  </mat-icon> {{ MenuHide ?  '' : (childern.componentName | translate)}}
+                </a>
+              </nav>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-accordion>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content
+    class="mat-drawer-content mat-sidenav-content {{(MenuHide && !(isHandset$ | async)) && localizationService.lang == 'ar'? 'content-hide-menu-ar' : ''}} {{(MenuHide && !(isHandset$ | async)) && localizationService.lang == 'en'? 'content-hide-menu-en' : ''}}">
+
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">
+          <a>notification_important</a>
+        </mat-icon> -->
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user">
+          {{ authService.currentUser.sub }}
+          <img [src]="employeeimage" alt="" srcset="">
+          
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before" class="userMenu">
+          <button mat-menu-item (click)="changeLanguage('ar')"
+            *ngIf="localizationService.lang == 'en'">عربى</button>
+          <button mat-menu-item (click)="changeLanguage('en')"
+            *ngIf="localizationService.lang == 'ar'">English</button>
+          <!-- <button mat-menu-item routerLink="/main/usermanagement/mysetting">{{ 'main.mySettings' | translate}}</button> -->
+          <button mat-menu-item routerLink="/main/usermanagement/changepassword">{{ 'main.changePassword' | translate}}</button>
+          <button mat-menu-item *ngIf="authService.currentUser.IsSuperAdmin == 'true'" routerLink="/main/organizations/organization">{{ 'main.organizations' | translate}}</button> 
+          <button mat-menu-item *ngIf="authService.currentUser.sub == 'SuperAdmin'" routerLink="/organization">{{ 'main.OrganizationFiles' | translate}}</button> 
+
+          <button mat-menu-item *ngIf="authService.currentUser.IsSuperAdmin == 'true'" routerLink="/main/lookups/organization-overtime-regulations">{{ 'main.organizationSettings' | translate}}</button>
+        
+          <button mat-menu-item (click)="logout()">{{ 'main.logout' | translate}}</button>
+        </mat-menu>
+      </mat-toolbar-row>
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <main class="py-3">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <footer>
+      <mat-toolbar style="height: auto !important;color: #084b7d;">
+        <div class="copyright">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">copyright</mat-icon>
+          APEXUNITED {{ year }}
+        </div>
+      </mat-toolbar>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

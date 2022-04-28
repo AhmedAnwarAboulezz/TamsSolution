@@ -1,0 +1,87 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'PenaltieGroups.PenaltieGroups'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>          
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'PenaltieGroups.penaltieGroupFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+  
+            <input autocomplete="off" matInput formControlName="penaltieGroupFl" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+          <mat-form-field [hidden]="!localize.multiLang"  appearance="outline" class="col-12 col-md-6">
+            <mat-label>{{'PenaltieGroups.penaltieGroupSl' | translate}}- {{ localize.slLang | translate}}</mat-label>
+  
+            <input autocomplete="off" matInput formControlName="penaltieGroupSl"  [requiredIf]="localize.multiLang"  title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline" class="col-12 col-md-3">
+            <mat-label>{{'PenaltieGroups.penaltieGroupCode' | translate}}</mat-label>
+            <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="penaltieGroupCode">
+              <mat-option  *ngFor="let p of penaltieGroupCodes" [value]="p.val">
+              {{ p.name }}</mat-option>
+            </mat-select>
+         </mat-form-field> 
+
+      
+
+          <div class="col-12 col-md-3 format">
+            <mat-checkbox matInput [checked]="false" formControlName="isForSupervisoryJob" color="primary"
+              labelPosition="after">
+              <mat-label>{{'PenaltieGroups.isForSupervisoryJob' | translate}}</mat-label>
+            </mat-checkbox>
+          </div>
+          <mat-form-field appearance="outline" class="col-12 col-md-3">
+            <mat-label> {{'PenaltieGroups.contentCount' | translate}}</mat-label>
+               <input autocomplete="off" required matInput type="number" title="{{'lookup.tooltip' | translate}}"
+                min="1" oninput="this.value = Math.abs(this.value)"
+              formControlName="contentCount">
+          </mat-form-field>
+          <div class="col-md-3" >
+            <button style="background: #0d192f; color: white;"  mat-button (click)="onTemplateDaysChange()">{{'dailyRotatedSchedules.Apply' | translate}}</button>
+          </div>
+  
+  
+        </div>
+
+        <mat-card  class="card-table">       
+            <table class="col-md-12">
+                <thead>
+                    <th>{{'PenaltieGroups.contentFl' | translate}} - {{ localize.flLang | translate}}</th>
+                    <th>{{'PenaltieGroups.contentSl' | translate}}- {{ localize.slLang | translate}}</th>
+                </thead>            
+                <tbody>
+                  <tr formArrayName="penaltieGroupDetails" *ngFor="let item of templateDaysArray; let i = index;">
+                      <td [formGroupName]="i">
+                        <input autocomplete="off" class="form-field" required  matInput type="text"  formControlName="contentFl">
+                      </td>
+                      <td [formGroupName]="i">
+                        <input autocomplete="off" class="form-field" required matInput type="text"  formControlName="contentSl">
+                      </td>   
+                      
+                  </tr>
+                </tbody>
+              </table>
+        </mat-card>  
+
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button class="mainButton" data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+          (click)="onAddSave('SaveClose')">{{'saveclose' | translate}}</button>
+        <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu" [disabled]="!this.form.valid"
+          style="margin-left: 1px;">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu class="dropdownTest" #beforeMenu="matMenu" xPosition="before">
+          <button [disabled]="!this.form.valid" mat-menu-item
+            (click)="onAddSave('Save')">{{'save' | translate}}</button>
+        </mat-menu>
+      </mat-dialog-actions>
+    
+  
+    <!-- <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close> -->
+  
+  </div>
+

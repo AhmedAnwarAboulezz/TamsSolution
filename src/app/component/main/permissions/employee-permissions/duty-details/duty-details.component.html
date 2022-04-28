@@ -1,0 +1,32 @@
+<p class="text-center" *ngIf="isNew">{{'employeePermission.dutyScheduleMsg' | translate}}</p>
+
+<div class="container" *ngIf="!isNew" style="overflow-x: overlay;">          
+      <table class="col-md-12">
+        <thead>
+          <th>{{'employeePermission.dutyName' | translate}}</th>
+          <th>{{'employeePermission.dutyStartDate' | translate}}</th>
+          <th>{{'employeePermission.dutyEndDate' | translate}}</th>
+          <th>{{'employeePermission.dutyStartTime' | translate}}</th>
+          <th>{{'employeeAlowances.allowanceIn' | translate}}</th>
+          <th>{{'employeePermission.dutyEndTime' | translate}}</th>
+          <th>{{'employeeAlowances.allowanceOut' | translate}}</th>
+          <!-- <th>{{'employeeAlowances.isWeekEnd' | translate}}</th>
+          <th>{{'employeeAlowances.isRestDay' | translate}}</th> -->
+
+        </thead>            
+        <tbody>
+            <tr *ngFor="let item of emplyeeDuty.timeDetails">
+              <td>{{localize.currentLang =='Sl' ? emplyeeDuty.dutyNameSl : emplyeeDuty.dutyNameFl}}</td>
+              <td>{{emplyeeDuty.dutyStartDate}}</td>
+              <td>{{emplyeeDuty.dutyEndDate}}</td>
+              <td>{{item.startTime}}</td>
+              <td>{{emplyeeDuty.allowanceIn}}</td>
+              <td>{{item.endTime}}</td>
+              <td>{{emplyeeDuty.allowanceOut}}</td>
+              <!-- <td>{{isWeekEnd}}</td>
+              <td>{{isRestDay}}</td> -->
+
+            </tr>
+        </tbody>
+      </table>
+</div>

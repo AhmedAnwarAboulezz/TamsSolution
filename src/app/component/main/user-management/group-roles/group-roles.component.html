@@ -1,0 +1,36 @@
+<mat-dialog-content class="mat-typography" [formGroup]="form">
+  <mat-accordion>
+
+    <mat-card [style.text-align]="localize.lang === 'ar' ? 'right' : 'left'">
+      <mat-card-title>{{'grouproles.title' | translate}}</mat-card-title>
+      <div class="example-container">
+        <div class=row>
+
+          <div  class="col-12 col-md-6">
+            <mat-select class="form-control" [placeholder]="'grouproles.groupname' | translate" formControlName="groupId"
+              (selectionChange)="onGroupChange($event.value)">
+              <mat-option  *ngFor="let group of groups" [value]="group.id">
+                {{ localize.currentLang =='Fl' ? group.nameFl : group.nameSl }}</mat-option>
+            </mat-select>
+          </div>
+   
+          <div class="col-12 col-md-3">
+            <button class="btn btn-success" (click)="save()">{{'save' | translate}}</button>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+
+
+  </mat-accordion>
+</mat-dialog-content>
+
+<mat-tab-group>
+  <mat-tab [label]="'grouproles.screens' | translate">
+    <roles-table [list]="screens" *ngIf="reports" #screensTable></roles-table>
+  </mat-tab>
+  <mat-tab [label]="'grouproles.reports' | translate">
+    <roles-table [list]="reports" [isReport]="true" *ngIf="screens" #reportsTable></roles-table>
+  </mat-tab>
+</mat-tab-group>

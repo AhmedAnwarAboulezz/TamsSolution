@@ -1,0 +1,135 @@
+
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'partialPermissionTypes.PartialPermissionTypes'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="row">
+        
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{'partialPermissionTypes.code' | translate}}</mat-label>
+            <input  maxlength="10" matInput formControlName="code">
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{'partialPermissionTypes.countryName' | translate}}</mat-label>
+            <mat-select formControlName="countryId" required title="{{'lookup.tooltip' | translate}}">
+              <mat-option>---</mat-option>
+              <mat-option *ngFor="let country of countries" [value]="country.id">
+                {{ localize.currentLang =='Fl' ? country.nameFl : country.nameSl }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        
+      </div>
+      <div class="row">
+        
+          <mat-form-field appearance="outline" class="col-md-4" >
+            <mat-label>{{'partialPermissionTypes.partialPermissionFL' | translate}}- {{ localize.flLang | translate}}</mat-label>
+
+            <input matInput formControlName="partialPermissionFL" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+      
+      
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>{{'partialPermissionTypes.partialPermissionSL' | translate}}- {{ localize.slLang | translate}}</mat-label>
+
+            <input matInput formControlName="partialPermissionSL" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+
+          <div class="col-md-4">
+
+            <mat-slide-toggle  color="primary" labelPosition="after"  formControlName="active" >         
+             {{'partialPermissionTypes.active' | translate}}           
+           </mat-slide-toggle>
+           </div>
+        </div>
+        
+     
+      <div class=row>
+      
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>{{'partialPermissionTypes.balance' | translate}}</mat-label>
+
+            <input matInput formControlName="balance" required title="{{'lookup.tooltip' | translate}}" (change)="setPeriod(form.value.balance,form.value.numberPerMonth)" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+          </mat-form-field>
+        
+        
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>{{'partialPermissionTypes.numberPerMonth' | translate}}</mat-label>
+
+            <input matInput required title="{{'lookup.tooltip' | translate}}" formControlName="numberPerMonth" (change)="setPeriod(form.value.balance,form.value.numberPerMonth)" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+          </mat-form-field>
+      
+       
+      
+          <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>{{'partialPermissionTypes.period' | translate}}</mat-label>
+
+            <input matInput formControlName="period" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+          </mat-form-field>
+        </div>
+      
+        
+
+      <div class="row">
+        <div class="col-md-7">
+          <mat-checkbox formControlName="calculatePermissionDutyAllowance" color="primary" labelPosition="after">
+            <!-- //Calculate permission before/after duty allowance -->
+            {{'partialPermissionTypes.calculatePermissionDutyAllowance' | translate}}
+            
+
+          </mat-checkbox>
+        </div>
+        <div class="col-md-5" *ngIf="this.form.get('calculatePermissionDutyAllowance').value">
+          <mat-checkbox formControlName="calculatePermissionDutyAllowanceCancelInRamadan" color="primary"
+            labelPosition="after">
+            
+            {{'partialPermissionTypes.calculatePermissionDutyAllowanceCancelInRamadan' | translate}}
+            <!-- Cancel In Ramadan -->
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <mat-checkbox formControlName="calculatePermissionEmployeeAllowances" color="primary"
+            labelPosition="after">
+            <!-- Calculate permission before/after employee allowances -->
+            {{'partialPermissionTypes.calculatePermissionEmployeeAllowances' | translate}}
+            
+          </mat-checkbox>
+        </div>
+        <div class="col-md-5" *ngIf="this.form.get('calculatePermissionEmployeeAllowances').value">
+          <mat-checkbox formControlName="calculatePermissionEmployeeAllowancesCancelInRamadan" color="primary"
+            labelPosition="after">
+            
+            {{'partialPermissionTypes.calculatePermissionEmployeeAllowancesCancelInRamadan' | translate}}
+            <!-- Cancel In Ramadan -->
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7" style="padding: 10px;">           
+          <mat-slide-toggle  [checked]="false"
+           formControlName="isOfferedBefore"  (change)="onCheckChange($event,'isOfferedBefore')" color="primary" labelPosition="after">
+            
+            {{'leaveRegulations.isOfferedBefore' | translate}}
+          </mat-slide-toggle>
+        </div>
+        <div class="col-3" *ngIf="form.value.isOfferedBefore"> 
+          <mat-form-field  appearance="outline">
+            <mat-label>{{'leaveRegulations.numberOfferedBefore' | translate}}</mat-label>
+            <input matInput formControlName="numberOfferedBefore"
+            type="number" min="0" oninput="this.value = Math.abs(this.value)"
+            title="{{'lookup.tooltip' | translate}}"
+              [readonly]="!form.value.isOfferedBefore">
+          </mat-form-field>
+        </div>
+
+      </div>
+     
+  </mat-dialog-content>
+
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

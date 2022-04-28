@@ -1,0 +1,37 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'workflow.defineRequests'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <mat-card class="example-container">
+          <div class=row>
+            <div class="col-12 col-md-6">
+              <mat-form-field appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'workflow.requestTypes' | translate}}</mat-label>
+                <mat-select  formControlName="workflowRequestTypeId" (selectionChange)="onTypeChange($event.value)">
+                  <mat-option  *ngFor="let item of requestTypes" [value]="item.id">
+                    {{ localize.lang =='en' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="allRequests.length !== 0" appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'workflow.workflowRequestTypes' | translate}}</mat-label>
+                <input required #textLocations matInput  placeholder="{{ 'Filter.Types' | translate }}" autocomplete="off">    
+                <mat-select  formControlName="workflowRequestTypes" multiple>              
+                  <mat-option  *ngFor="let item of allRequests | filter: textLocations.value" [value]="item.id">
+                    {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">            
+              <app-prime-tree  [formControl]="form.controls['workflowAdminstrations']"  [selectionMode]="'checkbox'" >
+              </app-prime-tree>
+            </div>
+
+          </div>
+        </mat-card> 
+
+      </div>
+    </mat-dialog-content>
+
+    <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+  </div>

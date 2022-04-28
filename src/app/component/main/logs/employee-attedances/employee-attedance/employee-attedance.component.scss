@@ -1,0 +1,18 @@
+.mat-menu-item{
+    width: 12.5em !important;
+}
+
+button:disabled {
+    pointer-events:none;
+    opacity:.5;
+    background: #CCC;
+   }
+
+.mat-dialog-actions[align=end] {
+    border-top: 1px solid rgb(0, 111, 194);
+}
+
+.mat-dialog-actions {
+    padding: 8px 0;
+    margin-bottom: -15px;
+}

@@ -1,0 +1,60 @@
+// .mat-menu-item{
+//     width: 12.7em !important;
+//     height: 30px !important;
+//     min-height: 20px !important;
+// }
+
+// ::ng-deep .cdk-overlay-pane .mat-menu-panel {
+//     min-height: 40px !important;
+//     height: 40px !important;
+// }
+
+
+// ::ng-deep .dropdownTest{
+//     background-color: #084B7D !important;
+//     padding-top: 0px; 
+//     padding-bottom: 0px; 
+//     //min-height: 40px !important;
+//     height: 15px !important;
+//     overflow: hidden;
+// }
+// ::ng-deep .dropdownTest button{
+// color: white;
+// }
+// .dropdownTest {
+//     ::ng-deep {
+//         .mat-menu-panel {
+//             background-color: #084B7D !important;
+//                 margin-bottom: 0;
+            
+//         }
+//     }
+// }
+
+ ::ng-deep .dropdownTest  {
+    background-color: #084B7D !important;
+    padding: 0 10px!important;
+    width: 100%!important;
+    min-height: 34px !important;
+    height: 34px !important;
+    overflow: hidden;
+  }
+//   ::ng-deep .dropdownTest .mat-menu-content {
+//     color: #084B7D !important;
+//     padding: 0 10px!important;
+//   }
+  ::ng-deep .dropdownTest button{
+
+    color: white;
+    margin-top: -14px;
+    padding: 0px;
+    height: 35px;
+    width: 160px;
+    }
+
+  ::ng-deep .mainButton{
+    width: 108px;
+
+    }
+
+ 

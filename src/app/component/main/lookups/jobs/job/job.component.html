@@ -1,0 +1,40 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'jobs.jobs'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'jobs.code' | translate}}</mat-label>
+          <input matInput formControlName="code">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'jobs.jobFL' | translate}} - {{ localize.flLang | translate}}</mat-label>
+
+          <input matInput formControlName="jobFL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'jobs.jobSL' | translate}} - {{ localize.slLang | translate}}</mat-label>
+
+          <input matInput formControlName="jobSL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+        <div class="col-12 col-md-6 format">
+          <mat-checkbox matInput [checked]="false" formControlName="exemptionFromFingerprint" color="primary"
+            labelPosition="after">
+            <mat-label>{{'jobs.exemptionFromFingerprint' | translate}}</mat-label>
+          </mat-checkbox>
+        </div>
+        <div class="col-12 col-md-6 format">
+          <mat-checkbox matInput [checked]="false" formControlName="supervisoryJob" color="primary"
+            labelPosition="after">
+            <mat-label>{{'jobs.supervisoryJob' | translate}}</mat-label>
+          </mat-checkbox>
+        </div>
+        
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

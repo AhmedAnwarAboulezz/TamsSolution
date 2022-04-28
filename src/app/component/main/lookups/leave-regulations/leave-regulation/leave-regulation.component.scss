@@ -1,0 +1,32 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.example-container > * {
+    width: 100%;
+}
+
+
+.mat-card {
+    border: 2px solid aqua
+ }
+
+ .padding-top {
+    padding-top: 2%;
+ }
+
+ .mat-horizontal-stepper-header {
+     height: 40px;
+ }
+ 
+ @media only screen and (max-width: 760px)  {
+    .col-5{
+        max-width:90%;
+    
+     }
+    
+   }
+ 
+ 

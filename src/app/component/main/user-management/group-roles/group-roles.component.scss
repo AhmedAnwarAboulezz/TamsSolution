@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+  }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.example-container > * {
+    width: 100%;
+}
+// =========================
+
+  .btnsave {
+    border: 2px solid #3651eb;
+    color: #1a2e2e;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    max-width: 104px !important;
+    max-height: 55px !important;
+  }
+  
+  .mat-card {
+    border: 2px solid aqua
+ }

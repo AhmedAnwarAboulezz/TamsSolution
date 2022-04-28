@@ -1,0 +1,21 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'contractTypes.contractTypes'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'contractTypes.contractTypeFL' | translate}} - {{ localize.flLang | translate}}</mat-label>
+          <input matInput formControlName="contractTypeFL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'contractTypes.contractTypeSL' | translate}} - {{ localize.slLang | translate}}</mat-label>
+          <input matInput formControlName="contractTypeSL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+
+</div>

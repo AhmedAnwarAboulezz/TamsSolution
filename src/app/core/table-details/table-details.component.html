@@ -1,0 +1,73 @@
+<div class="example-container">
+  <table mat-table [dataSource]="localList" matSort class="mat-elevation-z8 " style="display: block;" #table
+  [className]="'tableClass' | translate"    > 
+    <ng-container *ngIf="!hasCheckBox" matColumnDef="index" sticky>
+      <th mat-header-cell *matHeaderCellDef style="padding: 5px; text-align: center">{{'HOME.columnName.fixedColumnName.indexColumn' | translate}}</th>
+      <td style="padding: 5px; text-align: center;"  mat-cell *matCellDef="let element; let i = index;" [style.background]="(disabledIds == [] || !disabledIds.includes(element.id)) ? null : '#e8a1ae'">
+        {{(i+1) + (paginator.pageIndex * paginator.pageSize) }}
+      </td>
+    </ng-container>
+    <ng-container *ngIf="hasCheckBox" matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> <mat-checkbox [checked]="checkedAllChecked" [indeterminate]="!checkedAllChecked" [disabled]="checkedAllDisable" (change)="checkAll($event.checked)"></mat-checkbox></th>
+      <td class="textcenter" mat-cell *matCellDef="let element; let i = index;" [style.background]="(disabledIds == [] || !disabledIds.includes(element.id)) ? null : '#e8a1ae'">
+        <mat-checkbox *ngIf="disabledIds == [] || !disabledIds.includes(element.id)" [checked]="checkedList.includes(element.id)" (change)="checkk(element,$event)"></mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container [matColumnDef]="localList" *ngFor="let localList of columns">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="textcenter"> {{columnHeader[localList]}}
+      </th>
+      <td mat-cell *matCellDef="let element" [style.background]="(disabledIds == [] || !disabledIds.includes(element.id)) ? null : '#e8a1ae'">
+        <div class="textcenter" *ngIf="element[localList]=== true"> &#10003; </div>
+        <div class="textcenter" *ngIf="element[localList]=== false"> &#10005; </div>
+        <div *ngIf="element[localList] !== false && element[localList] !== true " >
+          {{element[localList]}}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="containView" matColumnDef="view">
+      <th class="textcenter" mat-header-cell *matHeaderCellDef>Show</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="btn btn-lg" (click)="openDialog(element)">
+          <i class="fa fa-file"></i>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="containEdit" matColumnDef="edit">
+      <th class="textcenter" mat-header-cell *matHeaderCellDef>{{'allowanceSettings.Edit' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button color="accent" matTooltip="{{'edit' | translate}}" (click)="edit(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="containDelete" matColumnDef="delete">
+      <th class="textcenter" mat-header-cell *matHeaderCellDef> {{'allowanceSettings.Delete' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button color="warn" matTooltip="{{'deletetrans' | translate}}" (click)="delete(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container  *ngIf="!containDelete && !containEdit" matColumnDef="empty">
+        <th  class="textcenter" mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element,let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator class="mt-2" [length]="listCount" [pageSizeOptions]="[50,100,200,300]" [pageSize]="50"
+   showFirstLastButtons itemsPerPageLabel="itemsPerPageLabel " >
+  </mat-paginator>
+</div>
+
+<div>
+  <h3 style="text-align: center;color: red;" *ngIf="localList.length === 0">
+    
+    {{'allowanceSettings.Norecordsfound' | translate}}
+  </h3>
+</div>

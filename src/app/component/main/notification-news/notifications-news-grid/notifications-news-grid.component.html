@@ -1,0 +1,9 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'Notifications/GetAllPagged'}"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: true
+        }" [tableData]="tableData" (add)="addEvent($event)" (viewDetail)="viewDetail($event)">
+      </app-data-table>
+  </div>
+  

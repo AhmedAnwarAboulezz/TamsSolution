@@ -1,0 +1,30 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'devices.device'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'devices.serialNumber' | translate}}</mat-label>
+            <input matInput formControlName="serialNumber" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'devices.treminal_IP' | translate}}</mat-label>
+            <input matInput formControlName="treminal_IP" mask="IP" required placeholder="000.000.000.000" title="{{'lookup.tooltip' | translate}}" >
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'devices.descriptionFl' | translate}} - {{ localize.flLang | translate}} </mat-label>
+            <input matInput formControlName="descriptionFl" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'devices.descriptionSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+            <input matInput formControlName="descriptionSl" required title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+  
+        </div>
+      
+      </div>
+    </mat-dialog-content>
+  
+    <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+  
+  </div>

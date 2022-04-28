@@ -1,0 +1,38 @@
+.paddingtop {
+  padding-top: 2%;
+}
+.space {
+  padding-left: 1%;
+  padding-right: 1%;
+}
+::ng-deep body .ui-datepicker .ui-datepicker-header .ui-datepicker-title {
+  
+  width: 100% !important;
+}
+
+::ng-deep .ui-datepicker .ui-datepicker-group {
+  width: 100% !important;
+}
+
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: relative !important;
+}
+
+
+
+
+
+
+.setBtn{
+  background-color: #006fc2;
+}
+.setBtn:hover{
+  background-color: #13284f;
+}
+.resetBtn{
+  background-color: #dc3545;
+}
+.resetBtn:hover{
+  background-color: darkred;
+}

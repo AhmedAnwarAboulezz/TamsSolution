@@ -1,0 +1,54 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <mat-card class="tabLabels">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="{{ 'evaluations.EvaluationSetting' | translate}}">
+          <mat-card>
+            <mat-card-title> {{ 'evaluations.EvaluationSetting' | translate}}</mat-card-title>
+            <mat-dialog-content class="mat-typography" [formGroup]="form">
+              <mat-accordion>
+                        <div class="example-container">
+                          <div class=row>  
+                            <div class="col-md-7">
+                              <div class=row>
+                                <mat-form-field  appearance="outline" class="col-12 col-md-6">
+                                  <mat-label> {{ 'evaluations.minValue' | translate}}</mat-label>
+                                  <input type="number" matInput formControlName="minValue">
+                                </mat-form-field>  
+                                <mat-form-field  appearance="outline" class="col-12 col-md-6">
+                                    <mat-label> {{ 'evaluations.maxValue' | translate}}</mat-label>
+                                    <input type="number" matInput formControlName="maxValue">
+                                  </mat-form-field>  
+                                  <mat-form-field  appearance="outline" class="col-12 col-md-6">
+                                    <mat-label> {{ 'evaluations.dutyAttendanceCommitment' | translate}}</mat-label>
+                                    <input type="number" matInput formControlName="dutyAttendanceCommitment">
+                                  </mat-form-field>  
+                                                                           
+                                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                                    <mat-label>{{'evaluations.dutyAttendanceCommitmentType' | translate}}</mat-label>
+                                    <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="dutyAttendanceCommitmentType">
+                                      <mat-option  *ngFor="let p of dutyAttendanceCommitmentTypes" [value]="p.val">
+                                        {{ localize.lang =='en' ? p.nameEn : p.nameAr }}</mat-option>
+                                    </mat-select>
+                                 </mat-form-field> 
+
+
+                              </div>
+                             
+                            </div>
+                                        
+                          </div> 
+                          <div class="row">
+                              <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" (click)="edit()">{{ 'organizations.Save' | translate}}</button>
+                            </div>                            
+                        </div>
+              </mat-accordion>
+            </mat-dialog-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="{{ 'evaluations.EmployeeEvaluationSetting' | translate}}">
+          <app-employee-evaluation-settings></app-employee-evaluation-settings>
+        </mat-tab>
+     
+      </mat-tab-group>
+    </mat-card>
+  </div>

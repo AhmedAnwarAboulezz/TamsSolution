@@ -1,0 +1,11 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'WorkflowTemplate/GetAllPaged',
+        delete:'WorkflowTemplate/delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: true
+        }" [tableData]="tableData" (add)="addEvent($event)" (viewDetail)="assignType($event)" >
+      </app-data-table>
+  </div>
+  

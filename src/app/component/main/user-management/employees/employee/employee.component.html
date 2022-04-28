@@ -1,0 +1,197 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'employees.personalEmployeeData'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <!-- fieldset -->
+      <div class=row>
+        <div class="col-md-3">
+          <mat-card style="height: 163px; " class="imgContainer">
+            <img mat-card-image [src]="selectedFile"  class="image"
+            style="height: 162px; object-fit: scale-down; ">
+            <div class="uploadbtn upload-btn-wrapper" >
+              <button class="btn">{{'employees.uploadImage' | translate}}</button>
+              <input #inputImage type="file" accept="image/*" (change)="onSelectedFilesChanged(inputImage)">
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="col-md-9 ">
+          <mat-card >
+            <div class="example-container">
+              <div class=row>
+                <mat-form-field appearance="outline" class="col-md-3">
+                  <mat-label>{{'employees.employeeNumber' | translate}}</mat-label>
+                  <input required title="{{'lookup.tooltip' | translate}}" matInput formControlName="employeeNumber">
+                  <mat-error *ngIf="form.controls.employeeNumber.errors && form.controls.employeeNumber.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-3">
+                  <mat-label>{{'employees.civilId' | translate}}</mat-label>
+                  <input required title="{{'lookup.tooltip' | translate}}" type="number"  (keyup)="checkCivilIdlength()"
+                  matInput formControlName="civilId" oninput="this.value = Math.abs(this.value)"  >
+                  <mat-error *ngIf="form.controls.civilId.errors && form.controls.civilId.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-2">
+                  <mat-label>{{'employees.fileNumber' | translate}}</mat-label>
+                  <input matInput formControlName="fileNumber">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-4">
+                  <mat-label>{{'employees.email' | translate}}</mat-label>
+                  <input  matInput formControlName="email">
+                  <mat-error *ngIf="form.controls.email.errors && form.controls.email.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              
+              </div>
+              <div class=row>
+
+                <mat-form-field appearance="outline" class="col-md-6">
+                  <mat-label>{{'employees.employeeNameFirst' | translate}} - {{ localize.flLang | translate}}</mat-label>
+                  <input required title="{{'lookup.tooltip' | translate}}" matInput formControlName="employeeNameFl">
+                  <mat-error *ngIf="form.controls.employeeNameFl.errors && form.controls.employeeNameFl.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-md-6">
+                  <mat-label>{{'employees.employeeNameSecond' | translate}} - {{ localize.slLang | translate}}</mat-label>
+                  <input 
+                  [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}" matInput formControlName="employeeNameSl">
+                  <mat-error *ngIf="form.controls.employeeNameSl.errors && form.controls.employeeNameSl.errors.hasOwnProperty('notEquivalent')">
+                    {{ 'Message.alreadyExistBefore' | translate }}
+                  </mat-error>
+                </mat-form-field>
+
+                
+
+              </div>
+            
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <!-- end fieldset -->
+      <!-- fieldset -->
+      <br>
+      <div class="row col-md-12">
+          <mat-card >
+            
+            
+                <mat-form-field appearance="outline" class="col-md-2">
+                  <mat-label>{{'employees.nationality' | translate}}</mat-label>
+                      <mat-select required  title="{{'lookup.tooltip' | translate}}" formControlName="nationalId">
+                        <mat-option>---</mat-option>
+                        <mat-option *ngFor="let item of nationalities" [value]="item.id">
+                          {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-2">
+                  <mat-label>{{'employees.religion' | translate}}</mat-label>
+                  <mat-select required  title="{{'lookup.tooltip' | translate}}" formControlName="religionId">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of religions" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-2">
+                  <mat-label>{{'employees.gender' | translate}}</mat-label>
+                  <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="genderId">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of genders" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              
+                <mat-form-field appearance="outline" class="col-md-2">
+                  <mat-label>{{'employees.martialStatus' | translate}}</mat-label>
+                  <mat-select  title="{{'lookup.tooltip' | translate}}" formControlName="maritalStatusId">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of martialStatus" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-4">
+                  <mat-label>{{'employees.qualification' | translate}}</mat-label>
+                  <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="qualificationId">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of quailfications" [value]="item.id">
+                      {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" class="col-md-4">
+                  <mat-label>{{'employees.serviceStatus' | translate}}</mat-label>
+                  <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="serviceStatusId">
+                    <mat-option>---</mat-option>
+                    <mat-option *ngFor="let item of serviceStatus" [value]="item.id">
+                      {{ localize.lang =='en' ? item.nameFl : item.nameSl }}</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+            
+          </mat-card>
+        
+      </div>
+      <!-- end fieldset -->
+      <!-- fieldset -->
+      <br>
+
+
+        
+          <mat-card style="width: 97%;">
+            <div class="row col-md-12">
+
+            <div class="col-md-4">
+            <!-- <mat-label>{{'employees.hireDate' | translate}}</mat-label>
+            <input matInput required [matDatepicker]="dateOfHiringPicker" formControlName="dateOfHiring">
+            <mat-datepicker-toggle matSuffix [for]="dateOfHiringPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateOfHiringPicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'employees.hireDate' | translate"   
+            [required]="true"   [title]="'lookup.tooltiphiredate' | translate"   
+            [matDatepicker]="'dateOfHiringPicker'"  [namecontrol]="'dateOfHiring'"  >
+          </app-mat-datepicker-shared>   
+          
+           </div>
+
+           <div class="col-md-4">
+            <!-- <mat-label>{{'employees.startDate' | translate}}</mat-label>
+            <input required matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker [calendarHeaderComponent]="header"></mat-datepicker> -->
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'employees.startDate' | translate"   
+            [required]="true"   [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'startDatePicker'"  [namecontrol]="'startDate'"  >
+          </app-mat-datepicker-shared>  
+           </div>
+
+           <div class="col-md-4">
+            <!-- <mat-label>{{'employees.endDate' | translate}}</mat-label>
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" disabled>
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker disabled="false" [calendarHeaderComponent]="header"></mat-datepicker> -->
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [lblName]= "'employees.endDate' | translate"   
+            [title]="'lookup.tooltip' | translate"   
+            [matDatepicker]="'endDatePicker'"  [namecontrol]="'endDate'"  >
+          </app-mat-datepicker-shared> 
+           </div>
+
+            </div>
+          </mat-card>
+
+
+      
+      <!-- end fieldset -->
+
+  </div>
+
+    </mat-dialog-content>
+  <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+</div>

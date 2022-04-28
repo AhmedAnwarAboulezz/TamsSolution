@@ -1,0 +1,31 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'leavetypes.leavetypes'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+
+
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'leavetypes.code' | translate}}</mat-label>
+
+          <input matInput formControlName="code">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'leavetypes.leaveTypeFL' | translate}}- {{ localize.flLang | translate}}</mat-label>
+
+          <input matInput formControlName="leaveTypeFL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'leavetypes.leaveTypeSL' | translate}}- {{ localize.slLang | translate}}</mat-label>
+
+          <input matInput formControlName="leaveTypeSL" required title="{{'lookup.tooltip' | translate}}">
+        </mat-form-field>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+
+</div>

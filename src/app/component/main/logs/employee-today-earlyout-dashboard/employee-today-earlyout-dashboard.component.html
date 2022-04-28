@@ -1,0 +1,12 @@
+<div relative>
+    <app-data-table [url]="{
+        getAll: 'Reports/GetTodayEarlyOutseAllPaged',
+        delete:'EmployeeLogs/delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: false,
+          print:true
+        }" [tableData]="tableData">
+      </app-data-table>
+  </div>
+  

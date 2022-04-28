@@ -1,0 +1,46 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'employeeattendance.autoSolveLogs'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography">
+      <div class="example-container">
+
+
+          <div class="row" *ngIf="reviewList.length == 0">
+            <h3 style="text-align: center;width: inherit;color: red;background: #f3f5f6;">
+              {{'autoSolve.noRecordsToSolve' | translate}}
+            </h3>
+          </div>
+          <div class=row *ngIf="reviewList.length !== 0">
+            <mat-form-field appearance="outline" class="col-12 col-md-12">
+              <mat-label>{{'rotatedDuties.notes' | translate}}</mat-label>
+              <textarea matInput [(ngModel)]="absenceSearch.notes"></textarea>
+            </mat-form-field>
+            <table class="col-md-12">
+              <thead>
+                <th>{{'employees.employeeNumber' | translate}}</th>
+                <th>{{'employees.employeeName' | translate}}</th>
+                <th>{{'employeeattendance.timeEntry' | translate}}</th>
+                <th>{{'employeeattendance.logTypeOld' | translate}}</th>
+                <th>{{'employeeattendance.logTypeNew' | translate}}</th>     
+              </thead>            
+              <tbody>
+                 <tr *ngFor="let item of reviewList">
+                    <td>{{item.employeeNumber}}</td>
+                    <td>{{localize.currentLang == 'Fl' ? item.employeeNameFl:  item.employeeNameSl}}</td>
+                    <td>{{item.timeEntry | localizedDate:true }}</td>
+                    <td>{{item.logTypeIdOld | getNameFromList:logTypes }}</td>
+                    <td>{{item.logTypeIdNew | getNameFromList:logTypes}}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions  align="center">
+        <div class="col-md-3">
+            <button data-display="static" mat-raised-button color="primary" [disabled]="reviewList.length == 0" cdkFocusInitial
+            (click)="openConfirmDialog()">{{'autoSolve.approveAndSolve' | translate}}</button>  
+        </div>
+    </mat-dialog-actions>  
+
+  </div>

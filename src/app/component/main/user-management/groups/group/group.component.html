@@ -1,0 +1,32 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  
+  <app-dialogheader [text]="'groups.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'groups.code' | translate}}</mat-label>
+          <input matInput formControlName="code">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'groups.groupFl' | translate}} - {{ localize.flLang | translate}}</mat-label>
+          <input required title="{{'lookup.tooltip' | translate}}" matInput formControlName="groupFL">
+        </mat-form-field>
+        <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-12 col-md-12">
+          <mat-label>{{'groups.groupSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+          <input 
+          [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}" matInput formControlName="groupSL">
+        </mat-form-field>
+        <div class="col-12 col-md-6" appearance="outline">
+          <mat-checkbox matInput [checked]="false" formControlName="active" color="primary" labelPosition="after">
+            {{'groups.active' | translate}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+<app-save-and-close [form]="form" (close)="onClose($event)"></app-save-and-close>
+
+</div>

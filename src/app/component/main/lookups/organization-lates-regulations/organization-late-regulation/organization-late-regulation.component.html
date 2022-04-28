@@ -1,0 +1,138 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'organizationLatesRegulations.organizationLatesRegulations'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+  
+        <div class="example-container">
+            <div class=row>
+              <div class="col-md-12">
+                   
+                    <div class=row>
+                        <div class="col-md-12">
+                          <div class=row>
+                            <div class="col-md-6">
+
+                              <app-mat-datepicker-shared 
+                              [parentForm]="form"
+                              [lblName]= "'organizationLatesRegulations.startDate' | translate"   
+                              [required]="true" 
+                              [title]="'lookup.tooltip' | translate"   
+                              [matDatepicker]="'startDatePicker'"
+                              [isViewDetils]="isViewDetils" 
+                              [isDefault]="isDefault"  
+                              [namecontrol]="'startDate'" >
+                            </app-mat-datepicker-shared> 
+                              
+                              <!-- <mat-form-field appearance="outline">
+                                <mat-label>{{'organizationLatesRegulations.startDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="startDatePicker" formControlName="startDate"
+                                  [readonly]="isViewDetils || isDefault">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker [disabled]="isViewDetils || isDefault" [calendarHeaderComponent]="header"></mat-datepicker>
+                              </mat-form-field> -->
+                            </div>
+                            <div class="col-md-6">
+
+                             <app-mat-datepicker-shared 
+                              [parentForm]="form"
+                              [lblName]= "'organizationLatesRegulations.endDate' | translate"   
+                              [required]="true" 
+                              [title]="'lookup.tooltip' | translate"   
+                              [matDatepicker]="'endDatePicker'"
+                              [isViewDetils]="isViewDetils" 
+                              [isDefault]="isDefault"  
+                              [namecontrol]="'endDate'" >
+                            </app-mat-datepicker-shared> 
+                              <!-- <mat-form-field appearance="outline">
+                                <mat-label>{{'organizationLatesRegulations.endDate' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" [readonly]="isViewDetils ||isDefault">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker [disabled]="isViewDetils ||isDefault" [calendarHeaderComponent]="header"></mat-datepicker>
+                              </mat-form-field> -->
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                          
+<div class="row">
+  <div class="col-6 ">
+    <mat-slide-toggle formControlName="calclateafterDutyallowancein" color="primary"
+     labelPosition="before">
+   
+      {{'organizationLatesRegulations.calclateafterDutyallowancein' | translate}}
+      
+    </mat-slide-toggle>
+  </div>  
+
+  <div class="col-6 ">
+    <mat-slide-toggle formControlName="calcEarlyOutBeforeAllowanceOut" color="primary"
+     labelPosition="before">
+   
+      {{'organizationLatesRegulations.calcearlyoutbeforeallowanceout' | translate}}
+      
+    </mat-slide-toggle>
+  </div> 
+            
+</div>
+<br>
+         
+                    <div class="row">
+                      <div class="col-6 ">
+                        <mat-slide-toggle formControlName="calcLateGoingOutDuty" color="primary"
+                         labelPosition="before" (change)="onCheckChange($event)">
+                       
+                          {{'organizationLatesRegulations.calcLateGoingOutDutylbl' | translate}}
+                          
+                        </mat-slide-toggle>
+                      </div>  
+
+                          <div class="col-4 " *ngIf="this.form.get('calcLateGoingOutDuty').value ">
+                            <mat-form-field appearance="outline" class="col-12 col-md-12">
+                              <mat-label>{{'organizationLatesRegulations.goingOutAllowancelbl' | translate}}</mat-label>
+                              <input matInput  formControlName="goingOutAllowance" type="number" min="0">
+                            </mat-form-field>
+      
+                          </div>
+                                
+                    </div>
+<br>
+
+
+                    <div class="row">
+                        <div class="col-4">
+                          <mat-label>{{'organizationLatesRegulations.calcTotalLateslbl' | translate}}</mat-label>              
+  
+                        </div>
+                          <div  class="col-2 col-md-2 format">
+                          <mat-checkbox matInput [checked]="false" formControlName="calcTotalLates_LateIn" color="primary"
+                            labelPosition="after">
+                            <mat-label>{{'organizationLatesRegulations.calcTotalLates_LateIn' | translate}}</mat-label>
+                          </mat-checkbox>
+                        </div>
+                        <div  class="col-2 col-md-2 format">
+                          <mat-checkbox matInput [checked]="false" formControlName="calcTotalLates_EarlyOut" color="primary"
+                          labelPosition="after">
+                          <mat-label>{{'organizationLatesRegulations.calcTotalLates_EarlyOut' | translate}}</mat-label>
+                        </mat-checkbox> 
+                        </div>
+                        <div  class="col-2 col-md-2 format">
+                        <mat-checkbox matInput [checked]="false" formControlName="calcTotalLates_LateGoingOutDuty" color="primary"
+                        labelPosition="after">
+                        <mat-label>{{'organizationLatesRegulations.calcTotalLates_LateGoingOutDuty' | translate}}</mat-label>
+                      </mat-checkbox>
+                      </div>
+                      </div>
+                    <div class=row>
+                      <mat-form-field appearance="outline" class="col-12 col-md-12">
+                        <mat-label>{{'organizationLatesRegulations.note' | translate}}</mat-label>
+                        <input matInput formControlName="note">
+                      </mat-form-field>
+                    </div>
+              </div>
+            </div>
+        </div>
+           
+    </mat-dialog-content>
+    <div >
+        <app-save-and-close [form]="form" (close)="SaveData($event)"></app-save-and-close>
+    </div> 
+  </div>

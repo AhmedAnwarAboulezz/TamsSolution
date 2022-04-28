@@ -1,0 +1,131 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+  <app-dialogheader [text]="'usermangments.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+
+
+          <div class="col-md-12">
+            <app-select *ngIf="isNew" [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable"
+              formControlName="employeeId" [name]="'field.fullName' | translate" [IsNew]="true"
+              [IncludeIncompleteEmployees]="false" (getEmployeeData)="getEmployeeData($event)"
+              (selectChangeEvent)="onEmployeeChange($event)" [isSearchable]="true" [hasTemplate]="true"
+              [isMultiple]="false" [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()">
+            </app-select>
+            <app-select *ngIf="!isNew" [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable"
+            formControlName="employeeId" [name]="'field.fullName' | translate" [IsNew]="false"
+            [IncludeIncompleteEmployees]="false" (getEmployeeData)="getEmployeeData($event)"
+            (selectChangeEvent)="onEmployeeChange($event)" [isSearchable]="true" [hasTemplate]="true"
+            [isMultiple]="false" [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()">
+          </app-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6" appearance="outline">
+            <mat-radio-group formControlName="userNameTypeId" (change)="onItemChange($event.value)"
+              [ngModelOptions]="{standalone: true}">
+              <mat-radio-button *ngFor="let op of TypeUserNames; let i = index" [labelPosition]="'after'"
+                [disabled]="Radio" [value]="op.id" [checked]="i == op.id">
+                {{ op.name}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <mat-form-field appearance="outline" class="col-6 col-md-4">
+            <mat-label>{{'usermangments.username' | translate}}</mat-label>
+            <input required matInput formControlName="username" [readonly]="namedisable">
+          </mat-form-field>
+          <mat-slide-toggle class="col-6 col-md-2 move text-left" formControlName="isActive" color="primary"
+            labelPosition="after">
+            {{'usermangments.active' | translate}}
+          </mat-slide-toggle>
+
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-6 col-md-3">
+            <mat-label>{{'usermangments.password' | translate}}</mat-label>
+            <input matInput placeholder="{{'usermangments.password' | translate}} " [readonly]="passdisable"
+              [type]="hide ? 'password' : 'text'" formControlName="password" title="{{'lookup.tooltip' | translate}}">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+          <mat-slide-toggle class="col-6 col-md-3 move text-left" [checked]="false" formControlName="isCivilId"
+            [disabled]="Radio" color="primary" labelPosition="after" (change)="onItemChangePassWord($event.checked)">
+            {{'usermangments.civilId' | translate}}
+          </mat-slide-toggle>
+
+          <div class="col-6 col-md-3">
+            <!-- <mat-label>{{'usermangments.expireDate' | translate}}</mat-label>
+            <input matInput [matDatepicker]="expireDatePicker" [readonly]="isendOfContractDate" [disabled]="isendOfContractDate"
+              formControlName="expireDate">
+            <mat-datepicker-toggle matSuffix [for]="expireDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker (opened)="onOpen(expireDatePicker)" #expireDatePicker [calendarHeaderComponent]="header">
+            </mat-datepicker> -->
+
+            <app-mat-datepicker-shared 
+            [parentForm]="form" [validform]="form.valid"  
+            [lblName]= "'usermangments.expireDate' | translate"   
+             [isViewDetils]="isendOfContractDate" 
+            [title]="'lookup.tooltip' | translate"  
+            [matDatepicker]="'expireDatePicker'"
+            [namecontrol]="'expireDate'" >
+          </app-mat-datepicker-shared> 
+
+          </div>
+          <mat-slide-toggle class="col-6 col-md-3 move text-left" [checked]="false" formControlName="isEndOfContract"
+            (change)="onEndOfContractChange($event.checked)" color="primary" labelPosition="after">
+            {{'usermangments.endOfContract' | translate}}
+          </mat-slide-toggle>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="col-12 col-md-12">
+              <mat-label>{{'usermangments.group' | translate}}</mat-label>
+              <input required #textgroups matInput placeholder="{{ 'Filter.Groups' | translate }}" autocomplete="off">
+
+              <mat-select formControlName="userGroup" multiple>
+                <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected,true)" [value]="0">
+                  {{'all' | translate}}
+                </mat-option>
+                <mat-option (click)="toggleUnSelectAll(allSelected.selected, true)"
+                  *ngFor="let group of groups | filter: textgroups.value" [value]="group.id">
+                  {{ localize.currentLang =='Fl' ? group.nameFl : group.nameSl }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-12">
+              <mat-label>{{'usermangments.location' | translate}}</mat-label>
+              <input required #textLocations matInput placeholder="{{ 'Filter.Locations' | translate }}" autocomplete="off">
+
+              <mat-select formControlName="userLocation" multiple>
+                <mat-option #allSelected1 (click)="toggleAllSelection(allSelected1.selected,false)" [value]="0">
+                  {{'all' | translate}}
+                </mat-option>
+                <mat-option (click)="toggleUnSelectAll(allSelected.selected, false)"
+                  *ngFor="let location of locations | filter: textLocations.value" [value]="location.id">
+                  {{ localize.currentLang =='Fl' ? location.nameFl : location.nameSl }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-prime-tree [formControl]="form.controls['userAdminstrative']" [selectionMode]="'checkbox'">
+            </app-prime-tree>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </mat-dialog-content>
+  </mat-card>
+
+  <app-save-and-close [form]="form" (close)="onCloseConfirmation($event)"></app-save-and-close>
+
+
+</div>

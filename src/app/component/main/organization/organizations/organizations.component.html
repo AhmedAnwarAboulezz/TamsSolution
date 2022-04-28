@@ -1,0 +1,102 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <mat-card class="tabLabels">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="{{ 'organizations.BasicInformation' | translate}}">
+        <mat-card>
+          <mat-card-title> {{ 'organizations.Organization' | translate}}</mat-card-title>
+          <mat-dialog-content class="mat-typography" [formGroup]="form">
+            <mat-accordion>
+              <form [formGroup]="form">
+                      <div class="example-container">
+                        <div class=row>  
+                          <div class="col-md-7">
+                            <div class=row>
+                              <mat-form-field  appearance="outline" class="col-12 col-md-6">
+                                <mat-label> {{ 'organizations.organizationNameFl' | translate}}  - {{ localize.flLang | translate}}</mat-label>
+                                <input type="text" matInput formControlName="organizationNameFl">
+                              </mat-form-field>  
+                              <mat-form-field 
+                              [hidden]="!localize.multiLang"  appearance="outline" class="col-12 col-md-6">
+                                <mat-label> {{ 'organizations.organizationNameSl' | translate}} - {{ localize.slLang | translate}}</mat-label>
+                                <input [requiredIf]="localize.multiLang" type="text" matInput formControlName="organizationNameSl">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" class="col-12 col-md-6">
+                                <mat-label> {{ 'organizations.nickName' | translate}}</mat-label>
+                                <input type="text" matInput formControlName="nickName">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" class="col-12 col-md-6">
+                                <mat-label> {{ 'organizations.Code' | translate}}</mat-label>
+                                <input type="text" [readonly]="true" matInput formControlName="code">
+                              </mat-form-field>  
+                              
+                              <mat-form-field appearance="outline" class="col-12 col-md-6" style="padding-top: 15px;">
+                                <mat-label>{{ 'organizations.registrationEmail' | translate}}</mat-label>
+                                <input type="email" [readonly]="true" matInput formControlName="registrationEmail">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="col-12 col-md-6" style="padding-top: 15px;">
+                              <mat-label>{{ 'organizations.AlternativeEmail' | translate}}</mat-label>
+                              <input type="email" matInput formControlName="alternativeEmail">
+                            </mat-form-field>   
+                            <mat-form-field appearance="outline" class="col-6 col-md-6" hidden>
+                              <mat-label>{{ 'organizations.timeZone' | translate}}</mat-label>
+                              <mat-select formControlName="timeZoneId">
+                                <mat-option>---</mat-option>
+                                <mat-option *ngFor="let  timeZone of  timeZones" [value]="timeZone.id">
+                                   {{  timeZone.name  }}
+                                  </mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                            </div>
+                           
+                          </div>
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <mat-card>
+                                  <img mat-card-image [src]="form.value.logoURLFl != '' ? form.value.logoURLFl :selectedFile" height="100" width="100%">
+                                  <div class="upload-btn-wrapper">
+                                    <button style="width:100%;" class="btn"> {{ 'organizations.UploadImageLogo' | translate}} - {{ localize.flLang | translate}}</button>
+                                    <input #inputImage type="file" accept="image/*" (change)="onSelectedFilesChangedFl(inputImage)">
+                                  </div>
+                                </mat-card>
+                              </div>    
+                              <div class="col-md-6">
+                                  <mat-card>
+                                    <img mat-card-image [src]="form.value.logoURLSl  != '' ? form.value.logoURLSl :selectedFile" height="100" width="100%">
+                                    <div class="upload-btn-wrapper">
+                                      <button style="width:100%;" class="btn">{{ 'organizations.UploadImageLogo' | translate}} - {{ localize.slLang | translate}}</button>
+                                      <input #inputImage2 type="file" accept="image/*" (change)="onSelectedFilesChangedSl(inputImage2)">
+                                    </div>
+                                  </mat-card>
+                              </div>
+                            </div>
+
+                          </div>                     
+                        </div> 
+                        <div class="row">
+                            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" (click)="edit()">{{ 'organizations.Save' | translate}}</button>
+                          </div>                            
+                      </div>
+              </form>
+            </mat-accordion>
+          </mat-dialog-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="{{ 'organizations.Licences' | translate}}">
+        <app-organization-licences></app-organization-licences>
+      </mat-tab>
+      <mat-tab label="{{ 'organizations.GeneralSetting' | translate}}">
+        <app-general-setting></app-general-setting>
+      </mat-tab>
+      <mat-tab label="{{ 'organizations.actualworkingsetting' | translate}}">
+        <app-setting-actual-working></app-setting-actual-working>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
+
+
+
+
+
+    

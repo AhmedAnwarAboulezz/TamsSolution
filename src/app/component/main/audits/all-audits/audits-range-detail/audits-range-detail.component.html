@@ -1,0 +1,92 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'audit.auditDetail'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="row" style="border: 1px solid #a9a9ad;padding: 11px;box-shadow: 1px 1px 7px 3px #a3a4ab;border-radius: 12px;text-align: center;">
+            <div class="col-md-4"><p>{{ 'audit.changedBy' | translate }}:  {{mainModel.changedBy}}</p></div>   
+           <div class="col-md-4">
+              {{ 'audit.doneOn' | translate }}: 
+              <app-show-more [textValue]="localize.lang =='en' ? mainModel.employeeNameFl : mainModel.employeeNameSl"></app-show-more>
+            </div>   
+            <div class="col-md-4"><p>{{ 'audit.screenName' | translate }}:  {{mainModel.componentName | translate }}</p></div>   
+        </div>
+      </div>
+    </div>
+    <mat-dialog-content class="mat-typography"> 
+      <div class="example-container">
+        <div class=row>
+          <table class="col-md-12" *ngFor="let item of model.auditRecordsList">
+            <thead>
+              <th>{{'audit.propName' | translate}}</th>
+              <th>{{'audit.propValue' | translate}}</th>
+            </thead>            
+            <tbody>
+               <tr  *ngFor="let item2 of item">
+                <td>{{(item2.propName | auditField: mainModel.screenName) | translate}}</td>  
+                <td *ngIf="mainModel.actionId === 5"> 
+                  <mat-checkbox *ngIf="(item2.propNewValue | lowercase) == 'true'" [checked]="true" [disabled]="true">
+                  </mat-checkbox>
+                  <mat-checkbox *ngIf="(item2.propNewValue | lowercase) == 'false'" [checked]="false"  [disabled]="true">
+                  </mat-checkbox>
+                  <p *ngIf="(item2.propNewValue | lowercase) !== 'false' && (item2.propNewValue | lowercase) !== 'true'">
+                    {{item2.propName == 'ScreenId' ? (item2.propNewValue | translate) : item2.propNewValue}}
+                  </p>
+                </td>
+                <td *ngIf="mainModel.actionId === 6">
+                  <mat-checkbox *ngIf="(item2.propOldValue | lowercase) == 'true'" [checked]="true" [disabled]="true">
+                  </mat-checkbox>
+                  <mat-checkbox *ngIf="(item2.propOldValue | lowercase) == 'false'" [checked]="false"  [disabled]="true">
+                  </mat-checkbox>
+                  <p *ngIf="(item2.propOldValue | lowercase) !== 'false' && (item2.propOldValue | lowercase) !== 'true'">
+                    {{item2.propName == 'ScreenId' ? (item2.propOldValue | translate) : item2.propOldValue}}
+                  </p>
+                </td>         
+               </tr>
+            </tbody>
+          </table>
+        </div>       
+      </div>
+    </mat-dialog-content>
+  </div>
+
+
+  <!-- <table class="col-md-12">
+    <thead>
+      <th>{{'propName' | translate}}</th>
+      <th>{{'propValue' | translate}}</th>
+    </thead>            
+    <tbody>
+       <tr>
+        <td>Welcome</td>  
+        <td>
+            <tr>
+                <p>
+                Test1
+                </p>
+            </tr>          
+            <hr>
+            <tr>
+                <p>
+                    Test2
+                </p>
+            </tr>              
+        </td>                
+       </tr>
+       <tr>
+        <td>rrr</td>  
+        <td>
+            <tr>
+                <p>
+                Test22
+                </p>
+            </tr>          
+            <hr>
+            <tr>
+                <p>
+                    Test44
+                </p>
+            </tr>              
+        </td>                
+       </tr>
+    </tbody>
+  </table> -->

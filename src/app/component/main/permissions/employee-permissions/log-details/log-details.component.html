@@ -1,0 +1,46 @@
+<div class=" row text-center" [formGroup]="logForm">
+
+    <div class="col-md-12" *ngIf="model.logIn != null && permissionTime != 'saveIn'">
+        <table class="col-md-12">
+            <thead>
+              <th>All LogsIN</th>
+            </thead>            
+            <tbody>
+                <tr>
+                  <td>
+                    <mat-radio-group class="w-100 d-flex justify-content-between row" formControlName="logInTime">
+                      <mat-radio-button class="col-md-4" appearance="outline" *ngFor="let op of model.logIn; let i = index" [labelPosition]="'after'" [checked]="i == 0" [value]="op">
+                        {{ op }}
+                      </mat-radio-button>
+                    </mat-radio-group>           
+                </td>
+                </tr>
+            </tbody>
+          </table>
+          <hr>
+    </div>
+
+    <div class="col-md-12" *ngIf="model.logOut != null  && permissionTime != 'saveOut'">
+        <table>
+            <thead>
+              <th>All Logs Outs</th>
+            </thead>            
+            <tbody>
+                <tr>
+                  <td>
+                    <mat-radio-group class="w-100 d-flex justify-content-between row" formControlName="logOutTime">
+                      <mat-radio-button class="col-md-4"  appearance="outline" *ngFor="let op of model.logOut; let i = index" [labelPosition]="'after'" [checked]="i == 0" [value]="op">
+                        {{ op }}
+                      </mat-radio-button>
+                    </mat-radio-group>          
+                </td>
+                </tr>
+            </tbody>
+          </table>
+          <hr>
+    </div>
+   <div class="col-md-12">
+    <button class="btn btn-primary" (click)="closedialog()">Save</button>
+   </div>
+</div>
+

@@ -1,0 +1,40 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'teams.team'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+  <mat-card>
+      <mat-dialog-content class="mat-typography" [formGroup]="form">
+          <div class="example-container">
+            <div class=row>
+              <mat-form-field appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'teams.code' | translate}}</mat-label>
+                <input matInput formControlName="code">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'teams.teamNameFl' | translate}} - {{ localize.flLang | translate}}
+                </mat-label>
+                <input required title="{{'lookup.tooltip' | translate}}" matInput formControlName="teamNameFl">
+              </mat-form-field>
+              <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-12 col-md-12">
+                <mat-label>{{'teams.teamNameSl' | translate}} - {{ localize.slLang | translate}}
+                </mat-label>
+                <input [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}" matInput formControlName="teamNameSl">
+              </mat-form-field>
+              <div class="col-12 col-md-12" appearance="outline" >
+                
+                <mat-checkbox matInput [checked]="false" formControlName="isWorkflow" color="primary" labelPosition="after">
+                  {{'teams.isWorkflow' | translate}} 
+                </mat-checkbox>
+                
+            
+              </div>
+      
+            </div>
+          </div>
+      </mat-dialog-content>
+  </mat-card>
+
+
+  <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+
+</div>

@@ -1,0 +1,96 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.example-container > * {
+    width: 100%;
+}
+// =========================
+
+  .btn {
+    border: 2px solid rgb(54, 81, 235);
+    color:rgb(26, 46, 46);
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  
+  .mat-card {
+    border: 2px solid aqua
+ }
+
+ .move{
+    padding-top: 2% !important
+  }
+
+  .fancy-schedule {
+    background-color:#006fc2; 
+    color: white;
+    text-align: center;
+  }
+
+  .fancy-schedule-workday {
+    background-color:#ed553b; 
+    color: white;
+    text-align: center;
+  }
+
+  .fancy-schedule-restday {
+    background-color:gray; 
+    color: white;
+    text-align: center;
+  }
+
+  .btn-apply {
+
+    padding: 2px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    max-width: 112px !important;
+    max-height: 42px !important;
+      
+    margin: auto;
+  }
+  .mat-menu-item{
+    width: 12.5em !important;
+}
+
+button:disabled {
+    pointer-events:none;
+    opacity:.5;
+    background: #CCC;
+   }
+
+.mat-dialog-actions[align=end] {
+    border-top: 1px solid rgb(0, 111, 194);
+}
+
+.mat-dialog-actions {
+    padding: 8px 0;
+    margin-bottom: -15px;
+}
+::ng-deep .dropdownTest  {
+  background-color: #084B7D !important;
+  padding: 0 10px!important;
+  width: 100%!important;
+  min-height: 34px !important;
+  height: 34px !important;
+  overflow: hidden;
+}
+::ng-deep .dropdownTest button{
+
+  color: white;
+  margin-top: -14px;
+  padding: 0px;
+  height: 35px;
+  width: 160px;
+  }
+  ::ng-deep .mainButton{
+    width: 108px;
+
+    }

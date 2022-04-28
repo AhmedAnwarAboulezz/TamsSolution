@@ -1,0 +1,18 @@
+<app-dialogheader [text]="'devices.device'" [className]="'textAlign' | translate" [dir]="'dir' | translate" (onclick)="onNoClick('Close')"></app-dialogheader>
+<mat-dialog-content class="mat-typography">
+
+<mat-card class="example-container" >
+    <mat-dialog-content class="mat-typography" [className]="'textAlign' | translate" [dir]="'dir' | translate">
+      <div relative>
+        <app-table-details [columnHeader]="displayedColumns"  [componentName]="componentName">
+        </app-table-details>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions >
+      <button mat-raised-button (click)="onCloseConfirmation()" color="primary" cdkFocusInitial>{{ 'save' | translate}}</button>
+    </mat-dialog-actions>
+  </mat-card>
+</mat-dialog-content>
+
+
+  

@@ -1,0 +1,43 @@
+
+export class ReportFilter {
+    statusId = 0;
+    nationalityIds?:[];
+    absenceTypeId = 0;
+    absenceCount = 1;
+    totalLate = 1;
+    locationId = '00000000-0000-0000-0000-000000000000';
+    jobId = '00000000-0000-0000-0000-000000000000';
+    dutyTypeId = '00000000-0000-0000-0000-000000000000';
+    dutyId?: string;
+    contractId = '00000000-0000-0000-0000-000000000000';
+    leaveTypeId?: [];
+    partialPermissionTypeId?: [];
+    fullDayPermissionTypeId?: [];
+    allowanceTypeId?: [];
+    qualificationId = '00000000-0000-0000-0000-000000000000';
+    employeeId: string;
+    requestById: string;
+    startDate = new Date();
+    endDate = new Date();
+    groupBy = 1;
+    groupBy1 = 2;
+    isWeekend = true;
+    isRestday = true;
+    isHoliday = true;
+    isPiChart = true;
+    isPaged = false;
+    adminstrativeLevels?: [];
+    month ?= new Date().getMonth() + 1;
+    year ?= new Date().getFullYear();
+    serviceStatusId = 0;
+    reportName: string;
+    organizationId = '00000000-0000-0000-0000-000000000000';
+    organizationName: string;
+    organizationLogo: string;
+    printType ?= 1;
+    isUnPaidLeave = false;
+    isExemptionSign = false;
+    actualAttendancePresent? :number;
+    logTypeIds?: [];
+    terminalSn?:[];
+}

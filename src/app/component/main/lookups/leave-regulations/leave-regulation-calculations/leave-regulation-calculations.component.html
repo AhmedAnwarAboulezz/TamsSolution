@@ -1,0 +1,85 @@
+<form [formGroup]="leaveRegulationCalculationForm">
+  <mat-dialog-content class="mat-typography">
+    <mat-card class="example-container">
+      <mat-form-field appearance="outline">
+        <mat-label>{{'leaveRegulations.calculatenewbalance' | translate}}</mat-label>
+
+        <mat-select  formControlName="balanceCaluculationWayId" required title="{{'lookup.tooltip' | translate}}">
+          <mat-option>---</mat-option> 
+          <mat-option *ngFor="let item of balanceCaluculationWays" [value]="item.id">
+            {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="row">
+        <div class="col-3">
+          <mat-label> {{'leaveRegulations.calculate' | translate}}</mat-label>
+        </div>
+        <div class="col-9">
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+            formControlName="isCalculateWeekend">
+            {{'leaveRegulations.weekend' | translate}}
+            
+          </mat-checkbox>
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+            formControlName="isCalculateRestday">
+            {{'leaveRegulations.restday' | translate}}
+            
+          </mat-checkbox>
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+            formControlName="isCalculateHoliday">
+            {{'leaveRegulations.holidaywithit' | translate}}
+           
+          </mat-checkbox>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-3">
+          <mat-label> {{'leaveRegulations.youcanhaveanotherLeave' | translate}}</mat-label>
+        </div>
+        <div class="col-9">
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+            formControlName="canHaveAnotherLeaveAfter">
+            {{'leaveRegulations.after' | translate}}
+            
+          </mat-checkbox>
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+            formControlName="canHaveAnotherLeaveBefore">
+            {{'leaveRegulations.before' | translate}}
+            
+          </mat-checkbox>
+        
+        </div>
+       
+      </div>
+      <div class="row">
+        <div  class="col-3"></div>
+        <div class="col-9">
+          <mat-checkbox [checked]="false" color="primary" labelPosition="after" class="col-1"
+          formControlName="canHaveAnotherLeaveInside">
+          {{'leaveRegulations.insideit' | translate}}        
+        </mat-checkbox>
+
+        <mat-form-field appearance="outline"  class="col-4"
+        *ngIf="leaveRegulationCalculationForm.get('canHaveAnotherLeaveInside').value">         
+         <mat-label>{{'leaveRegulations.leaveTypeName' | translate}}</mat-label>
+         <mat-select formControlName="leaveRegulationLeavesType" multiple       
+           title="{{'lookup.tooltip' | translate}}">
+           <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" 
+           [value]="0">   
+                 {{'grouproles.all' | translate}}
+           </mat-option>
+           <mat-option *ngFor="let item of RegulationleavesTypes" [value]="item.id">
+             {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+         </mat-select>
+       </mat-form-field>
+        </div>
+       
+      </div>
+
+     
+    </mat-card>
+  </mat-dialog-content>
+
+</form>

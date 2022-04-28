@@ -1,0 +1,94 @@
+<mat-card>
+    <mat-card-title>{{ 'organizations.OrganizationLicences' | translate}}</mat-card-title>
+    <mat-dialog-content class="mat-typography" >
+      <mat-accordion>
+       
+        <div class="example-container">            
+            <mat-card>
+                <mat-card-title> {{ 'organizations.TamsLicences' | translate}}</mat-card-title>
+                <hr>
+                <div class=row>  
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>  {{ 'organizations.NumberOfTamsUsers' | translate}} </p> 
+                            </div>
+                            <div class=" col-md-6 formResult">
+
+                                <p>{{ model.usersCount }}</p>
+                            </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>  {{ 'organizations.NumberOfEmployee' | translate}} </p> 
+                            </div>
+                            <div class=" col-md-6 formResult">
+
+                                <p>{{ model.employeesCount }}</p>
+                            </div>
+                    </div>
+                    
+                </div>              
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <p>  {{ 'organizations.TamsExpireDate' | translate}} </p> 
+                            </div>
+                            <div class=" col-md-7 formResult">
+
+                                <p>{{ model.expireDateStr }}</p>
+                            </div>
+                    </div>
+                    
+                </div>
+
+                    
+                
+                                            
+                </div>  
+            </mat-card>  
+            <mat-card>
+                <mat-card-title>{{ 'organizations.InquryLicences' | translate}}</mat-card-title>
+                <hr>
+                <div class=row>  
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>{{ 'organizations.NumberOfInquryUsers' | translate}} </p> 
+                            </div>
+                            <div class=" col-md-8 formResult">
+
+                                <p>{{ model.inquiryUsersCount }}</p>
+                            </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>  {{ 'organizations.InquiryExpireDate' | translate}} </p> 
+                            </div>
+                            <div class=" col-md-8 formResult">
+
+                                <p>{{ model.inquiryExpireDateStr }}</p>
+                            </div>
+                    </div>
+                    
+                </div>
+               
+
+                    
+                
+                                            
+                </div>  
+            </mat-card>    
+                
+                </div>
+           
+              
+      </mat-accordion>
+    </mat-dialog-content>
+  </mat-card>

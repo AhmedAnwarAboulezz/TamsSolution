@@ -1,0 +1,67 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+    <app-dialogheader [text]="'adminmanger.title'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <mat-accordion>
+       
+
+        <div class="example-container">
+          <div class="row">
+            <div class="col-md-6" [class.isDisabled]="isDisabled">
+              <app-prime-tree [formControl]="form.controls['adminId']"   [selectionMode]="'single'" (selected)="selectedNodes($event)">
+              </app-prime-tree>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <mat-label>{{'adminmanger.mangername' | translate}}</mat-label>
+                  <input matInput readonly  [value]="currentadminmanger" >
+                </mat-form-field>
+
+              <div class="col-md-12" >
+                <app-select  [url]="'Employees/GetEmployeeDropDown'" formControlName="employeeId"
+                [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+                 (cancelEvent)="onEmployeeCancel()" [placeholder]="'employeeSelect' | translate"></app-select>
+              </div>
+              <div class="col-md-12">                    
+                <app-mat-datepicker-shared 
+                  [parentForm]="form" [lblName]= "'adminmanger.startdate' | translate"   
+                  [required]="true"   [title]="'lookup.tooltip' | translate"   
+                  [matDatepicker]="'startDatePicker'"  [namecontrol]="'startDate'"  >
+                </app-mat-datepicker-shared> 
+              </div>
+              <div class="col-md-12">                             
+                <app-mat-datepicker-shared 
+                  [parentForm]="form" [lblName]= "'adminmanger.enddate' | translate"   
+                    [title]="'lookup.tooltip' | translate"   
+                  [matDatepicker]="'endDatePicker'"  [namecontrol]="'endDate'"  >
+                </app-mat-datepicker-shared> 
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div align="end">
+                <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSave()"
+                  cdkFocusInitial> {{'allowanceSettings.Save' | translate}}</button>
+                <button mat-button (click)="onCancel()">{{'allowanceSettings.Reset' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-accordion>
+
+      <br>
+      <mat-card class="example-container">
+        <div relative>
+          <app-table-details (deleteClick)="delete($event)" (editClick)="edit($event)" [columnHeader]="displayedColumns"
+          [columnTypes]="columnsTypes" [componentName]="componentName">
+        </app-table-details>
+          
+        </div>
+      </mat-card>
+    </mat-dialog-content>
+  
+  </div>

@@ -1,0 +1,51 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+
+    <app-dialogheader [text]="'approveOvertimes.approveOvertime'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-card  class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <mat-accordion>
+        <div class="example-container">
+          <div class=row>
+            <div class="col-12 col-md-12">
+              <app-select [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+              [name]="'field.fullName' | translate" [isSearchable]="true" (cancelEvent)="onEmployeeCancel()"
+              [hasTemplate]="true" [isMultiple]="false"
+              [placeholder]="'employeeSelects' | translate"></app-select>
+            </div>
+
+            <mat-form-field appearance="outline" class="col-6 col-md-6">
+                <mat-label>{{'approveOvertimes.description' | translate}} - {{ localize.flLang | translate}}</mat-label>
+                <input autocomplete="off" matInput formControlName="descriptionFl" required title="{{'lookup.tooltip' | translate}}">
+              </mat-form-field>
+              <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-6 col-md-6">
+                <mat-label>{{'approveOvertimes.description' | translate}} - {{ localize.slLang | translate}}</mat-label>
+                <input autocomplete="off" matInput formControlName="descriptionSl" [requiredIf]="localize.multiLang" title="{{'lookup.tooltip' | translate}}">
+              </mat-form-field>
+      
+           
+
+            <mat-form-field appearance="outline" class="col-12 col-md-6">
+              <mat-label>{{'approveOvertimes.month' | translate}}</mat-label>
+              <input autocomplete="off" required type="number" matInput formControlName="month"  min="0" oninput="this.value = Math.abs(this.value)">
+            </mat-form-field> 
+
+            <mat-form-field appearance="outline" class="col-12 col-md-6">
+              <mat-label>{{'approveOvertimes.year' | translate}}</mat-label>
+    
+              <mat-select  autocomplete="off" required  formControlName="year">
+                <mat-option *ngFor="let item of years" [value]="item">
+                  {{ item }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="outline" class="col-12 col-md-6">
+                <mat-label>{{'approveOvertimes.year' | translate}}</mat-label>
+                <input required type="number" matInput formControlName="year"  min="0" oninput="this.value = Math.abs(this.value)">
+            </mat-form-field>  -->
+            
+          </div>
+        </div>
+      </mat-accordion>
+    </mat-dialog-content>
+  </mat-card>
+  <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>

@@ -1,0 +1,29 @@
+<div class="chart-wrapper">
+  <canvas baseChart 
+  [data]="pieChartData" 
+  [labels]="pieChartLabels" 
+  [chartType]="pieChartType"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [legend]="pieChartLegend"
+  [colors]="pieChartColors"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"
+  >
+</canvas>
+</div>
+<!-- <div class="row text-center">
+  <div class="col-md-2"></div>
+  <mat-slide-toggle class="col-3 col-md-3 move" 
+  (change)="pieChartLegend=!pieChartLegend" color="primary" labelPosition="after">
+   {{'approveOvertimes.ToggleLegend' | translate}}
+  
+</mat-slide-toggle>
+<mat-slide-toggle *ngIf="pieChartLegend" class="col-3 col-md-3 move" 
+(change)="changeLegendPosition()" color="primary" labelPosition="after">
+{{'approveOvertimes.ChangePosition' | translate}}
+
+</mat-slide-toggle>
+  <button mat-button mat-raised-button color="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
+  <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend Position</button>
+</div> -->

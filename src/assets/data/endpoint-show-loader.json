@@ -1,0 +1,23 @@
+[
+    {
+        "url": "/GetAllPaged",
+        "method": "POST"
+    },
+    {
+        "url": "/Authenticate",
+        "method": "POST"
+    },
+    {
+        "url": "/Add",
+        "method": "POST"
+    },
+    {
+        "url": "/Update",
+        "method": "PUT"
+    },
+    {
+        "url": "/Delete",
+        "method": "DELETE"
+    }
+    
+]

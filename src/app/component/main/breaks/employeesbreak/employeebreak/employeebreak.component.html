@@ -1,0 +1,63 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+ 
+    <app-dialogheader [text]="'employeesbreak.employeesbreak'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-card  class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+  
+  
+        <div class="row">
+          <app-select class=" col-md-12" [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+          [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+          [placeholder]="'employeeSelect' | translate" (cancelEvent)="onEmployeeCancel()"></app-select>
+        </div>
+  
+       
+        <div class="row col-md-12">
+             <app-mat-datepicker-shared 
+               [parentForm]="form" class=" col-md-6"
+               [lblName]= "'employeesbreak.startDate' | translate"   
+               [required]="true" 
+               [title]="'lookup.tooltip' | translate"   
+               [matDatepicker]="'startDatePicker'"
+               [namecontrol]="'startDate'"   >
+             </app-mat-datepicker-shared> 
+             <app-mat-datepicker-shared class=" col-md-6"
+             [parentForm]="form"
+             [lblName]= "'employeesbreak.endDate' | translate"   
+             [required]="true" 
+             [title]="'lookup.tooltip' | translate"   
+             [matDatepicker]="'endDatePicker'"
+             [namecontrol]="'endDate'"   >
+           </app-mat-datepicker-shared> 
+          </div>
+  <div class="row col-md-12">
+    
+  <mat-form-field  *ngIf="!form.value.isFixedTime" class="col-md-6"  appearance="outline" >
+    <mat-label>{{'employeesbreak.breakDuration' | translate}}</mat-label>
+    <input matInput formControlName="breakDuration" type="number" 
+    oninput="this.value = Math.abs(this.value)"  min="1" title="{{'lookup.tooltip' | translate}}">
+  </mat-form-field>
+  <mat-checkbox  class="col-md-6"  [checked]="false" formControlName="isFixedTime" 
+    color="primary" labelPosition="after" (change)="fixedTimeChange($event)"     >
+    {{'employeesbreak.isFixedTime' | translate}}
+   
+  </mat-checkbox>
+  </div>
+
+          <div class="row col-md-12" *ngIf="form.value.isFixedTime" > 
+
+        <mat-form-field appearance="outline"  class=" col-md-6"> 
+          <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="startTime" placeholder="{{'employeesbreak.startTime' | translate}}">
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline"  class=" col-md-6" > 
+            <input required title="{{'lookup.tooltip' | translate}}" matInput type="time" formControlName="endTime" placeholder="{{'employeesbreak.endTime' | translate}}">
+          </mat-form-field>
+          </div>
+      </div>
+    </mat-dialog-content>
+    </mat-card>
+  
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+  </div>

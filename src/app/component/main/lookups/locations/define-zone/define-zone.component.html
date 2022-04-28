@@ -1,0 +1,79 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'locations.defineZone'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+            <div class="col-md-4">
+              {{'locations.locationType' | translate}}
+            </div>
+            <div class="col-md-8">
+              <mat-radio-group formControlName="typeId" class="w-100 d-flex justify-content-between">
+                <mat-radio-button appearance="outline" 
+                  *ngFor="let op of locationProofs; let i = index" (change)="changeType()" [labelPosition]="'after'" [value]="op.id">
+                  {{ localize.currentLang =='Fl' ? op.nameFl : op.nameSl }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <hr>
+        <div class="row" *ngIf="form.value.typeId == locationProofEnum['point']">
+          <mat-form-field  appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'locations.latitude' | translate}}</mat-label>
+            <input [readonly]="true" matInput formControlName="lat"  title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'locations.longitude' | translate}}</mat-label>
+            <input [readonly]="true" matInput formControlName="lng"  title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+          <mat-form-field  appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'locations.distance' | translate}} </mat-label>
+            <input [readonly]="true" matInput formControlName="distance" title="{{'lookup.tooltip' | translate}}"> 
+          </mat-form-field>       
+        </div>
+          <mat-card>
+              <app-google-map *ngIf="form.value.typeId == locationProofEnum['polygon']" [lat]="form.value.locationPolygons[0]?.lat" [lng]="form.value.locationPolygons[0]?.lng" [pointList]="form.value.locationPolygons" [mapType]="'polygon'" (applyZone)="applyZone($event)"></app-google-map>
+              <app-google-map *ngIf="form.value.typeId == locationProofEnum['point']" [lat]="form.value.lat" [lng]="form.value.lng" [circleRadius]="form.value.distance" [mapType]="'circle'" (applyZone)="applyZone($event)"></app-google-map>
+              <div  class="row" *ngIf="form.value.typeId == locationProofEnum['beacon']">
+                  <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3">
+                    <mat-label> {{'locations.beaconsNumber' | translate}}</mat-label>
+                      <input autocomplete="off" required matInput type="number" title="{{'lookup.tooltip' | translate}}"
+                        min="1" oninput="this.value = Math.abs(this.value)"
+                      formControlName="beaconNumber">
+                  </mat-form-field>
+                  <div class="col-lg-3 col-md-3 col-sm-3" slot="end">
+                    <button  style="background: #0d192f;color: white;" mat-button (click)="onTemplateDaysChange()" >{{'workflow.show' | translate}}</button>
+                  </div>
+                <mat-card  class="card-table">       
+                  <table class="col-md-12">
+                      <thead>
+                          <th>{{'locations.nameFl' | translate}}</th>
+                          <th>{{'locations.nameSl' | translate}}</th>
+                          <th>{{'locations.uuid' | translate}}</th>        
+                      </thead>            
+                      <tbody>
+                        <tr formArrayName="locationBeacons" *ngFor="let item of templateDaysArray; let i = index;">
+                            <td [formGroupName]="i">
+                              <input class="form-field"  matInput type="text"  formControlName="nameFl">
+                            </td>
+                            <td [formGroupName]="i">
+                              <input class="form-field"  matInput type="text"  formControlName="nameSl">
+                            </td>   
+                            <td [formGroupName]="i">
+                              <input class="form-field"  matInput type="text"  formControlName="uuid">
+                            </td>                        
+                        </tr>
+                      </tbody>
+                    </table>
+              </mat-card>  
+              </div>
+          </mat-card>
+          <!-- {{polygans | json}} -->
+      </div>
+    </mat-dialog-content>  
+  <mat-dialog-actions align="end">
+    <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+      (click)="onAddSave()">{{'saveclose' | translate}}</button>
+  </mat-dialog-actions>
+  
+  </div>

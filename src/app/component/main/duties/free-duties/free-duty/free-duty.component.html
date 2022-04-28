@@ -1,0 +1,42 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    
+    <app-dialogheader [text]="'freeDuties.freeDuty'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  <mat-card  class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+        <div class="example-container">
+            <div class=row>                                            
+              <mat-form-field appearance="outline" class="col-12 col-md-6">
+                <mat-label>{{ 'freeDuties.dutyDescriptionFl' | translate }}- {{ localize.flLang | translate}}</mat-label>
+                <input matInput formControlName="dutyDescriptionFl" required title="{{'lookup.tooltip' | translate}}">
+                <mat-error *ngIf="form.controls.dutyDescriptionFl.errors && form.controls.dutyDescriptionFl.errors.hasOwnProperty('notEquivalent')">
+                  {{ 'Message.alreadyExistBefore' | translate }}
+                </mat-error>
+              </mat-form-field> 
+              <mat-form-field [hidden]="!localize.multiLang" appearance="outline" class="col-12 col-md-6">
+                <mat-label>{{ 'freeDuties.dutyDescriptionSl' | translate }}- {{ localize.slLang | translate}}</mat-label>
+                <input matInput formControlName="dutyDescriptionSl"  required title="{{'lookup.tooltip' | translate}}" >
+                <mat-error *ngIf="form.controls.dutyDescriptionSl.errors && form.controls.dutyDescriptionSl.errors.hasOwnProperty('notEquivalent')">
+                  {{ 'Message.alreadyExistBefore' | translate }}
+                </mat-error>
+              </mat-form-field>   
+              <div class="col-12 col-md-3" appearance="outline">
+              <mat-checkbox [checked]="false" formControlName="hasHoliday" color="primary" labelPosition="after">
+                  {{ 'freeDuties.hasHoliday' | translate }}
+            </mat-checkbox>
+              </div>
+            <div class="col-12 col-md-3" appearance="outline">
+            <mat-checkbox [checked]="false" formControlName="includeOverTime" color="primary" labelPosition="after">
+                {{ 'freeDuties.includeOverTime' | translate }}
+          </mat-checkbox>  
+            </div>                               
+            </div>
+          </div>  
+    </mat-dialog-content>
+  </mat-card>
+<app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+  
+  </div>
+
+
+

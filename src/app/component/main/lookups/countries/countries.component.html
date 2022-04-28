@@ -1,0 +1,20 @@
+<!-- <div relative class="show-large-screen">
+  <app-data-table [url]="{  getAll: 'countries/GetAllPaged', delete:'countries/delete'}"  
+     [id]="'id'" [columns]="columns" [actions]="actions" [options]="{ globalSearch: true, details: false }" [tableData]="tableData" 
+     (add)="addEvent($event)" >
+  </app-data-table>
+</div>
+ <div class="show-mobile-screen">
+  <app-mobile-data-table></app-mobile-data-table>
+ </div> -->
+
+ <div relative>
+  <app-data-table [url]="{  getAll: 'countries/GetAllPaged', delete:'countries/delete'}"  
+     [id]="'id'" [columns]="columns" [actions]="actions" [options]="{ globalSearch: true, details: false }" [tableData]="tableData" 
+     (add)="addEvent($event)" >
+  </app-data-table>
+</div>
+
+
+
+

@@ -1,0 +1,61 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'approveOvertimes.approveOvertime'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-card  class="example-container">
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <mat-accordion>
+        <div class="example-container">
+          <div class=row>      
+           
+            <div class="col-12 col-md-12">
+              <app-select [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+              [name]="'field.fullName' | translate" [isSearchable]="true" (cancelEvent)="onEmployeeCancel()"
+              [hasTemplate]="true" [isMultiple]="false"
+              [placeholder]="'employeeSelects' | translate"></app-select>
+            </div>
+            <mat-form-field appearance="outline" class="col-12 col-md-3">
+              <mat-label>{{'approveOvertimes.morningTime' | translate}}</mat-label>
+              <input [readonly]="true" type="number" matInput formControlName="morningTime">
+            </mat-form-field> 
+            <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{'approveOvertimes.nightTime' | translate}}</mat-label>
+                <input [readonly]="true" type="number" matInput formControlName="nightTime">
+            </mat-form-field> 
+            <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{'approveOvertimes.weekEndTime' | translate}}</mat-label>
+                <input [readonly]="true" type="number" matInput formControlName="weekEndTime">
+            </mat-form-field> 
+            <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{'approveOvertimes.holidayTime' | translate}}</mat-label>
+                <input [readonly]="true" type="number" matInput formControlName="holidayTime">
+            </mat-form-field> 
+
+
+            <mat-form-field appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{'approveOvertimes.actualMorningTime' | translate}}</mat-label>
+                <input required type="number" matInput formControlName="actualMorningTime"  min="0" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field> 
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{'approveOvertimes.actualNightTime' | translate}}</mat-label>
+                  <input required type="number" matInput formControlName="actualNightTime"  min="0" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field> 
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{'approveOvertimes.actualWeekEndTime' | translate}}</mat-label>
+                  <input required type="number" matInput formControlName="actualWeekEndTime"  min="0" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field> 
+              <mat-form-field appearance="outline" class="col-12 col-md-3">
+                  <mat-label>{{'approveOvertimes.actualHolidayTime' | translate}}</mat-label>
+                  <input required type="number" matInput formControlName="actualHolidayTime"  min="0" oninput="this.value = Math.abs(this.value)">
+              </mat-form-field> 
+            
+          </div>
+        </div>
+      </mat-accordion>
+    </mat-dialog-content>
+    <mat-dialog-actions  align="end">
+        <div class="col-md-12">
+            <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+            (click)="onAddSave(form.value)">{{'updateclose' | translate}}</button>  
+        </div>
+    </mat-dialog-actions>
+  </mat-card>
+  <!-- <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close> -->

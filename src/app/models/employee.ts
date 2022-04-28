@@ -1,0 +1,35 @@
+export class Employee {
+    id?: number;
+    employeeImage?: string;
+    employeeNumber?: string;
+    employeeCode?: string;
+    employeeNameFl?: string;
+    employeeNameSl?: string;
+    civilId?: string;
+    fileNumber?: string;
+    dateOfHiring?: Date;
+    email?: string;
+    startDate?: Date;
+    endDate?: Date;
+    nationalId?: number;
+    nationalityFl?: string;
+    nationalitySl?: string;
+    religionId?: number;
+    descriptionFl?: string;
+    descriptionSl?: string;
+    genderId?: number;
+    genderNameFl?: string;
+    genderNameSl?: string;
+    maritalStatusId?: number;
+    martialStatusFl?: string;
+    martialStatusSl?: string;
+    qualificationId?: number;
+    qualificationTypeFl?: string;
+    qualificationTypeSl?: string;
+    serviceStatusId?: number;
+    serviceNameFl?: string;
+    serviceNameSl?: string;
+    currentAdminLevelId?: number;
+    currentAdminLeveNameFl?: string;
+    currentAdminLeveNameSl?: string;
+}

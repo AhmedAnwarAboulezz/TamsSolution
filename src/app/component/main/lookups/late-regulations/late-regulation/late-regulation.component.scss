@@ -1,0 +1,49 @@
+
+.example-container > * {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+  }
+  .mat-elevation-z8{
+    background: #fff
+  }
+  .mat-form-field{
+    display: block;
+  }
+  .container-fluid{
+    border-bottom: 1px solid #eee;
+  }
+  .mat-card {
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 6px 3px 6px 3px #a3a4ab;
+    border: 1px solid #9fb7b7;
+ }
+ 
+ .example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: relative !important;
+}
+
+// ::ng-deep .mat-dialog-content{
+//       max-height:77vh  !important;
+//   }
+//  @media only screen   {
+//   .mat-dialog-content{
+//     max-height:80% !important;
+//    }
+  
+//  }
+
+.mat-dialog-content {
+ 
+  max-height: 85vh !important;
+}

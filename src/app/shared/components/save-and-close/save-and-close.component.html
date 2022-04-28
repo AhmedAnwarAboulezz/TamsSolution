@@ -1,0 +1,12 @@
+<mat-dialog-actions align="end">
+  <button  class="mainButton" data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+    (click)="onClose(form.value , 'SaveClose')">{{'saveclose' | translate}}</button>
+  <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu" [disabled]="!this.form.valid">
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+    <mat-menu class="dropdownTest" #beforeMenu="matMenu" xPosition="before">
+      <button [disabled]="!this.form.valid" mat-menu-item 
+        (click)="onClose(form.value, 'Save')">{{'save' | translate}}</button>
+    </mat-menu>
+  
+</mat-dialog-actions>

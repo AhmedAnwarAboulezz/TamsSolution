@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="tabIndex"  class="tabLabels">
+  <mat-tab label="{{'organizationOvertimeRegulations.organizationOvertimeRegulations' | translate }}" >
+  
+    <div relative  *ngIf="tabIndex != 1 && tabIndex != 2">
+
+    <app-data-table [url]="{
+      getAll: 'OrganizationOvertimeRegulations/GetAllPaged',
+      delete:'OrganizationOvertimeRegulations/delete'
+    }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+        globalSearch: true,
+        details: false
+      }" [tableData]="tableData"  (add)="addEvent($event)" >
+    </app-data-table>
+    </div>
+  </mat-tab>
+  <mat-tab label="{{'absencesRegulations.absencesRegulations' | translate }}">
+   
+          <app-absences-regulations *ngIf="tabIndex == 1"></app-absences-regulations>
+         
+  </mat-tab>
+  <mat-tab label="{{'organizationLatesRegulations.organizationLatesRegulations' | translate }}">
+ 
+          <app-organization-lates-regulations *ngIf="tabIndex == 2"></app-organization-lates-regulations>
+  </mat-tab>
+  </mat-tab-group>
+</mat-card>

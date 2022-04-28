@@ -1,0 +1,11 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="title" (onclick)="onNoClick()"></app-dialogheader>
+
+  <div mat-dialog-content>
+    <p>{{message | translate}}</p>
+  </div>
+  <div class="row" style="background: #006fc2;padding: 0px;min-height: 42px;" mat-dialog-actions>
+    <button style="width: 50%; color:white"  mat-button (click)="onYesClick()">{{'yes' | translate}}</button>
+    <button style="width: 50%; color:white; margin-left: 0px;margin-right: 0px;"  mat-button (click)="onNoClick()">{{'no' | translate}}</button>
+  </div>
+</div>

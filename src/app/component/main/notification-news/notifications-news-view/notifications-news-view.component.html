@@ -1,0 +1,41 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'audit.auditDetail'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="row" style="border: 1px solid #a9a9ad;padding: 11px;box-shadow: 1px 1px 7px 3px #a3a4ab;border-radius: 12px;text-align: center;">
+            <div class="col-md-4"><p>{{ 'notification.messageAr' | translate }}:  {{mainModel.messageAr}}</p></div>   
+            <div class="col-md-4"><p>{{ 'notification.messageEn' | translate }}:  {{mainModel.messageEn}}</p></div>   
+            <div class="col-md-4"><p>{{ 'notification.notificationType' | translate }}:  {{localize.currentLang =='Fl' ? mainModel.notificationTypeNameFl : mainModel.notificationTypeNameSl}}</p></div>   
+        </div>
+      </div>
+    </div>
+    <mat-dialog-content class="mat-typography"> 
+      <div class="example-container">
+        <div class="row" *ngIf="model.length == 0">
+          <h3 style="text-align: center;width: inherit;color: red;background: #f3f5f6;">{{'audit.noChangesDone' | translate}}</h3>
+        </div>
+        <div class=row *ngIf="model.length !== 0">
+          <table class="col-md-12">
+            <thead>
+              <th>{{'employees.employeeNumber' | translate}}</th>
+              <th>{{'employees.employeeName' | translate}}</th>
+              <th>{{'employees.civilId' | translate}}</th>
+              <th>{{'employeeProfile.employeeAdministration' | translate}}</th>      
+            </thead>            
+            <tbody>
+               <tr *ngFor="let item of model">
+                  <td>{{item.employeeNumber}}</td>
+                  <td>
+                    {{ localize.currentLang =='Fl' ? item.employeeNameFl : item.employeeNameSl}}
+                  </td>
+                  <td>                    
+                      {{item.civilId}}
+                  </td>
+                  <td>{{localize.currentLang =='Fl' ? item.adminLevelFl : item.adminLevelSl}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>       
+      </div>
+    </mat-dialog-content>
+  </div>

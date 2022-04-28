@@ -1,0 +1,27 @@
+@mixin customTransition($x) {
+    -webkit-transition: $x ease-in-out;
+    -moz-transition   : $x ease-in-out;
+    -ms-transition    : $x ease-in-out;
+    -o-transition     : $x ease-in-out;
+    transition        : $x ease-in-out;
+}
+
+//mobile Screens
+@mixin mobile-screen {
+    @media only screen and (max-width: 450px) {
+      @content;
+    }
+  }
+  //not mobile Screens
+  @mixin not-mobile-screen {
+    @media only screen and (min-width: 451px) {
+      @content;
+    }
+  }
+
+  // Large Screens
+@mixin large-screen {
+  @media only screen and (min-width: 1280px) {
+    @content;
+  }
+}

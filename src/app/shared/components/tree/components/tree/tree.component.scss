@@ -1,0 +1,13 @@
+::ng-deep .ui-tree {
+    overflow: auto !important;
+    min-width: 100% !important;
+}
+
+::ng-deep body .ui-tree .ui-tree-container .ui-treenode {
+    padding: 0 1.143em 0 0;
+}
+
+
+::ng-deep .rightlefttree .pi-caret-right:before {
+    content: "\e904";
+}

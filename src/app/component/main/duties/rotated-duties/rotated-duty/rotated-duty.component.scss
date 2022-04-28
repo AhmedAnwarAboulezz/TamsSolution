@@ -1,0 +1,38 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.example-container > * {
+    width: 100%;
+}
+// =========================
+
+
+  
+  .btn {
+    border: 2px solid rgb(54, 81, 235);
+    color:rgb(26, 46, 46);
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  
+  
+
+  .mat-card {
+    border: 2px solid aqua
+ }
+.mat-form-filedCustom{
+  width: 100% !important
+}
+.move{
+  padding-top: 2% !important
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: relative !important;
+}

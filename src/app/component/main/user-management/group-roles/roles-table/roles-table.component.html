@@ -1,0 +1,93 @@
+<table mat-table class="mat-elevation-z8" [dataSource]="dataSource" [style.text-align]="localize.lang === 'ar' ? 'right' : 'left'">
+  <!-- screenName Column -->
+  <ng-container matColumnDef="screenName">
+    <th mat-header-cell *matHeaderCellDef> {{ isReport ? ('grouproles.reportname' | translate) :  ('grouproles.screenname' | translate) }} </th>
+    <td mat-cell *matCellDef="let element"> {{element.componentName | translate }} </td>
+  </ng-container>
+  <!-- view Column -->
+  <ng-container matColumnDef="view">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('view', $event) : null" [checked]="isAllSelected('view')" [indeterminate]="columnHasValue('view') && !isAllSelected('view')"
+        labelPosition="after">{{'grouproles.view' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? view.toggle(row) : null"
+        [(ngModel)]="row.view">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- add Column -->
+  <ng-container matColumnDef="add">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('add', $event) : null" [checked]="isAllSelected('add')" [indeterminate]="columnHasValue('add') && !isAllSelected('add')"
+        labelPosition="after">{{'grouproles.add' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? add.toggle(row) : null" [(ngModel)]="row.add">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- update Column -->
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('update', $event) : null" [indeterminate]="columnHasValue('update') && !isAllSelected('update')"
+        [checked]="isAllSelected('update')" labelPosition="after">{{'grouproles.update' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? update.toggle(row) : null"
+        [(ngModel)]="row.update">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- delete Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('delete', $event) : null" [indeterminate]="columnHasValue('delete') && !isAllSelected('delete')"
+        [checked]="isAllSelected('delete')" labelPosition="after">{{'grouproles.delete' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? delete.toggle(row) : null"
+        [(ngModel)]="row.delete">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- print Column -->
+  <ng-container matColumnDef="print">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('print', $event) : null" [indeterminate]="columnHasValue('print') && !isAllSelected('print')"
+        [checked]="isAllSelected('print')" labelPosition="after">{{'grouproles.print' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? print.toggle(row) : null"
+        [(ngModel)]="row.print">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- all Column -->
+  <ng-container matColumnDef="all">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle('all', $event) : null" [checked]="isAllSelected('all')"
+      [indeterminate]="columnHasValue('all') && !isAllSelected('all')" labelPosition="after">{{'grouproles.all' | translate}}
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="checkAll(row, $event)" 
+      [checked]="isRowChecked(row)" [indeterminate]="rowHasValue(row) && !isRowChecked(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+  </tr>
+</table>

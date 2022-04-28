@@ -1,0 +1,13 @@
+  <div [formGroup]="parentForm">
+    <mat-form-field  style="width: 100%;"  [appearance]="appearance">
+      <mat-label>{{lblName}}</mat-label>
+    <input autocomplete="off" [required]="required" [readonly] = "(isViewDetils || isDefault || inputreadonly ) || (validform && isChanged)" 
+    [disabled]="inputDisabled" (dateChange)="onDateChange()"
+     [title]="title" matInput [matDatepicker]="matDatepicker"  [formControlName]="namecontrol" >
+    <mat-datepicker-toggle matSuffix [for]="matDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker  (opened)="onOpen(matDatepicker)" 
+     [disabled]=" (validform && isChanged) || (isViewDetils || isDefault)" #matDatepicker [calendarHeaderComponent]="header">
+    </mat-datepicker>
+    </mat-form-field>
+  </div>  
+

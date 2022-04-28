@@ -1,0 +1,22 @@
+  <div class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>Code</mat-label>
+            <input matInput formControlName="code">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>Country Name (first)</mat-label>
+            <input matInput formControlName="nameFl">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>Country Name (second)</mat-label>
+            <input matInput formControlName="nameSl">
+          </mat-form-field>
+        </div>
+      </div>
+  </div>
+
+
+  <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+

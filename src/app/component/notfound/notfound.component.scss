@@ -1,0 +1,138 @@
+// *{
+// 	padding:0px;
+// 	margin:0px;
+// }
+// body{
+// 		//background:black;
+// 	}
+.st0{font-family:'FootlightMTLight';}
+.st1{font-size:83.0285px;}
+.st2{fill:gray;}
+
+svg{
+  width: auto;
+    height: auto;
+    text-align: center;
+    fill: #000;
+    max-height: 400px;
+}
+path#XMLID_5_ {
+   
+    fill: #000;
+    filter: url(#blurFilter4);
+}
+path#XMLID_11_ ,path#XMLID_2_ {
+    fill: #000;
+}
+.circle{
+  animation: out 2s infinite ease-out;
+  fill: #000;
+}
+
+#container{
+  text-align:center;
+}
+.message{
+	color:#000;
+  font-size: 21px;
+  font-weight: 700;
+}
+.message:after{
+	content:"]";
+}
+.message:before{
+	content:"[";
+}
+
+.message:after, .message:before {
+  
+  color: #b90100;
+  font-size: 20px;
+  -webkit-animation-name: opacity;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: opacity;
+          animation-name: opacity;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+
+@-webkit-keyframes opacity {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes out {
+  0% {r:1;  opacity: 0.9 ;}
+  25%{r:5;  opacity: 0.3 ;}
+  50%{r:10; opacity: 0.2 ;}
+  75%{r:15;opacity:0.1;}
+ 	100% {r:20;opacity:0;}
+}
+
+.GoButton{
+  line-height: unset;
+    font-size: larger;
+    min-width: unset;
+    margin: 0px 8px;
+    color: #000;
+    padding: 2px 9px;
+}
+.GoButton:hover{
+    background-color: #000;
+    color: white;
+}
+.OrganizationInput{
+  border: 3px solid #000;
+  border-radius: 11px;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+
+  width: 203px;
+  background: white;
+}
+
+mat-card{
+  //background:transparent;
+  padding: 44px 0;
+}
+.example-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Organization-logo{
+  text-align: center;
+  img{
+      width: 136px;
+      //height: 80px;
+      margin: auto
+  }
+}
+
+
+
+
+
+
+
+  
+  	

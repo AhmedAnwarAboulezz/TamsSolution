@@ -1,0 +1,45 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'lockYears.lockYear'" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <div class=row>
+
+          <mat-form-field appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'openCloseYears.lockYearType' | translate}}</mat-label>        
+            <mat-select required  formControlName="lockYearTypeId" [disabled]="!isNew">
+                <mat-option *ngFor="let item of lockYearTypes" [value]="item.id">
+                  {{ localize.currentLang == 'Fl' ? item.nameFl : item.nameSl }}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'previousLeavesBalances.year' | translate}}</mat-label>        
+            <mat-select required  formControlName="year" [disabled]="!isNew">
+                <mat-option *ngFor="let item of years" [value]="item">
+                    {{ item }}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-4 col-md-4">
+            <mat-label>{{'openCloseYears.actionType' | translate}}</mat-label>        
+            <mat-select required  formControlName="actionTypeId">
+                <mat-option *ngFor="let item of actionTypes" [value]="item.id">
+                    {{ localize.currentLang == 'Fl' ? item.nameFl : item.nameSl }}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'openCloseYears.notes' | translate}}</mat-label>
+            <input matInput formControlName="notes"  title="{{'lookup.tooltip' | translate}}">
+          </mat-form-field>
+  
+        </div>
+      </div>
+    </mat-dialog-content>
+  
+    <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close>
+  
+  </div>

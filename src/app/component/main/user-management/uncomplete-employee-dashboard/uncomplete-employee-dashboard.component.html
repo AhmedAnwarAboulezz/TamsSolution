@@ -1,0 +1,17 @@
+<div relative>
+  <div style="text-align:center; padding: 5px;">
+    <a routerLink="/main/usermanagement/employees" mat-raised-button color="primary" target="_blank">
+      {{'organizations.GoToEmployeePage' | translate}}
+    </a>
+     </div>
+    <app-data-table [url]="{
+        getAll: 'Employees/GetUnCompleteEmployeePagedDashboard',
+        delete:'Employees/delete'
+      }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+          globalSearch: true,
+          details: false,
+          print:true
+        }" [tableData]="tableData">
+      </app-data-table>
+  </div>
+  

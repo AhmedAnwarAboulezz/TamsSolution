@@ -1,0 +1,32 @@
+
+     <mat-card style="height: 65px;">
+      <div class="row">
+        <div class="col-md-9" align="start">
+          <input type="file" #file id="file" onclick="this.value = null" (change)="uploadFile($event)">
+           <label for="file"  class="btn-2"> {{'EmployeeLogSheet.Uploadlogs' | translate}}</label> 
+        </div>
+        <div class="col-md-3" align="end">
+          <button mat-raised-button class="btn-download" (click)="getExcelFile()" cdkFocusInitial>{{'EmployeeLogSheet.DownloadStandardSheet' | translate}}</button>
+        </div>
+      </div>
+    </mat-card>
+    <mat-dialog-content class="mat-typography">
+      <mat-accordion> 
+        <mat-card>
+
+          <div relative>
+            <app-data-table [url]="{
+                getAll: 'EmployeeLogSheets/GetAllPaged',
+                delete:'EmployeeLogSheets/delete'
+              }"  [id]="'id'" [columns]="columns" [options]="{
+                  globalSearch: true,
+                  details: false,
+                  add:false
+                }" [tableData]="tableData" (add)="addEvent($event)">
+              </app-data-table>
+          </div>
+          
+          
+        </mat-card>
+      </mat-accordion>
+    </mat-dialog-content>

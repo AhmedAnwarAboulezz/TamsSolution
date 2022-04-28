@@ -1,0 +1,129 @@
+<!-- <body class="bg-login"  *ngIf="showPage">
+  <div id="container">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     viewBox="0 0 200 82.7" style="enable-background:new 0 0 200 82.7;" xml:space="preserve">
+  
+  <g id="Calque_1">
+    <text id="XMLID_3_" transform="matrix(1.2187 0 0 1 13 75.6393)" class="st0 st1">{{'ErrorPage.four' | translate}}</text>
+    <text id="XMLID_4_" transform="matrix(1.2187 0 0 1 133.0003 73.6393)" class="st0 st1">{{'ErrorPage.four' | translate}}</text>
+  </g>
+  <g id="Calque_2">
+  <g>
+    <path id="XMLID_11_" d="M81.8,29.2c4.1-5.7,10.7-9.4,18.3-9.4c6.3,0,12.1,2.7,16.1,6.9c0.6-0.4,1.1-0.7,1.7-1.1
+      c-4.4-4.8-10.8-7.9-17.8-7.9c-8.3,0-15.6,4.2-20,10.6C80.7,28.5,81.3,28.8,81.8,29.2z"/>
+      <path id="XMLID_2_" d="M118.1,53.7c-4,5.7-10.7,9.5-18.2,9.5c-6.3,0-12.1-2.6-16.2-6.8c-0.6,0.4-1.1,0.7-1.7,1.1
+      c4.4,4.8,10.8,7.8,17.9,7.8c8.3,0,15.6-4.3,19.9-10.7C119.2,54.5,118.6,54.1,118.1,53.7z"/>
+       <animateTransform attributeName="transform" type="rotate" from="360 100 41.3" to="0 100 41.3" dur="10s" repeatCount="indefinite" />
+    </g>
+    <g id="XMLID_6_">
+    <g  id="XMLID_18_">	
+      
+  
+        
+        <circle class="circle"  cx="100" cy="41" r="1"></circle>
+      </g>
+    </g><defs>
+        <filter id="blurFilter4" x="-20" y="-20" width="200" height="200">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+        </filter>
+      </defs>
+    <path    id="XMLID_5_" class="st2" d="M103.8,16.7c0.1,0.3,0.1,0.6,0.1,0.9c11.6,1.9,20.4,11.9,20.4,24.1c0,13.5-10.9,24.4-24.4,24.4
+    S75.6,55.1,75.6,41.7c0-3.2,0.6-6.3,1.7-9.1c-0.3-0.2-0.5-0.3-0.7-0.5c-1.2,3-1.9,6.2-1.9,9.6c0,14,11.3,25.3,25.3,25.3
+    s25.3-11.3,25.3-25.3C125.3,29,115.9,18.5,103.8,16.7z"/>
+  
+  
+  </g>
+  </svg>
+  
+  <div>
+    <div class="message">
+      {{'ErrorPage.pagenotfound' | translate}}
+    </div>
+    <br>
+  
+    <div class="message" [dir]="'dir' | translate">
+      {{'ErrorPage.enterOrganizationCode' | translate}}
+      
+        <input class="OrganizationInput" value="" (keyup.enter)="GoToUrl(OrgID)" [(ngModel)]="OrgID" />
+        <button mat-raised-button class="GoButton"  (click)="GoToUrl(OrgID)" cdkFocusInitial>{{'ErrorPage.go' | translate}}</button>
+     </div>
+  </div>
+
+  </div>
+  </body> -->
+
+
+  <div class="bg-login" relative *ngIf="showPage">
+    <div class="container h-100">
+      
+  
+        <div class="row h-100 justify-content-center">
+          <div class="m-auto col-lg-8">
+            <mat-card>
+              <div [className]="'textAlign' | translate" [dir]="'dir' | translate"> 
+                <div id="container">
+                    <div class="Organization-logo">
+                      <img mat-card-image src="./assets/img/biglogo.png">
+                      <mat-card-title>
+                      </mat-card-title>
+                    </div>
+                    <div>                  
+                      <div class="message" [dir]="'dir' | translate">
+                        {{'ErrorPage.enterOrganizationCode' | translate}}
+                        
+                          <input class="OrganizationInput" value="" (keyup.enter)="GoToUrl(OrgID)" [(ngModel)]="OrgID" />
+                          <button mat-raised-button class="GoButton"  (click)="GoToUrl(OrgID)" cdkFocusInitial>{{'ErrorPage.go' | translate}}</button>
+                      </div>
+                    </div>                
+                </div>
+                <!-- <div class="Organization-logo">
+                  <img mat-card-image [src]="localizationService.lang == 'en' ? logoFl : logoSl">
+                  <mat-card-title>
+                    {{localizationService.lang == 'en' ? Organizations_Data?.organizationNameFl : Organizations_Data?.organizationNameSl}}
+                  </mat-card-title>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="authorize()">
+                  <div class="example-container col-12">
+        
+                    <div  *ngIf="invalidLogin" class="danger">
+                      
+                      {{'Login.InvalidUserNameorPassword' | translate}}
+                    </div>
+        
+                    <mat-form-field>
+                      <input type="text" matInput placeholder="{{'Login.UserName' | translate}}" formControlName="userName">
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                      <input [type]="hide ? 'password' : 'text'" matInput placeholder="{{'Login.Password' | translate}}" formControlName="password">
+                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </mat-form-field>
+        
+                      <mat-checkbox checked formControlName="rememberMe">
+                        {{'Login.rememberMe' | translate}}
+                      </mat-checkbox>
+  
+                    <div class="d-flex justify-content-between">
+                      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">{{'Login.submit' | translate}}</button>
+        
+                          <button mat-stroked-button color="primary" (click)="changeLanguage('ar')"
+                      *ngIf="localizationService.lang == 'en'">عربى</button>
+                    <button mat-stroked-button color="primary" (click)="changeLanguage('en')"
+                      *ngIf="localizationService.lang == 'ar'">English</button>
+        
+                    </div>
+  
+                    <div class="d-flex justify-content-between">
+                      <a *ngIf="showChangeOrganization" mat-button (click)="changeorganization()" >{{'Login.changeorganization' | translate}}</a>
+                      <a mat-button routerLink="/forget-password">{{'Login.Forgotpassword' | translate}}</a>
+      
+        
+                    </div>
+                  </div>
+                </form> -->
+              </div>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+  </div>

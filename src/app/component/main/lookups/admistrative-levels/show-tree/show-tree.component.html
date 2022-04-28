@@ -1,0 +1,13 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'administrativeLevel.title'" (onclick)="onNoClick()"></app-dialogheader>
+    <div class="col-md-12 treeDiv">
+        <mat-card>
+            <app-prime-tree 
+            title="{{'lookup.tooltip' | translate}}"  [selectionMode]="'single'" [showAll]="true">
+            </app-prime-tree>
+        </mat-card>
+    </div>
+</div>
+
+
+

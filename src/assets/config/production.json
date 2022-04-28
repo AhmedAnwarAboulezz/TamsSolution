@@ -1,0 +1,17 @@
+{
+    "host": "http://192.168.3.250/api/api/",
+    "LogoutHub": "http://localhost/users/hub/",
+    "localHost": {
+        "host": "http://localhost/api/api/"
+    },
+    "qcHost": {
+        "host": "http://192.168.3.250/api/api/"
+    },
+    "publicHost": {
+        "host": "http://62.215.242.206/api/api/"
+    },
+    "azure": {
+        "host": "https://apigetway.azurewebsites.net/",
+        "Notification_API": "https://notificationswebapi.azurewebsites.net/"
+    }
+}

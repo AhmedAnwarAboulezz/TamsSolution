@@ -1,0 +1,146 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="headerTitle" (onclick)="onNoClick('Close')"></app-dialogheader>
+    <mat-dialog-content class="mat-typography" [formGroup]="form">
+      <div class="example-container">
+        <mat-card>
+          <div class="row test-header">                  
+              <div appearance="outline" class="col-12 col-md-1">
+                <mat-label>{{'adminmanger.number' | translate}}</mat-label>
+                <p>{{model.employeeNumber}}</p>
+              </div>
+              <div appearance="outline" class="col-12 col-md-3">
+                <mat-label>{{'employees.employeeName' | translate}}</mat-label>
+                <p>{{localize.currentLang =='Fl' ? model.employeeNameFl : model.employeeNameSl}}</p>
+              </div>
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-label>{{'adminmanger.civilid' | translate}}</mat-label>
+                <p>{{model.civilId}}</p>
+              </div>
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-label>{{'employeeProfile.jobtitle' | translate}}</mat-label>
+                <p>{{model.employeeJobId == null ? "-" : localize.currentLang =='Fl' ? model.jobFl : model.jobSl}}</p>
+              </div>
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-checkbox checked formControlName="supervisoryJob" [disabled]="true">
+                    {{'PreviousEmployeeEvaluation.supervisoryJob' | translate}}
+                </mat-checkbox>
+              </div>
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-checkbox checked formControlName="externalTemporary" disabled="true">
+                    {{'PreviousEmployeeEvaluation.externalTemporary' | translate}}
+                </mat-checkbox>
+              </div>              
+        </div>
+        <!-- <div class="row test-header">
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-checkbox checked formControlName="supervisoryJob" [disabled]="true">
+                    {{'PreviousEmployeeEvaluation.supervisoryJob' | translate}}
+                </mat-checkbox>
+              </div>
+              <div appearance="outline" class="col-12 col-md-2">
+                <mat-checkbox checked formControlName="externalTemporary" disabled="true">
+                    {{'PreviousEmployeeEvaluation.externalTemporary' | translate}}
+                </mat-checkbox>
+              </div>
+        </div> -->
+        </mat-card>
+        <mat-card>
+          <div class="row" style="padding:5px 12px;">
+            <div appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'PreviousEmployeeEvaluation.totalLate' | translate}}</mat-label>
+              <p>{{model.totalLate | minutesToHours}}</p>
+            </div>
+            <mat-form-field *ngIf="model.evaluationRows == 0" appearance="outline" class="col-12 col-md-6">
+                <mat-label>{{'PreviousEmployeeEvaluation.firstRowEvaluation' | translate}}</mat-label>
+                <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="evaluationFirstRow">
+                  <mat-option  *ngFor="let item of model.evaluationFirstRows" [value]="item">
+                  {{ item }}</mat-option>
+                </mat-select>
+            </mat-form-field> 
+            <mat-form-field *ngIf="model.evaluationRows == 1" appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'PreviousEmployeeEvaluation.doubleRowEvaluation' | translate}}</mat-label>
+              <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="evaluationFirstRowRepeated">
+                <mat-option  *ngFor="let item of model.evaluationFirstRowRepeateds" [value]="item">
+                {{ item }}</mat-option>
+              </mat-select>
+            </mat-form-field> 
+            <div appearance="outline" class="col-12 col-md-4" *ngIf="model.dutyAttendanceCommitmentId != null && model.evaluationRows == 1">
+              <mat-label>{{'PreviousEmployeeEvaluation.commitmentDegree' | translate}}</mat-label>
+              <p>{{ localize.currentLang =='Fl' ? model.dutyAttendanceCommitmentFl : model.dutyAttendanceCommitmentSl}}</p>
+            </div>
+          </div>
+          <div class="row" style="padding:5px 12px;">
+            <div appearance="outline" class="col-12 col-md-4">
+              <mat-label>{{'PreviousEmployeeEvaluation.totalAbsence' | translate}}</mat-label>
+              <p>{{model.totalAbsenceCount}}</p>
+            </div>
+            <mat-form-field  appearance="outline" class="col-12 col-md-4">
+                <mat-label>{{'PreviousEmployeeEvaluation.secondRowEvaluation' | translate}}</mat-label>
+                <mat-select required title="{{'lookup.tooltip' | translate}}" formControlName="evaluationSecondRow">
+                  <mat-option  *ngFor="let item of model.evaluationSecondRows" [value]="item">
+                  {{ item }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card>
+        <div formArrayName="penaltieGroupDtos" class="row">
+          <div class="section-container col-md-6" *ngFor="let section of getSections(form); let i = index">
+            <mat-card [formGroupName]="i">
+              <h2 class="text-center" style="font-weight: bolder;">
+                {{getTitle(section.value.penaltieGroupCode) | translate}}
+                <br>
+                {{localize.currentLang =='Fl' ? section.value.penaltieGroupFl : section.value.penaltieGroupSl}}
+              </h2>
+
+              <table class="col-md-12">
+                <thead>
+                  <th></th>
+                    <th>{{'PreviousEmployeeEvaluation.item' | translate}}</th>
+                    <th>{{'PreviousEmployeeEvaluation.degree' | translate}}</th>        
+                </thead>            
+                <tbody>
+                  <tr formArrayName="penaltieGroupDetails" *ngFor="let question of getQuestions(section); let j = index">
+                    <td>
+                      {{j+1}}
+                    </td>   
+                    <td [formGroupName]="j">
+                        <p>{{localize.currentLang =='Fl' ? question.value.contentFl : question.value.contentSl}}</p>
+                        <!-- <input class="form-field" [readonly]="true"  matInput type="text"  formControlName="contentFl"> -->
+                      </td>
+                      <td [formGroupName]="j">
+                        <input class="form-field" required matInput type="number"  formControlName="penaltieGroupValue" autocomplete="off">
+                      </td>                        
+                  </tr>
+                  <tr> 
+                    <td></td>
+                    <td>
+                        <p>{{'PreviousEmployeeEvaluation.total' | translate}}</p>
+                    </td>
+                    <td>
+                      <p>{{getTotal(section)}}</p>
+                    </td>         
+                  </tr>
+                </tbody>
+              </table>       
+            </mat-card>
+          </div>
+        </div>
+        <mat-card>
+          <div class="col-md-12">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'dutysettings.Notes' | translate}}</mat-label>
+              <textarea matInput maxlength="78" formControlName="employeeEvaluationNote"></textarea>
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions  align="end">
+      <div class="col-md-12">
+          <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+          (click)="onAddSave(form.value)">{{'updateclose' | translate}}</button>  
+      </div>
+  </mat-dialog-actions>
+    <!-- <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close> -->
+  </div>
+

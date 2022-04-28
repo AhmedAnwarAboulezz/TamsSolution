@@ -1,0 +1,104 @@
+
+.blocks {
+  cursor: move;
+  
+}
+
+
+/*  Card Styles */
+.card {
+  margin-top: 30px;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card .card-title {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  padding: 16px;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.card .card-data {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.card hr {
+  width: 90%;
+}
+
+.card .card-hint {
+  display: -webkit-box;
+  display: flex;
+  padding: 0 0 8px 8px;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+.card .card-hint i {
+  font-size: 1.3rem;
+  color: #3f51b5;
+  margin-right: 8px;
+}
+.card .card-icon {
+  display: -webkit-box;
+  display: flex;
+  position: absolute;
+  top: -20px;
+  color: white;
+  width: 90px;
+  height: 90px;
+  box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 25%;
+}
+.card .card-icon i {
+  font-size: 4rem;
+}
+
+.card h4{
+  text-align: center;
+    background: #084b7d;
+    color: white;
+    padding: 4px;
+    border: 1px solid #084b7d;
+    border-radius: 3px;
+}
+.card .card-with-btn{
+  text-align: center;
+    background: #084b7d;
+    color: white;
+    padding: 4px 4px 1px 4px;
+    border: 1px solid #084b7d;
+    border-radius: 3px;
+    margin: 0px;
+}
+
+.card h5{
+  text-align: center;
+    background: #084b7d;
+    color: white;
+    padding: 4px;
+    border: 1px solid #084b7d;
+    border-radius: 3px;
+}
+
+
+
+.card-secong-text{
+  margin-bottom: 0px;
+  padding: 5px;
+  color: #006fc2;
+  min-height: 57px;
+  text-align: center;
+}
+
+

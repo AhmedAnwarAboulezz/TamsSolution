@@ -1,0 +1,81 @@
+<div>
+    <app-dialogheader [text]="'notification.createNotification'" (onclick)="onNoClick('Close')"></app-dialogheader>
+  
+    <mat-card>
+      <mat-dialog-content class="mat-typography">
+        <div class="example-container text-center">
+          <div class=row>
+            <mat-radio-group class="w-100 d-flexjustify-content-between padding">
+              <mat-radio-button  *ngFor="let op of methodType; let i = index" [labelPosition]="'after'"
+                (change)="showTable = !showTable"  [value]="op.id"  [checked]="i == 0 ? true : false " >
+                 {{ localize.lang =='en' ? op.nameEn : op.nameAr }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <mat-card class="example-container" [formGroup]="form" style="max-width: max-content; min-width: min-content;">
+          <div class=row>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-6">
+              <mat-label>{{'notification.messageEn' | translate}}</mat-label>
+              <textarea matInput formControlName="messageEn" required title="{{'lookup.tooltip' | translate}}"></textarea>
+            </mat-form-field>
+            <mat-form-field  appearance="outline" class="col-12 col-md-6">
+              <mat-label>{{'notification.messageAr' | translate}}</mat-label>
+              <textarea matInput formControlName="messageAr" required title="{{'lookup.tooltip' | translate}}"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-3 col-md-3">
+              <mat-label>{{ 'notification.notificationType' | translate }}</mat-label>
+              <mat-select required formControlName="notificationTypeId">
+                <mat-option>---</mat-option>
+                <mat-option *ngFor="let item of notificationTypes" [value]="item.id">
+                  {{ localize.lang =='en' ? item.nameEn : item.nameAr }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="col-3 col-md-3">
+              <mat-label>{{ 'notification.periority' | translate }}</mat-label>
+              <mat-select required formControlName="periority">
+                <mat-option>---</mat-option>
+                <mat-option *ngFor="let item of periorities" [value]="item.id">
+                  {{ localize.lang =='en' ? item.nameEn : item.nameAr }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-6">
+              <mat-label>{{'notification.url' | translate}}</mat-label>
+              <input matInput formControlName="url"  title="{{'lookup.tooltip' | translate}}">
+            </mat-form-field>
+          </div>
+        </mat-card>
+        <div [hidden]="!showTable">
+          <app-advanced-search  [advanceSearch]="advanceSearch" [hasTeams]=true [hasAdminstration]=true [hasLocations]=true
+          [hasJobs]=true [hasGenders]=true [hasOneEmployee]=true  (fillSearch)="fillSearchResult()"></app-advanced-search>
+          <br>
+          <div class="row mt-12" [hidden]="!showLoader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card text-center">
+                <h4>{{'employeeDuties.loaderMessage' | translate}}</h4>
+                <br>
+                <div style="height: 63px;">
+                  <app-loading></app-loading>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" [hidden]="showLoader">
+            <div relative>
+              <app-table-details [hasEditAndDelete]=false [columnHeader]="displayedColumns" [componentName]="componentName"
+                [hasCheckBox]=true [checkedItemValue]=false [checkedList]="checkedList" [checkedAllChecked]=false
+                [checkedAllDisable]="checkedAllDisable" 
+                (editCheck)="onCheckboxChange($event)">
+              </app-table-details>
+            </div>
+          </div>
+        </div>
+      </mat-dialog-content>
+    </mat-card>
+    <app-save-and-close [form]="form" (close)="onAddSave($event)"></app-save-and-close>
+  
+  </div>

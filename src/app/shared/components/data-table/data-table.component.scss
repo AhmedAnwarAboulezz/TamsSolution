@@ -1,0 +1,146 @@
+@import '../../../..//app/shared/components/mobile-data-table/mobile-data-table.component.scss';
+.ui-table {
+  
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  
+}
+
+
+.custom-paginator {
+  background-color: #fff !important;
+  position: relative !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  margin: 0 !important;
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tableClassRight {
+  text-align: right;
+}
+.tableClassLeft {
+  text-align: left;
+}
+.iconPadding {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.no-overlap
+{
+  word-break: break-all;
+}
+
+.ui-table table {
+  border-collapse: collapse;
+  width: 100%;
+  border-style: hidden;
+  border: 1px solid rgb(201, 196, 196);
+}
+
+.mat-icon.mat-accent {
+  color: #006fc2 !important;
+}
+
+/* paginator arrows rtl */
+.arabic .pi-step-backward:before {
+  content: "\e917" !important;
+}
+
+.arabic .pi-step-forward:before {
+  content: "\e916" !important;
+}
+
+.arabic .pi-caret-left:before {
+  content: "\e905" !important;
+}
+
+.arabic .pi-caret-right:before {
+  content: "\e904" !important;
+}
+
+/* page count drop down styles */
+.ui-dropdown-label,
+.ui-dropdown-trigger {
+  background-color: #f4f4f4 !important;
+}
+
+
+.text { 
+  position: relative; 
+} 
+.icon { 
+  position: absolute;
+  border-radius: 5px;
+  border: none;
+  top: 8px;
+  cursor: pointer;
+  width: 18px !important;
+  background: #c2dff4;
+  //width: 12% !important;
+  //right: 7px;
+  @include mobile-screen{
+    top: 19px;
+    padding: 6px 1px 0 0;
+  }
+} 
+
+#ptable td {
+  white-space:nowrap !important;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // max-width: 250px;
+  // font-size: 12px;
+}
+.fixed{
+  width: 3em;
+}
+// .ui-table .ui-column-resizer{ right : unset !important; left : 0 !important; }
+// .ui-datatable .ui-column-resizer{ right: unset !important; left: 0 !important;}
+
+.matmen{
+  min-width: 65px!important;
+  background-color: #084B7D;
+  min-height: 54px!important;
+  .mat-menu-content{
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+.menu-item{
+  color: white;
+  height: 27px;
+  line-height: 25px;
+}
+.mx-button {
+  margin: 0.2rem !important;
+}

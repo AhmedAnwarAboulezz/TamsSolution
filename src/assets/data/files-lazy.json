@@ -1,0 +1,23 @@
+[
+    {
+        "label": "Node 1",
+        "data": "1",
+        "expandedIcon": "fa fa-folder-open",
+        "collapsedIcon": "fa fa-folder",
+        "leaf": false
+    },
+    {
+        "label": "Node 2",
+        "data": "2",
+        "expandedIcon": "fa fa-folder-open",
+        "collapsedIcon": "fa fa-folder",
+        "leaf": false
+    },
+    {
+        "label": "Node 3",
+        "data": "3",
+        "expandedIcon": "fa fa-folder-open",
+        "collapsedIcon": "fa fa-folder",
+        "leaf": false
+    }
+]

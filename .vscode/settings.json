@@ -1,0 +1,10 @@
+{
+    "i18n-ally.localesPaths": [
+        "src/assets/i18n",
+        "dist/TAMS/assets/i18n"
+    ],
+    "i18n-ally.keystyle": "nested",
+    "cSpell.words": [
+        "emptymessage"
+    ]
+}

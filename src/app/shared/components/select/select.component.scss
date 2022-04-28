@@ -1,0 +1,14 @@
+.right {
+    direction: rtl;
+    text-align: right;
+}
+.OutOff {
+    color: red !important;
+}
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    
+    line-height: 2em !important;
+    min-height: 2em !important;
+}
+
+//.ng-dropdown-panel .ng-dropdown-panel-items .ng-option

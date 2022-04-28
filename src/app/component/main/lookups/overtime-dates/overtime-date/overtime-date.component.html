@@ -1,0 +1,99 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+  <app-dialogheader [text]="'overTimeDates.overtimeDates'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+
+        <div class="col-12 col-md-6" >
+   
+          <mat-form-field appearance="outline">
+            <mat-label>{{'overTimeDates.startDate' | translate}}</mat-label>
+            <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="startDatePicker" formControlName="startDate"
+              [readonly]="isViewDetils" >
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker [disabled]="isViewDetils" startView="multi-year"
+              (yearSelected)="chosenYearHandler($event, 1)" 
+              (monthSelected)="chosenMonthHandler($event, startDatePicker, 1)"
+              panelClass="example-month-picker" [calendarHeaderComponent]="header">
+            </mat-datepicker>
+          </mat-form-field>
+       </div>
+
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'overTimeDates.endDate' | translate}}</mat-label>
+            <input required title="{{'lookup.tooltip' | translate}}" matInput [matDatepicker]="endDatePicker" formControlName="endDate"
+              [readonly]="isViewDetils" (keyup)="customeEndHandler($event)">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker [disabled]="isViewDetils" startView="multi-year" (yearSelected)="chosenYearHandler($event, 2)"
+              (monthSelected)="chosenMonthHandler($event, endDatePicker, 2)" panelClass="example-month-picker">
+            </mat-datepicker>
+          </mat-form-field>  
+        </div>
+
+
+      </div>
+
+      <div formArrayName="overTimeSettings">
+        <div *ngFor="let item of overtimeTypes; let i=index">
+          <div class="row">
+            <div class="col-2">
+              {{ item }} :
+            </div>
+            <div class="col-9">
+              <div class="row" [formGroupName]="i">
+                <div class="col-5">
+                  <mat-form-field style="width: inherit;" appearance="outline" hideRequiredMarker>
+                    <mat-label> {{'overTimeDates.rate' | translate}}</mat-label>
+                    <input matInput formControlName="rate" [readonly]="isViewDetils" type="number"  min="0"
+                    oninput="this.value = Math.abs(this.value)"
+                    required title="{{'lookup.tooltip' | translate}}">
+                  </mat-form-field>
+                </div>
+                <div class="col-4" *ngIf="i==3">
+                  <mat-form-field appearance="outline">
+                   
+                    <mat-label>{{'overTimeDates.leaveTypeName' | translate}}</mat-label>
+                    <mat-select  multiple  formControlName="overTimeLeaveTypesIds"                   
+                      title="{{'lookup.tooltip' | translate}}" >
+                      <mat-option #allSelected (click)="toggleAllSelection(allSelected.selected)" 
+                      [value]="0" [disabled]="isViewDetils">   
+                            {{'grouproles.all' | translate}}
+                      </mat-option>
+                      <mat-option (click)="toggleUnSelectAll(allSelected.selected)" *ngFor="let item of leavesTypes" [value]="item.id" [disabled]="isViewDetils">
+                        {{ localize.currentLang =='Fl' ? item.nameFl : item.nameSl }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-3">
+                  <mat-form-field *ngIf="i<2" appearance="outline" hideRequiredMarker>
+                    <mat-label> {{'overTimeDates.startTime' | translate}}</mat-label>
+                    <input matInput type="time" formControlName="startTime" [readonly]="isViewDetils"
+                    required title="{{'lookup.tooltip' | translate}}">
+                  </mat-form-field>
+                </div>
+                <div class="col-3">
+                  <mat-form-field *ngIf="i<2" appearance="outline" hideRequiredMarker>
+                    <mat-label> {{'overTimeDates.endTime' | translate}}</mat-label>
+                    <input matInput type="time" formControlName="endTime" [readonly]="isViewDetils"
+                    title="{{'lookup.tooltip' | translate}}" required>
+                  </mat-form-field>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label> {{'overTimeDates.notes' | translate}}</mat-label>
+        <textarea matInput formControlName="notes" [readonly]="isViewDetils"></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <app-save-and-close *ngIf="!isViewDetils" [form]="form" (close)="onClose($event)"></app-save-and-close>
+
+</div>

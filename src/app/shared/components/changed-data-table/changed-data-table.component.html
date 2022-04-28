@@ -1,0 +1,89 @@
+<section class="page-wrapper show-large-screen">
+    <div relative>
+        <app-data-table [url]="{
+            getAll: 'countries/GetAllPaged',
+            delete:'countries/delete'
+          }"  [id]="'id'" [columns]="columns" [actions]="actions" [options]="{
+              globalSearch: true,
+              details: false
+            }" [tableData]="tableData" (add)="addRow($event)">
+          </app-data-table>
+    </div>
+</section>
+
+
+<div class="show-mobile-screen">
+  <section class="page-wrapper d-flex flex-column h-100">   
+    <div class="grid-container">
+      <div class="card-wrapper d-flex flex-column justify-content-start">
+        <div class="d-flex justify-content-between align-items-center p-2 m-2">
+          <p class="text-middle font-22 font-weight-bold p-0 m-0">
+            {{'STORE.ORDERDETAILS' | translate}}
+          </p>
+          <!-- <button class="main-btn strock font-16 py-1 edit" (click)="bulksend = ! bulksend">
+            <div class="d-flex align-items-center">
+              {{'STORE.BulkSend' | translate}}
+            </div>
+          </button> -->
+        </div>
+        
+        <mat-divider></mat-divider>
+        <div >
+          <div class="mt-2 p-1">
+            <div class="d-flex justify-content-between align-items-center mobile-cart-block">
+              <div class="mt-12 order-item" style="text-align: start;">
+                <p class="font-weight-bold font-16 p-0 mb-1">
+                  <span>{{'STORE.orderNumber' | translate}} </span>
+                     item.orderNumber 
+                </p>
+                <p class="font-weight-bold font-16 p-0 mb-1">
+                  <span>{{'STORE.barcode' | translate}} </span>
+                     item.barCode 
+                </p>
+                <p class="font-weight-bold font-16 p-0 mb-1">
+                  <span>{{'STORE.szScratchCode' | translate}}</span>
+                     item.szScratchCode 
+                </p>
+                <p class="font-weight-bold font-16 p-0 m-0">
+                  <span>{{'STORE.binCode' | translate}} </span>
+                     item.binCode 
+                </p>
+                <p class="font-weight-bold font-16 p-0 m-0 text-price">
+                  <span>{{'STORE.price' | translate}} </span>
+                     item.price  {{'STORE.ACCURECY' | translate}}
+                </p>
+
+                <p class="font-weight-bold font-16 p-0 m-0 text-price">
+                  <span>{{'STORE.amount' | translate}} </span>
+                    
+                </p>
+                <p class="font-weight-bold font-16 p-0 mb-1">
+                  <span> {{'STORE.benficairyMobile' | translate}}</span>
+                     item.benficairyMobile
+                </p>
+              </div>
+
+              <div class="mt-12">
+                <div class="d-flex justify-content-center align-items-center">
+                  <button class="solid-btn-primary" >
+                    <div class="d-flex align-items-center">
+                      {{'STORE.previewCard' | translate}}
+                    </div>
+                  </button> 
+                  <button class="solid-btn-secondry mx-2" >
+                    <div class="d-flex align-items-center">
+                      {{'STORE.sendToAnother' | translate}}
+                    </div>
+                  </button>
+
+                  </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+      </div>  
+
+    </div>
+  </section>
+</div>

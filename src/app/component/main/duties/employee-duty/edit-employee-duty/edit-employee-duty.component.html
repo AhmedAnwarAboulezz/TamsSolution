@@ -1,0 +1,55 @@
+
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'employeeDuties.employeeDuty'" (onclick)="onNoClick('Close')"></app-dialogheader>
+
+  <mat-dialog-content class="mat-typography" [formGroup]="form">
+    <div class="example-container">
+      <div class=row>
+       
+        <div class="col-md-12">
+          <app-select  [url]="'Employees/GetEmployeeDropDown'" [disabledCondition]="isDisable" formControlName="employeeId"
+          [name]="'field.fullName' | translate" [isSearchable]="true" [hasTemplate]="true" [isMultiple]="false"
+          [placeholder]="'employeeSelect' | translate"></app-select>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-12 col-md-12">
+            <mat-label>{{'employeeDuties.dutyNameFl' | translate}}</mat-label>
+            <input disabled matInput value="{{localize.currentLang =='Fl' ? model.dutyNameFl : model.dutyNameSl}}">
+          </mat-form-field>
+
+        
+           
+            <div class="col-12 col-md-6">
+              <app-mat-datepicker-shared 
+                [parentForm]="form"
+                [lblName]= "'employeeDuties.endDate' | translate"   
+                [required]="true" 
+                [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'startDatePicker'"
+                [namecontrol]="'startDate'"></app-mat-datepicker-shared>   
+            </div>
+
+
+
+            
+
+            <div class="col-12 col-md-6">
+              <app-mat-datepicker-shared 
+                [parentForm]="form"
+                [lblName]= "'employeeDuties.endDate' | translate"   
+                [required]="true" 
+                [title]="'lookup.tooltip' | translate"   
+                [matDatepicker]="'endDatePicker'"
+                [namecontrol]="'endDate'"></app-mat-datepicker-shared>   
+            </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button data-display="static" mat-raised-button color="primary" [disabled]="!this.form.valid" cdkFocusInitial
+      (click)="onAddSave('SaveClose')">{{'saveclose' | translate}}</button>
+  </mat-dialog-actions>
+<!-- <app-save-and-close [form]="form" (close)="close($event)"></app-save-and-close> -->
+
+</div>

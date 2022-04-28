@@ -1,0 +1,11 @@
+<div [className]="'textAlign' | translate" [dir]="'dir' | translate">
+    <app-dialogheader [text]="'OptionHeader'" (onclick)="onNoClick()"></app-dialogheader>
+  <div mat-dialog-content>
+    <p>{{'OptionBody' | translate}}</p>
+  </div>
+  <div class="row" style="background: #006fc2;padding: 10px;min-height: 42px;" mat-dialog-actions>
+    <button style="width: 33%; color:white"  mat-button (click)="onOptionClick('RMV')">{{'hideemployee' | translate}}</button>
+    <button style="width: 34%; color:white"  mat-button (click)="onOptionClick('DEL')">{{'DeleteEmployeeDuties' | translate}}</button>
+    <button style="width: 31%; color:white; margin-left: 0px;margin-right: 0px;"  mat-button (click)="onOptionClick('RST')">{{'Reset' | translate}}</button>
+  </div>
+</div>
